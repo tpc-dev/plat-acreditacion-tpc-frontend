@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/tpc-prueba'),
+      dir: require('path').join(__dirname, './coverage/plat-acreditacion-tpc-frontend'),
       subdir: '.',
       reporters: [
         { type: 'html' },

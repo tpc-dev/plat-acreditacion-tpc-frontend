@@ -9,9 +9,9 @@
     display: flex;*/
     justify-content: center;
     width: 400px;
-    border-color: red;
-    border-width: 2px;
-    border-style: solid;
+    // border-color: red;
+    // border-width: 2px;
+    // border-style: solid;
 }
 
 .input-form {
@@ -27,13 +27,15 @@
 .ingresar-btn {
     text-align: center;
     margin-top: 16px;
+    button {
+        width: 200px;
+    }
 }
 
 .contact-btn {
     text-align: center;
     margin-top: 16px;
-}
-
-button {
-    width: 10vw;
+    button {
+        width: 400px;
+    }
 }

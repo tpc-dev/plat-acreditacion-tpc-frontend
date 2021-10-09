@@ -20,25 +20,25 @@
             <span>Home</span>
         </button>
         <button mat-button class="menu-button">
-            <mat-icon class="mat-icon-menu">person</mat-icon>
-            <span>Profile</span>
+            <mat-icon class="mat-icon-menu">engineering</mat-icon>
+            <span>Trabajadores</span>
         </button>
         <button mat-button class="menu-button">
-            <mat-icon class="mat-icon-menu">info</mat-icon>
-            <span>About</span>
+            <mat-icon class="mat-icon-menu">local_shipping</mat-icon>
+            <span>Vehiculos</span>
+        </button>
+        <button mat-button class="menu-button">
+            <mat-icon class="mat-icon-menu">groups</mat-icon>
+            <span>Visitas</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-button class="menu-button">
-            <mat-icon class="mat-icon-menu">help</mat-icon>
-            <span>Help</span>
-        </button>
         <button (click)="logout()" mat-button class="menu-button">
             <mat-icon class="mat-icon-menu">logout</mat-icon>
             <span>Cerrar Sesión</span>
         </button>
     </mat-sidenav>
     <mat-sidenav-content>
-        <div class="content mat-elevation-z8">
+        <div [ngClass]="{'mat-elevation-z8':isLoggedIn}" class="content">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>

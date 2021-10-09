@@ -5,6 +5,7 @@ import { ComponentsModule } from "src/app/features/components/components.module"
 import { MaintpcPageComponent } from "./maintpc-page/maintpc-page.component";
 import { LogintpcPageComponent } from "./logintpc-page/logintpc-page.component";
 import { EdittestriesgosPageComponent } from './edittestriesgos-page/edittestriesgos-page.component';
+import { VisitasGuardiaComponent } from './visitas-guardia/visitas-guardia.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { EdittestriesgosPageComponent } from './edittestriesgos-page/edittestrie
     declarations: [
         LogintpcPageComponent,
         MaintpcPageComponent,
-        EdittestriesgosPageComponent],
+        EdittestriesgosPageComponent,
+        VisitasGuardiaComponent],
 })
 export class PagesModule { }

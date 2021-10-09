@@ -24,7 +24,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     HttpClientModule,
     ReactiveFormsModule,
     ComponentsModule,
-    LayoutModule
+    LayoutModule,
   ],
   providers: [
     AuthService,

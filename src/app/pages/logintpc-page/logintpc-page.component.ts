@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-logintpc',
   templateUrl: './logintpc-page.component.html',
-  styleUrls: ['./logintpc-page.component.css']
+  styleUrls: ['./logintpc-page.component.scss']
 })
 export class LogintpcPageComponent implements OnInit {
 

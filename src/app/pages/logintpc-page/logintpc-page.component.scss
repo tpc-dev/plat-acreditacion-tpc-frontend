@@ -1,0 +1,39 @@
+.login-form {
+    /* width: 364px;
+    margin-left:1vw;
+    margin-top: 1vh; */
+    /* height: calc(100vh - 98px);
+    border-radius: 10px;
+    margin: 16px;
+    margin-left: 32px;
+    display: flex;*/
+    justify-content: center;
+    width: 400px;
+    border-color: red;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.input-form {
+    width: 380px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.login-title {
+    text-align: center;
+}
+
+.ingresar-btn {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.contact-btn {
+    text-align: center;
+    margin-top: 16px;
+}
+
+button {
+    width: 10vw;
+}

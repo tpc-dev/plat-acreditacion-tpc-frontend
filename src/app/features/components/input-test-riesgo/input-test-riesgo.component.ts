@@ -3,7 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-input-test-riesgo',
   templateUrl: './input-test-riesgo.component.html',
-  styleUrls: ['./input-test-riesgo.component.css']
+  styleUrls: ['./input-test-riesgo.component.scss']
 })
 export class InputTestRiesgoComponent implements OnInit {
   movies = [

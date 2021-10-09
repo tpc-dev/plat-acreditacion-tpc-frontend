@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './core/services/auth.service';
 import { ComponentsModule } from './features/components/components.module';
 import { PagesModule } from './pages/pages.module';
+import { LayoutModule } from '@angular/cdk/layout';
 
 //#endregion
 
@@ -22,7 +23,8 @@ import { PagesModule } from './pages/pages.module';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    LayoutModule
   ],
   providers: [
     AuthService,

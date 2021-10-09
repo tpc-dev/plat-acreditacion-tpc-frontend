@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-loginform',
   templateUrl: './loginform.component.html',
-  styleUrls: ['./loginform.component.css']
+  styleUrls: ['./loginform.component.scss']
 })
 export class LoginformComponent implements OnInit {
   loginForm: FormGroup;

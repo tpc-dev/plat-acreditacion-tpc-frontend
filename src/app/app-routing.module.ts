@@ -4,6 +4,7 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.component';
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
+import { VisitasGuardiaComponent } from './pages/visitas-guardia/visitas-guardia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login-tpc', pathMatch: 'full' },
@@ -16,6 +17,12 @@ const routes: Routes = [
     component: MaintpcPageComponent,
     canActivate: [AuthGuard],
     path: 'home'
+  }
+  ,
+  {
+    component: VisitasGuardiaComponent,
+    canActivate: [AuthGuard],
+    path: 'visitas-guardia'
   }
   ,
   {

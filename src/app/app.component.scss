@@ -3,15 +3,14 @@
 }
 
 mat-toolbar {
-  background: #004a9f;
+  // background: #004a9f;
   color: white;
 }
-
 mat-sidenav {
   margin: 16px;
   width: 200px;
   border-right: none;
-  background: #002b5c;
+  background: #1A237E;
   color: white;
   border-radius: 10px;
   padding: 16px;
@@ -23,9 +22,9 @@ mat-sidenav {
   border-radius: 10px;
   margin: 16px;
   margin-left: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
 }
 
 mat-sidenav-container {

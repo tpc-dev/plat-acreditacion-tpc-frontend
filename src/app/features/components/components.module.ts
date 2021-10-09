@@ -15,6 +15,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 import { LoginformComponent } from "./loginform/loginform.component";
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
@@ -39,7 +42,10 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatRadioModule,
         MatListModule,
         MatGridListModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule
     ],
     declarations: [
         LoginformComponent,
@@ -64,7 +70,10 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatRadioModule,
         MatListModule,
         MatGridListModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule
     ]
 })
 export class ComponentsModule { }

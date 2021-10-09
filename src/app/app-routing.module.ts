@@ -4,6 +4,7 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.component';
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
+import { VehiculosGuardiaComponent } from './pages/vehiculos-guardia/vehiculos-guardia.component';
 import { VisitasGuardiaComponent } from './pages/visitas-guardia/visitas-guardia.component';
 
 const routes: Routes = [
@@ -23,6 +24,12 @@ const routes: Routes = [
     component: VisitasGuardiaComponent,
     canActivate: [AuthGuard],
     path: 'visitas-guardia'
+  }
+  ,
+  {
+    component: VehiculosGuardiaComponent,
+    canActivate: [AuthGuard],
+    path: 'vehiculos-guardia'
   }
   ,
   {

@@ -21,7 +21,7 @@ export class LogintpcPageComponent implements OnInit {
 
   doLogin(): void {
     this.authService.sessionOn.next(true);
-    this.router.navigateByUrl('/visitas-guardia')
+    this.router.navigateByUrl('/vehiculos-guardia')
     this.loginForm.markAllAsTouched();
     if (!this.loginForm.valid) {
       console.warn('complete datos validos');

@@ -6,6 +6,7 @@ import { MaintpcPageComponent } from "./maintpc-page/maintpc-page.component";
 import { LogintpcPageComponent } from "./logintpc-page/logintpc-page.component";
 import { EdittestriesgosPageComponent } from './edittestriesgos-page/edittestriesgos-page.component';
 import { VisitasGuardiaComponent } from './visitas-guardia/visitas-guardia.component';
+import { VehiculosGuardiaComponent } from './vehiculos-guardia/vehiculos-guardia.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { VisitasGuardiaComponent } from './visitas-guardia/visitas-guardia.compo
         LogintpcPageComponent,
         MaintpcPageComponent,
         EdittestriesgosPageComponent,
-        VisitasGuardiaComponent],
+        VisitasGuardiaComponent,
+        VehiculosGuardiaComponent],
 })
 export class PagesModule { }

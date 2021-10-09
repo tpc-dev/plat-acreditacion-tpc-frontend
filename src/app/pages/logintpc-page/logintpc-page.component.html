@@ -1,1 +1,39 @@
-<app-loginform></app-loginform>
+<div class="login-form">
+    <!-- <mat-card> -->
+    <h1 class="login-title">Bienvenido</h1>
+    <form [formGroup]="loginForm">
+        <div>
+            <mat-form-field class="input-form" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input formControlName="username" type="email" matInput placeholder="Ej. pat@example.com">
+                <mat-error *ngIf="loginForm.hasError('email', 'username')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="loginForm.hasError('required', 'username')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="input-form" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" type="password" matInput>
+                <mat-error *ngIf="loginForm.hasError('required','password')">
+                    Contraseña is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('password')?.value.length<6">
+                    Minimo 6 caracteres
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </form>
+    <div class="ingresar-btn">
+        <button mat-raised-button color="primary" (click)="doLogin()">Ingresar</button>
+    </div>
+    <div class="contact-btn">
+        <button mat-button>Si olvidaste tu contraseña. Contacta a un administrador.</button>
+    </div>
+    <mat-progress-bar mode="query"></mat-progress-bar>
+    <!-- </mat-card> -->
+</div>

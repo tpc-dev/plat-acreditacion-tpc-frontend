@@ -1,26 +1,45 @@
-<mat-toolbar *ngIf="isLoggedIn" color="primary">
-    <button (click)="drawer.toggle()" mat-icon-button class="example-icon"
-        aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
+<mat-toolbar color="primary" *ngIf="isLoggedIn" class="mat-elevation-z8">
+    <button mat-icon-button *ngIf="sidenav && sidenav.mode === 'over'" (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">
+            menu
+        </mat-icon>
+        <mat-icon *ngIf="sidenav.opened">
+            close
+        </mat-icon>
     </button>
-    <span>TPC</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
-    </button>
+    Plataforma Acreditacion TPC
 </mat-toolbar>
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-        <p>Auto-resizing sidenav</p>
-        <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-        <button (click)="showFiller = !showFiller" mat-raised-button>
-            Toggle extra text
+
+<mat-sidenav-container>
+    <mat-sidenav *ngIf="isLoggedIn" #sidenav="matSidenav" class="mat-elevation-z8">
+        <h4 class="name">John Smith</h4>
+        <p class="designation">Personal de Seguridad</p>
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button">
+            <mat-icon class="mat-icon-menu">home</mat-icon>
+            <span>Home</span>
         </button>
-    </mat-drawer>
-    <!-- <li><a routerLink="/login-tpc" routerLinkActive="active">First Component</a></li> -->
-    <!-- <app-loginform></app-loginform> -->
-    <router-outlet></router-outlet>
-</mat-drawer-container>
+        <button mat-button class="menu-button">
+            <mat-icon class="mat-icon-menu">engineering</mat-icon>
+            <span>Trabajadores</span>
+        </button>
+        <button mat-button class="menu-button">
+            <mat-icon class="mat-icon-menu">local_shipping</mat-icon>
+            <span>Vehiculos</span>
+        </button>
+        <button mat-button class="menu-button">
+            <mat-icon class="mat-icon-menu">groups</mat-icon>
+            <span>Visitas</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button (click)="logout()" mat-button class="menu-button">
+            <mat-icon class="mat-icon-menu">logout</mat-icon>
+            <span>Cerrar Sesión</span>
+        </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div [ngClass]="{'mat-elevation-z8':isLoggedIn}" class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

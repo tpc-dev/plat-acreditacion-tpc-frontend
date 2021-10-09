@@ -6,7 +6,7 @@ import { IPerson, Person } from '../interfaces/person.interface';
 })
 export class AuthService {
 
-  public sessionOn = new BehaviorSubject(true);
+  public sessionOn = new BehaviorSubject(false);
   redirectUrl!: string;
   constructor() { }
 
@@ -17,12 +17,16 @@ export class AuthService {
     })
   }
 
-  isLoggedIn () : boolean {
+  isLoggedIn(): boolean {
     return this.sessionOn.value;
   }
 
   isLoggedInObservable(): BehaviorSubject<boolean> {
     return this.sessionOn;
+  }
+
+  setSession(status: boolean): void {
+    this.sessionOn.next(status);
   }
 
   signOut(): void { }

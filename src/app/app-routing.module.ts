@@ -6,6 +6,8 @@ import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.compo
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login-tpc', pathMatch: 'full' },
+  // { path: '**', component: NotfoundComponent },
   {
     component: LogintpcPageComponent,
     path: 'login-tpc'

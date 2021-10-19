@@ -1,6 +1,99 @@
 <mat-tab-group backgroundColor="primary" color="accent" mat-align-tabs="start">
     <mat-tab label="Hoy">
         <section>
+            <div class="example-action-buttons">
+                <button mat-button (click)="accordion.openAll()">Expand All</button>
+                <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+            </div>
+            <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel color="primary">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Agendar Nueva Visita
+                        </mat-panel-title>
+                        <!-- <mat-panel-description>
+                            Type your name and age
+                            <mat-icon>account_circle</mat-icon>
+                        </mat-panel-description> -->
+                    </mat-expansion-panel-header>
+                    <mat-card>
+                        <mat-card-content>
+                            <form class="example-form">
+                                <table cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Nombre</mat-label>
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Apellido</mat-label>
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>RUT</mat-label>
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Area</mat-label>
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Encargado</mat-label>
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Comentario</mat-label>
+                                        <textarea matInput placeholder="Ex. 100 Main St"></textarea>
+                                    </mat-form-field>
+                                </p>
+                            </form>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button class="button-form" mat-raised-button color="primary">Agregar</button>
+                            <button class="button-form" mat-raised-button color="accent">Limipar</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Busqueda Avanzada
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-form-field appearance="fill">
+                        <mat-label>First name</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Age</mat-label>
+                        <input matInput type="number" min="1">
+                    </mat-form-field>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </section>
+        <!-- <mat-card>
+            <mat-card-content>
+                <h2 class="filter-h2">Filtros rapidos</h2>
+                <section class="filter-section">
+                    <mat-checkbox class="checkbox-margin">Ingresados</mat-checkbox>
+                    <mat-checkbox class="checkbox-margin">Pendientes</mat-checkbox>
+                </section>
+            </mat-card-content>
+        </mat-card> -->
+        <section>
             <div>
                 <div class="search-input mat-elevation-z2">
                     <mat-form-field appearance="standard">
@@ -34,6 +127,13 @@
                         <ng-container matColumnDef="encargado">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Encargado </th>
                             <td mat-cell *matCellDef="let row"> {{row.encargado}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                            <td mat-cell *matCellDef="let row">
+                                <button class="button-form" mat-raised-button color="accent">Marcar Ingreso</button>
+                            </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -88,6 +188,11 @@
                             <td mat-cell *matCellDef="let row"> {{row.encargado}} </td>
                         </ng-container>
 
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                            <td mat-cell *matCellDef="let row"> {{row.encargado}} </td>
+                        </ng-container>
+
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -103,61 +208,7 @@
             </div>
         </section>
     </mat-tab>
-    <mat-tab label="Nueva">
-        <div>
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>Agregar Nueva Visita</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <form class="example-form">
-                        <table cellspacing="0">
-                            <tr>
-                                <td>
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Nombre</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Apellido</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>RUT</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Area</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Encargado</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                </td>
-                            </tr>
-                        </table>
-                        <p>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Comentario</mat-label>
-                                <textarea matInput placeholder="Ex. 100 Main St"></textarea>
-                            </mat-form-field>
-                        </p>
-                    </form>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button class="button-form" mat-raised-button color="primary">Agregar</button>
-                    <button class="button-form" mat-raised-button color="accent">Limipar</button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-    </mat-tab>
+    <!-- <mat-tab label="Nueva">
+     
+    </mat-tab> -->
 </mat-tab-group>

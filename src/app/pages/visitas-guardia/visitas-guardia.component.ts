@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -26,11 +27,12 @@ const NAMES: string[] = [
 })
 
 export class VisitasGuardiaComponent implements AfterViewInit {
-  displayedColumns: string[] = ['rut', 'name', 'area', 'encargado'];
+  displayedColumns: string[] = ['rut', 'name', 'area', 'encargado', 'acciones'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
 
   constructor() {
     // Create 100 users
@@ -64,7 +66,7 @@ function createNewUser(rut: number): UserData {
     rut: '18.999.675-2',
     name: name,
     area: Math.round(Math.random() * 100).toString(),
-    encargado: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))]
+    encargado: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
   };
 }
 

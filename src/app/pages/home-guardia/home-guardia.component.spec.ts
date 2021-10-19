@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginformComponent } from './loginform.component';
+import { HomeGuardiaComponent } from './home-guardia.component';
 
-describe('LoginformComponent', () => {
-  let component: LoginformComponent;
-  let fixture: ComponentFixture<LoginformComponent>;
+describe('HomeGuardiaComponent', () => {
+  let component: HomeGuardiaComponent;
+  let fixture: ComponentFixture<HomeGuardiaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginformComponent ]
+      declarations: [ HomeGuardiaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginformComponent);
+    fixture = TestBed.createComponent(HomeGuardiaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

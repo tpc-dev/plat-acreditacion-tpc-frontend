@@ -18,8 +18,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 
-import { LoginformComponent } from "./loginform/loginform.component";
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
 
@@ -45,15 +46,15 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatFormFieldModule,
         MatPaginatorModule,
         MatTableModule,
-        MatSortModule
+        MatSortModule,
+        MatCheckboxModule,
+        MatExpansionModule
     ],
     declarations: [
-        LoginformComponent,
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
     ],
     exports: [
-        LoginformComponent,
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
         MatIconModule,
@@ -73,7 +74,9 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatFormFieldModule,
         MatPaginatorModule,
         MatTableModule,
-        MatSortModule
+        MatSortModule,
+        MatCheckboxModule,
+        MatExpansionModule
     ]
 })
 export class ComponentsModule { }

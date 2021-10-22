@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { API_URL } from 'src/environments/environment';
 import { Credenciales } from '../../interfaces/credenciales.interface';
 import { Cuenta, TipoRol, Usuario } from '../../interfaces/cuenta.interface';
 @Injectable({
@@ -8,11 +9,8 @@ import { Cuenta, TipoRol, Usuario } from '../../interfaces/cuenta.interface';
 })
 export class AuthService {
 
-
-
   public sessionOn = new BehaviorSubject(false);
   redirectUrl!: string;
-  private readonly URL_API: string = 'https://localhost:7044/api';
   headers = new HttpHeaders();
   private cuenta = new BehaviorSubject<Cuenta>({} as any);
   constructor(private http: HttpClient) {
@@ -25,7 +23,7 @@ export class AuthService {
       email,
       password,
     }
-    return this.http.post<Cuenta>(`${this.URL_API}/cuentas/login`, req, { headers: this.headers })
+    return this.http.post<Cuenta>(`${API_URL}/cuentas/login`, req, { headers: this.headers })
   }
 
   setCuentaActiva(cuenta: Cuenta) {
@@ -41,7 +39,6 @@ export class AuthService {
     let cuenta = sessionStorage.getItem("cuenta")
     return JSON.parse(cuenta || '');
   }
-
 
   isLoggedIn(): boolean {
     return this.sessionOn.value;

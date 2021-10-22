@@ -1,68 +1,41 @@
 <div>
     <mat-card style="width:80vw;margin-top: 24px;margin-left: 24px;">
         <div>
-            <h1 style="text-transform:uppercase;"><strong>Test Obligatorio de informar sobre riesgos laborales</strong>
-            </h1>
-            <h2>Encierre en un círculo la o las alternativas que considere correctas</h2>
-            <h3>Puntaje Total: <strong>10 puntos</strong></h3>
-            <h3>Puntaje de Aprobación: <strong>8 puntos</strong> </h3>
+            <h4 style="text-transform:uppercase;"><strong>Test Obligatorio de informar sobre riesgos laborales</strong>
+            </h4>
+            <h5>Encierre en un círculo la o las alternativas que considere correctas</h5>
+            <h5>Puntaje Total: <strong>10 puntos</strong></h5>
+            <h5>Puntaje de Aprobación: <strong>8 puntos</strong> </h5>
         </div>
     </mat-card>
     <mat-card style="width:80vw;margin-top: 24px;margin-left: 24px;">
         <div>
             <form class="example-form">
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Company (disabled)</mat-label>
-                    <input matInput disabled value="Google">
-                </mat-form-field>
-
+                <h3>Ingresa tus datos</h3>
                 <table class="example-full-width" cellspacing="0">
                     <tr>
                         <td>
                             <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>First name</mat-label>
+                                <mat-label>Nombre</mat-label>
                                 <input matInput>
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>Long Last Name That Will Be Truncated</mat-label>
+                                <mat-label>Apellido Paterno</mat-label>
                                 <input matInput>
                             </mat-form-field>
                         </td>
-                    </tr>
-                </table>
-
-                <p>
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Address</mat-label>
-                        <textarea matInput placeholder="Ex. 100 Main St">1600 Amphitheatre Pkwy</textarea>
-                    </mat-form-field>
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Address 2</mat-label>
-                        <textarea matInput></textarea>
-                    </mat-form-field>
-                </p>
-
-                <table class="example-full-width" cellspacing="0">
-                    <tr>
                         <td>
                             <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>City</mat-label>
-                                <input matInput placeholder="Ex. San Francisco">
+                                <mat-label>Apellido Materno</mat-label>
+                                <input matInput>
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>State</mat-label>
-                                <input matInput placeholder="Ex. California">
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>Postal Code</mat-label>
-                                <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" value="94043">
-                                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                                <mat-label>Rut</mat-label>
+                                <input matInput>
                             </mat-form-field>
                         </td>
                     </tr>
@@ -74,6 +47,10 @@
         <form>
             <div>
                 <mat-list>
+                    <app-input-test-riesgo [pregunta]="pregunta" *ngFor="let pregunta of preguntasInduccion">
+                    </app-input-test-riesgo>
+                </mat-list>
+                <!-- <mat-list>
                     <mat-list-item style="margin-bottom: 24px;height: 100px;">
                         <div>
                             <div style="padding-top: 24px;">
@@ -109,7 +86,8 @@
                         <div>
                             <div style="padding-top: 24px;">
                                 <mat-label class="row">
-                                    <strong>1.</strong> Encierre en un circulo las areas Operacionales a los que usted esta expuesto
+                                    <strong>2.</strong> Encierre en un circulo las areas Operacionales a los que usted
+                                    esta expuesto
                                 </mat-label>
                             </div>
                             <div style="padding-top:24px;padding-bottom:24px;">
@@ -118,7 +96,7 @@
                                         Area de Almacenamiento Masivo
                                     </mat-radio-button>
                                     <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Area de Almacenamiento Intermedio 
+                                        Area de Almacenamiento Intermedio
                                     </mat-radio-button>
                                     <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
                                         Area de Proyectos
@@ -136,7 +114,7 @@
                         <div>
                             <div style="padding-top: 24px;">
                                 <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
+                                    <strong>3.</strong> ¿Que eventos son cubiertos por la ley 16.744?
                                 </mat-label>
                             </div>
                             <div style="padding-top:24px;padding-bottom:24px;">
@@ -380,7 +358,7 @@
                         </div>
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                </mat-list>
+                </mat-list> -->
             </div>
         </form>
     </mat-card>

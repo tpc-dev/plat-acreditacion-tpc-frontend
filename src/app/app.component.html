@@ -11,7 +11,8 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-    <mat-sidenav *ngIf="isLoggedIn" #sidenav="matSidenav" class="mat-elevation-z8">
+    <mat-sidenav *ngIf="isLoggedIn" #sidenav="matSidenav"
+        [ngClass]="cuenta?.usuario?.tipoRol?.id==2 ? 'mat-sidenav-admin':'mat-sidenav-normal'" class="mat-elevation-z8">
         <h4 class="name">{{cuenta?.usuario?.nombre || ''}} {{cuenta?.usuario?.apellido1 || ''}}</h4>
         <p class="designation">{{cuenta?.usuario?.tipoRol?.nombre || ''}}</p>
         <mat-divider></mat-divider>

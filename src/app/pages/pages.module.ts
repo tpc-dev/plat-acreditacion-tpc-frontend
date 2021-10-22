@@ -9,6 +9,8 @@ import { VisitasGuardiaComponent } from './visitas-guardia/visitas-guardia.compo
 import { VehiculosGuardiaComponent } from './vehiculos-guardia/vehiculos-guardia.component';
 import { TrabajadoresGuardiaComponent } from './trabajadores-guardia/trabajadores-guardia.component';
 import { HomeGuardiaComponent } from './home-guardia/home-guardia.component';
+import { VisitasAdminComponent } from './visitas-admin/visitas-admin.component';
+import { InduccionRiesgoPageComponent } from './induccion-riesgo-page/induccion-riesgo-page.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { HomeGuardiaComponent } from './home-guardia/home-guardia.component';
         VisitasGuardiaComponent,
         VehiculosGuardiaComponent,
         TrabajadoresGuardiaComponent,
-        HomeGuardiaComponent],
+        HomeGuardiaComponent,
+        VisitasAdminComponent,
+        InduccionRiesgoPageComponent],
 })
 export class PagesModule { }

@@ -8,26 +8,29 @@
     margin-left: 32px;
     display: flex;*/
     justify-content: center;
-    width: 400px;
+    overflow: hidden;
+    // width: 400px;
     // margin-top: 30vh;
     // border-color: red;
     // border-width: 2px;
     // border-style: solid;
 }
-
-.input-form {
-    width: 380px;
-    margin-left: 8px;
-    margin-right: 8px;
+.div-input {
+    text-align: center;
+    .input-form {
+        width: 280px;
+        padding: 2px;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
 }
-
 .login-title {
     text-align: center;
 }
 
 .ingresar-btn {
     text-align: center;
-    margin-top: 16px;
+    margin-top: 24px;
     button {
         width: 200px;
     }
@@ -36,6 +39,14 @@
 .contact-btn {
     text-align: center;
     margin-top: 16px;
+    button {
+        width: 400px;
+    }
+}
+
+.induccion-btn {
+    text-align: center;
+    margin-top: 64px;
     button {
         width: 400px;
     }

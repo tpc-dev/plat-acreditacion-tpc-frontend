@@ -20,6 +20,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
@@ -48,7 +52,11 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatTableModule,
         MatSortModule,
         MatCheckboxModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatStepperModule
     ],
     declarations: [
         InputTestRiesgoComponent,
@@ -76,7 +84,11 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatTableModule,
         MatSortModule,
         MatCheckboxModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatStepperModule
     ]
 })
 export class ComponentsModule { }

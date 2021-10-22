@@ -1,15 +1,18 @@
-<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let movie of movies" cdkDrag>
-        <div class="example-custom-placeholder" *cdkDragPlaceholder>
+<mat-list-item style="margin-bottom: 24px;height: 100px;">
+    <div>
+        <div style="padding-top: 24px;">
+            <mat-label class="row">
+                <strong>{{pregunta.id}}.</strong> {{pregunta.pregunta}}
+            </mat-label>
         </div>
-        <div>
-            <label id="example-radio-group-label">Pick your favorite season</label>
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                [(ngModel)]="favoriteSeason">
-                <mat-radio-button  class="example-radio-button" *ngFor="let season of seasons" [value]="season">
-                    {{season}}
+        <div style="padding-top:24px;padding-bottom:24px;">
+            <mat-radio-group (ngModelChange)="onChangeAlternativa()" [ngModel]="alternativaSelected" matInput
+                aria-label="Select an option">
+                <mat-radio-button *ngFor="let alternativa of pregunta.alternativas" matInput style="padding:8px"
+                    value="alternativa.id"><strong>{{alternativa.id}})</strong>
+                    {{alternativa.nombre}}
                 </mat-radio-button>
             </mat-radio-group>
         </div>
     </div>
-</div>
+</mat-list-item>

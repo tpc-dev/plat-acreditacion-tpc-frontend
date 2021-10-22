@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guard';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { HomeGuardiaComponent } from './pages/home-guardia/home-guardia.component';
+import { InduccionRiesgoPageComponent } from './pages/induccion-riesgo-page/induccion-riesgo-page.component';
 import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.component';
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
 import { TrabajadoresGuardiaComponent } from './pages/trabajadores-guardia/trabajadores-guardia.component';
 import { VehiculosGuardiaComponent } from './pages/vehiculos-guardia/vehiculos-guardia.component';
+import { VisitasAdminComponent } from './pages/visitas-admin/visitas-admin.component';
 import { VisitasGuardiaComponent } from './pages/visitas-guardia/visitas-guardia.component';
 
 const routes: Routes = [
@@ -26,6 +28,12 @@ const routes: Routes = [
     component: VisitasGuardiaComponent,
     canActivate: [AuthGuard],
     path: 'visitas-guardia'
+  }
+  ,
+  {
+    component: VisitasAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'visitas-admin'
   }
   ,
   {
@@ -50,6 +58,12 @@ const routes: Routes = [
     component: EdittestriesgosPageComponent,
     // canActivate: [AuthGuard],
     path: 'edit-test-riesgos'
+  }
+  ,
+  {
+    component: InduccionRiesgoPageComponent,
+    // canActivate: [AuthGuard],
+    path: 'induccion-riesgo'
   }
 ];
 

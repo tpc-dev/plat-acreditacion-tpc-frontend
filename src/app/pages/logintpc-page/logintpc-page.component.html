@@ -1,11 +1,14 @@
 <div class="login-form">
     <!-- <mat-card> -->
-    <h1 class="login-title">Bienvenido</h1>
+    <div style="text-align: center;margin-top: 2vh;margin-bottom: 8vh;">
+        <img height="140px" width="300px" src="../../../assets/imgs/logo-tpc-transparente.png" alt="">
+    </div>
+    <h1 class="login-title"><strong>Bienvenido</strong></h1>
     <form [formGroup]="loginForm">
-        <div>
+        <div class="div-input">
             <mat-form-field class="input-form" appearance="fill">
                 <mat-label>Email</mat-label>
-                <input formControlName="username" type="email" matInput placeholder="Ej. pat@example.com">
+                <input formControlName="username" type="email" matInput placeholder="Ej. nombre@ejemplo.com">
                 <mat-error *ngIf="loginForm.hasError('email', 'username')">
                     Please enter a valid email address
                 </mat-error>
@@ -14,7 +17,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div>
+        <div class="div-input">
             <mat-form-field class="input-form" appearance="fill">
                 <mat-label>Password</mat-label>
                 <input formControlName="password" type="password" matInput>
@@ -34,6 +37,9 @@
     <div class="contact-btn">
         <button mat-button>Si olvidaste tu contraseña. Contacta a un administrador.</button>
     </div>
-    <mat-progress-bar mode="query"></mat-progress-bar>
+    <div class="induccion-btn">
+        <button mat-flat-button color="accent" (click)="irEncuestaInduccion()">Ir a inducción.</button>
+    </div>
+    <mat-progress-bar *ngIf="isLoading" mode="query"></mat-progress-bar>
     <!-- </mat-card> -->
 </div>

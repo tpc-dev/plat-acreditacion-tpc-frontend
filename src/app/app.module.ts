@@ -9,7 +9,9 @@ import { AuthService } from './core/services/auth/auth.service';
 import { ComponentsModule } from './features/components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { LayoutModule } from '@angular/cdk/layout';
-
+import { MatNativeDateModule } from '@angular/material/core';
+import { MomentModule } from 'ngx-moment';
+import { ApiService } from './core/services/api/api.service';
 //#endregion
 
 @NgModule({
@@ -25,9 +27,12 @@ import { LayoutModule } from '@angular/cdk/layout';
     ReactiveFormsModule,
     ComponentsModule,
     LayoutModule,
+    MatNativeDateModule,
+    MomentModule
   ],
   providers: [
     AuthService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })

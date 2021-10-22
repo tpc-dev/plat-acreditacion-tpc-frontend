@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Cuenta, TipoRol } from 'src/app/core/interfaces/cuenta.interface';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -12,8 +13,8 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 export class LogintpcPageComponent implements OnInit {
 
   loginForm: FormGroup;
-
-  constructor(public formBuilder: FormBuilder, public authService: AuthService, public router: Router) {
+  isLoading: boolean = false;
+  constructor(public formBuilder: FormBuilder, public authService: AuthService, public router: Router, private _snackBar: MatSnackBar) {
     this.loginForm = this.createloginForm();
   }
 
@@ -33,19 +34,27 @@ export class LogintpcPageComponent implements OnInit {
         "email": "guardiuno@tpc.com",
         "password": "Guardia1@"
       }
+      this.isLoading = true;
       this.authService.signIn(data).subscribe((resCuenta: Cuenta) => {
         console.log(resCuenta)
+        this.isLoading = false;
         this.authService.setCuentaActiva(resCuenta);
         this.authService.setCuentaSessionStorage(resCuenta);
         this.authService.sessionOn.next(true);
         this.router.navigateByUrl('/home');
         // this.redirectByRol(resCuenta.usuario.tipoRol);
       }, error => {
-        console.log(error);
+        console.error(error);
+        this.isLoading = false;
+        this.openSnackBar("Ha ocurrido un problema y no se pudo ingresar", 1000);
       }, () => {
         console.log("completado");
       })
     }
+  }
+
+  openSnackBar(message: string, duration: number) {
+    this._snackBar.open(message, '', { duration: duration });
   }
 
   redirectByRol(tipoRol: TipoRol): void {
@@ -56,7 +65,11 @@ export class LogintpcPageComponent implements OnInit {
       case 3:
         this.router.navigateByUrl('/home');
         break;
+      }
     }
+    
+    irEncuestaInduccion(): void {
+      this.router.navigateByUrl('/induccion-riesgo');
   }
 
   createloginForm() {
@@ -66,7 +79,7 @@ export class LogintpcPageComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.email,
-          Validators.maxLength(20),
+          Validators.maxLength(30),
         ])
       ),
       password: new FormControl(

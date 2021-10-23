@@ -38,6 +38,12 @@
                                 <input matInput>
                             </mat-form-field>
                         </td>
+                        <td>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Cargo</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </td>
                     </tr>
                 </table>
             </form>
@@ -47,7 +53,7 @@
         <form>
             <div>
                 <mat-list>
-                    <app-input-test-riesgo [pregunta]="pregunta" *ngFor="let pregunta of preguntasInduccion">
+                    <app-input-test-riesgo  (onAlternativaSelecccionada)=onAlternativaSelecccionada($event) [pregunta]="pregunta" *ngFor="let pregunta of preguntasInduccion">
                     </app-input-test-riesgo>
                 </mat-list>
                 <!-- <mat-list>

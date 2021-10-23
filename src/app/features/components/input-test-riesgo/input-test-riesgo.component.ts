@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { PreguntaInduccion } from 'src/app/core/interfaces/preguntainduccion.interface';
 @Component({
@@ -6,8 +6,10 @@ import { PreguntaInduccion } from 'src/app/core/interfaces/preguntainduccion.int
   templateUrl: './input-test-riesgo.component.html',
   styleUrls: ['./input-test-riesgo.component.scss']
 })
+
 export class InputTestRiesgoComponent implements OnInit {
   @Input() pregunta!: PreguntaInduccion
+  @Output() onAlternativaSelecccionada = new EventEmitter<{ pregunta: number, alternativa: string }>();
   alternativaSelected: any;
   constructor() {
   }
@@ -17,7 +19,8 @@ export class InputTestRiesgoComponent implements OnInit {
   }
 
   onChangeAlternativa() {
-    console.log(this.alternativaSelected)
+    // console.log(`Pregunta : ${this.pregunta.id} , alternativa seleccionada :${this.alternativaSelected}`)
+    this.onAlternativaSelecccionada.emit({ pregunta: this.pregunta.id, alternativa: this.alternativaSelected });
   }
 
 }

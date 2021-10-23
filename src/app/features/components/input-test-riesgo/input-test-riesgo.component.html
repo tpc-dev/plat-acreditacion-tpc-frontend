@@ -1,18 +1,29 @@
-<mat-list-item style="margin-bottom: 24px;height: 100px;">
-    <div>
-        <div style="padding-top: 24px;">
-            <mat-label class="row">
-                <strong>{{pregunta.id}}.</strong> {{pregunta.pregunta}}
-            </mat-label>
-        </div>
-        <div style="padding-top:24px;padding-bottom:24px;">
-            <mat-radio-group (ngModelChange)="onChangeAlternativa()" [ngModel]="alternativaSelected" matInput
-                aria-label="Select an option">
-                <mat-radio-button *ngFor="let alternativa of pregunta.alternativas" matInput style="padding:8px"
-                    value="alternativa.id"><strong>{{alternativa.id}})</strong>
-                    {{alternativa.nombre}}
-                </mat-radio-button>
+<div style="height:240px;">
+    <mat-list-item style="height:240px;">
+        <!-- <div style="height:14vh; border-color: red;border-style: solid">
+    <mat-list-item style="height:14vh; border-color: red;border-style: solid"> -->
+        <table>
+            <tr>
+                <div>
+                    <mat-label class="row">
+                        <strong>{{pregunta.id}}.</strong> {{pregunta.pregunta}}
+                    </mat-label>
+                </div>
+            </tr>
+            <mat-radio-group (change)="onChangeAlternativa()" [(ngModel)]="alternativaSelected" matInput
+                aria-label="Selecciona una alternativa">
+                <table>
+                    <tr *ngFor="let alternativa of pregunta.alternativas">
+                        <mat-radio-button matInput style="padding:8px;" value="{{alternativa.id}}">
+                            <span style="white-space: normal;">
+                                <strong>{{alternativa.id}})</strong>
+                                {{alternativa.nombre}}
+                            </span>
+                        </mat-radio-button>
+                    </tr>
+                </table>
             </mat-radio-group>
-        </div>
-    </div>
-</mat-list-item>
+        </table>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</div>

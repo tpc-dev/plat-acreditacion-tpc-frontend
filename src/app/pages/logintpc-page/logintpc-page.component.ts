@@ -65,11 +65,11 @@ export class LogintpcPageComponent implements OnInit {
       case 3:
         this.router.navigateByUrl('/home');
         break;
-      }
     }
-    
-    irEncuestaInduccion(): void {
-      this.router.navigateByUrl('/induccion-riesgo');
+  }
+
+  irEncuestaInduccion(): void {
+    this.router.navigateByUrl('/induccion-riesgo');
   }
 
   createloginForm() {

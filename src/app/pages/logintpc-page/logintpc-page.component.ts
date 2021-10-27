@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Cuenta, TipoRol } from 'src/app/core/interfaces/cuenta.interface';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-logintpc',
@@ -30,12 +31,12 @@ export class LogintpcPageComponent implements OnInit {
       console.log(this.loginForm.get('username')?.value || '');
       console.log(this.loginForm.get('password')?.value || '');
 
-      const data = {
-        "email": "guardiuno@tpc.com",
-        "password": "Guardia1@"
+      const credenciales = {
+        "email": this.loginForm.get('username')?.value,
+        "password": this.loginForm.get('password')?.value
       }
       this.isLoading = true;
-      this.authService.signIn(data).subscribe((resCuenta: Cuenta) => {
+      this.authService.signIn(credenciales).subscribe((resCuenta: Cuenta) => {
         console.log(resCuenta)
         this.isLoading = false;
         this.authService.setCuentaActiva(resCuenta);
@@ -46,7 +47,11 @@ export class LogintpcPageComponent implements OnInit {
       }, error => {
         console.error(error);
         this.isLoading = false;
-        this.openSnackBar("Ha ocurrido un problema y no se pudo ingresar", 1000);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ha ocurrido un problema y no se pudo ingresar',
+        })
       }, () => {
         console.log("completado");
       })

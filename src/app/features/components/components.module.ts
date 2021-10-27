@@ -24,9 +24,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
+import { VisitaDetailComponent } from './visita-detail/visita-detail/visita-detail.component';
+import { DialogBasicoActionComponent } from './dialog-basico-action/dialog-basico-action/dialog-basico-action.component';
 
 @NgModule({
     imports: [
@@ -56,11 +60,15 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatSnackBarModule,
         MatDatepickerModule,
         MatSelectModule,
-        MatStepperModule
+        MatStepperModule,
+        MatTooltipModule,
+        MatDialogModule
     ],
     declarations: [
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
+        VisitaDetailComponent,
+        DialogBasicoActionComponent,
     ],
     exports: [
         InputTestRiesgoComponent,
@@ -88,7 +96,9 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatSnackBarModule,
         MatDatepickerModule,
         MatSelectModule,
-        MatStepperModule
+        MatStepperModule,
+        MatTooltipModule,
+        MatDialogModule
     ]
 })
 export class ComponentsModule { }

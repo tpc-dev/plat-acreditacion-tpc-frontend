@@ -9,6 +9,7 @@ import { Cuenta, Usuario } from 'src/app/core/interfaces/cuenta.interface';
 import { Visita } from 'src/app/core/interfaces/visita.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { UtilService } from 'src/app/core/services/util/util.service';
 
 @Component({
   selector: 'app-visitas-admin',
@@ -18,7 +19,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 export class VisitasAdminComponent implements OnInit {
   nuevaVisitaForm: FormGroup;
   minDate: Date;
-  lisaEncargados: Array<Usuario> = [];
+  listaEncargados: Array<Usuario> = [];
 
   // 
 
@@ -27,7 +28,7 @@ export class VisitasAdminComponent implements OnInit {
   cuenta!: Cuenta;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(public formBuilder: FormBuilder, public _snackBar: MatSnackBar, public api: ApiService, public authService: AuthService) {
+  constructor(public utilService: UtilService, public formBuilder: FormBuilder, public _snackBar: MatSnackBar, public api: ApiService, public authService: AuthService) {
     this.nuevaVisitaForm = this.createNuevaVisitaForm();
     const now = moment().format('L');
     console.log(now);
@@ -108,7 +109,7 @@ export class VisitasAdminComponent implements OnInit {
   obtenerEncargados(): void {
     this.api.getUsuarioPorRol(2).subscribe(res => {
       console.log(res)
-      this.lisaEncargados = res;
+      this.listaEncargados = res;
     }, error => {
       console.log(error)
     })
@@ -128,10 +129,10 @@ export class VisitasAdminComponent implements OnInit {
     console.log('agendarVisita')
     if (this.nuevaVisitaForm.invalid) return;
     console.log(this.nuevaVisitaForm.value)
-    // if (!this.validateRut(this.nuevaVisitaForm.value.rut)) {
-    //   this.openSnackBar('Rut no valido', 2000);
-    //   return;
-    // }
+    if (!this.utilService.validateRut(this.nuevaVisitaForm.value.rut)) {
+      this.openSnackBar('Rut no valido', 2000);
+      return;
+    }
     let nuevaVisita = this.nuevaVisitaForm.value;
     nuevaVisita.usuarioid = this.cuenta.usuario.id;
     this.api.agendarVisita(nuevaVisita).subscribe(res => {
@@ -147,22 +148,5 @@ export class VisitasAdminComponent implements OnInit {
     this._snackBar.open(message, '', { duration: duration });
   }
 
-
-  validateRut(rutCompleto: string): boolean {
-    var tmp = rutCompleto.split('-');
-    var digv = tmp[1];
-    var rut = tmp[0];
-    if (digv == 'K') digv = 'k';
-    return this.digitoVerificador(rut) == digv;
-  }
-
-  digitoVerificador(rut: any) {
-    var M = 0,
-      S = 1;
-    for (; rut; rut = Math.floor(rut / 10)) {
-      S = (S + (rut % 10) * (9 - (M++ % 6))) % 11;
-    }
-    return S ? S - 1 : 'k';
-  }
 
 }

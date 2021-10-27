@@ -5,6 +5,6 @@ export interface Visita {
     rut: string;
     usuarioid: number;
     comentario: string;
-    haIngreso?: boolean;
-    fechavisita: Date;
+    haIngresado?: boolean;
+    fechaVisita: Date;
 }

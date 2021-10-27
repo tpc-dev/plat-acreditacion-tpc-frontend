@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Datos de la Visita</h1>
+<div mat-dialog-content>
+    <table>
+        <tr>
+            <td>
+                <mat-form-field class="input-form" appearance="fill">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput [(ngModel)]="data.nombre">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="input-form" appearance="fill">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput [(ngModel)]="data.apellido">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Fecha de visita</mat-label>
+                    <input [(ngModel)]="data.fechaVisita" matInput [min]="minDate" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+</div>
+<div mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="onNoClick()">Cancelar</button>
+    <!-- <button mat-button [mat-dialog-close]="data.apellido" cdkFocusInitial>Ok</button> -->
+    <button mat-raised-button [mat-dialog-close]="data" color="accent" cdkFocusInitial>Guardar Cambios</button>
+</div>

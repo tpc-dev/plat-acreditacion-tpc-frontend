@@ -11,7 +11,7 @@ import { TrabajadoresGuardiaComponent } from './trabajadores-guardia/trabajadore
 import { HomeGuardiaComponent } from './home-guardia/home-guardia.component';
 import { VisitasAdminComponent } from './visitas-admin/visitas-admin.component';
 import { InduccionRiesgoPageComponent } from './induccion-riesgo-page/induccion-riesgo-page.component';
-
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
     imports: [
@@ -19,6 +19,7 @@ import { InduccionRiesgoPageComponent } from './induccion-riesgo-page/induccion-
         FormsModule,
         ReactiveFormsModule,
         ComponentsModule,
+        MomentModule
     ],
     declarations: [
         LogintpcPageComponent,

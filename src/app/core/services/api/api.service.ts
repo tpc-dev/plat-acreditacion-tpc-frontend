@@ -11,6 +11,7 @@ import { Visita } from '../../interfaces/visita.interface';
 export class ApiService {
 
 
+
   httpOptions: any;
   token: string;
   constructor(private http: HttpClient) {
@@ -42,11 +43,25 @@ export class ApiService {
     return this.http.get<any>(`${API_URL}/visitas/encargado/${id}`, this.httpOptions)
   }
 
-
-  agendarVisita(visita: Visita) {
-    console.log(visita.fechavisita);
-    return this.http.post<any>(`${API_URL}/visitas`, visita, this.httpOptions)
+  obtenerVisitasActivas(): Observable<any> {
+    return this.http.get<any>(`${API_URL}/visitas/activas`, this.httpOptions)
   }
 
+  marcarIngresoVisita(visita: Visita): Observable<any> {
+    return this.http.put<any>(`${API_URL}/visitas/marcar-ingreso/${visita.id}`, this.httpOptions)
+  }
+
+  editarVisita(visita: Visita): Observable<any> {
+    return this.http.put<any>(`${API_URL}/visitas/${visita.id}`, visita, this.httpOptions)
+  }
+
+  cancelarVisita(visita: Visita): Observable<any> {
+    return this.http.delete<any>(`${API_URL}/visitas/${visita.id}`, this.httpOptions)
+  }
+
+  agendarVisita(visita: Visita) {
+    console.log(visita.fechaVisita);
+    return this.http.post<any>(`${API_URL}/visitas`, visita, this.httpOptions)
+  }
 
 }

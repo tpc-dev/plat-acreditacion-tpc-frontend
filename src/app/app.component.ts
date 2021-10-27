@@ -12,7 +12,6 @@ import { Cuenta } from './core/interfaces/cuenta.interface';
 import * as moment from 'moment';
 import { ApiService } from './core/services/api/api.service';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

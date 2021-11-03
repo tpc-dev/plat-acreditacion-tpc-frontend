@@ -12,7 +12,7 @@ export class AuthService {
   public sessionOn = new BehaviorSubject(false);
   redirectUrl!: string;
   headers = new HttpHeaders();
-  private cuenta = new BehaviorSubject<Cuenta>({} as any);
+  private cuenta = new BehaviorSubject<Cuenta>({} as any) ;
   constructor(private http: HttpClient) {
     this.headers.set('Access-Control-Allow-Origin', '*');
     this.headers.set('Content-Type', 'application/json');
@@ -58,7 +58,6 @@ export class AuthService {
 
   signOut(): void {
     this.setSession(false);
-    this.cuenta = new BehaviorSubject<Cuenta>({} as any);
     sessionStorage.clear();
   }
 }

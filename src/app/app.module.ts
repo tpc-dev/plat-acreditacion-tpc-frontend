@@ -12,6 +12,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MomentModule } from 'ngx-moment';
 import { ApiService } from './core/services/api/api.service';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { TPC_DATE_FORMATS } from './core/constants/TPC_DATE_FORMATS';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+
 //#endregion
 
 @NgModule({
@@ -28,11 +32,13 @@ import { ApiService } from './core/services/api/api.service';
     ComponentsModule,
     LayoutModule,
     MatNativeDateModule,
-    MomentModule
+    MomentModule,
+    MomentDateModule
   ],
   providers: [
     AuthService,
-    ApiService
+    ApiService,
+    { provide: MAT_DATE_FORMATS, useValue: TPC_DATE_FORMATS }
   ],
   bootstrap: [AppComponent]
 })

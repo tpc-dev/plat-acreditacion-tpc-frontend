@@ -8,19 +8,29 @@ mat-toolbar {
 }
 
 mat-sidenav {
-  margin: 16px;
-  width: 180px;
+  margin: 12px;
+  width: 158px;
   border-right: none;
   color: white;
-  border-radius: 10px;
-  padding: 16px;
+  border-radius: 8px;
+  padding: 12px;
   text-align: center;
+  overflow: hidden;
+  height: calc(100vh - 95px);
 }
 .mat-sidenav-normal {
   background: #3f4691;
 }
 
+mat-sidenav-content {
+  background-color: #f1f1f1;
+}
+
 .mat-sidenav-admin {
+  background: rgb(10, 116, 37);
+}
+
+.mat-sidenav-admin-tpc {
   background: rgb(128, 37, 37);
 }
 
@@ -39,11 +49,11 @@ mat-sidenav-container {
 }
 
 .menu-button {
-  width: 100%;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .avatar {
@@ -69,3 +79,8 @@ mat-divider {
   margin-bottom: 16px;
   background-color: rgba(255, 255, 255, 0.5);
 }
+
+// mat-drawer-container {
+//   background-color: #f1f1f1 !important;
+//   color: rgba(0, 0, 0, 0.87);
+// }

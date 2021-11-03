@@ -13,7 +13,6 @@ export class VisitaDetailComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<VisitaDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Visita) {
-    const now = moment().format('L');
     this.minDate = moment().toDate();
   }
 

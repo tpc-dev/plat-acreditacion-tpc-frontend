@@ -42,4 +42,5 @@ export class UtilService {
     }
     return S ? S - 1 : 'k';
   }
+
 }

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthService } from '../auth/auth.service';
 import { Visita } from '../../interfaces/visita.interface';
+import { Usuario } from '../../interfaces/cuenta.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,18 @@ export class ApiService {
 
   obtenerVisitasActivas(): Observable<any> {
     return this.http.get<any>(`${API_URL}/visitas/activas`, this.httpOptions)
+  }
+
+  getUsuarios(): Observable<any> {
+    return this.http.get<any>(`${API_URL}/usuarios`, this.httpOptions)
+  }
+
+  getRoles(): Observable<any> {
+    return this.http.get<any>(`${API_URL}/tipo-roles`, this.httpOptions)
+  }
+
+  crearUsuario(usuario: Usuario): Observable<any> {
+    return this.http.post<any>(`${API_URL}/cuentas/crear-cuenta`, usuario, this.httpOptions)
   }
 
   marcarIngresoVisita(visita: Visita): Observable<any> {

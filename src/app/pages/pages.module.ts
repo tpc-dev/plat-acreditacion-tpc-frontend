@@ -12,6 +12,8 @@ import { HomeGuardiaComponent } from './home-guardia/home-guardia.component';
 import { VisitasAdminComponent } from './visitas-admin/visitas-admin.component';
 import { InduccionRiesgoPageComponent } from './induccion-riesgo-page/induccion-riesgo-page.component';
 import { MomentModule } from 'ngx-moment';
+import { UsuariosAdminComponent } from './usuarios-admin/usuarios-admin.component';
+import { TipoRolesUsuariosAdminComponent } from './tipo-roles-usuarios-admin/tipo-roles-usuarios-admin.component';
 
 @NgModule({
     imports: [
@@ -30,6 +32,8 @@ import { MomentModule } from 'ngx-moment';
         TrabajadoresGuardiaComponent,
         HomeGuardiaComponent,
         VisitasAdminComponent,
-        InduccionRiesgoPageComponent],
+        InduccionRiesgoPageComponent,
+        UsuariosAdminComponent,
+        TipoRolesUsuariosAdminComponent],
 })
 export class PagesModule { }

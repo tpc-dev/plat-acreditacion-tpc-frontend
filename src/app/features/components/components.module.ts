@@ -31,6 +31,9 @@ import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
 import { VisitaDetailComponent } from './visita-detail/visita-detail/visita-detail.component';
 import { DialogBasicoActionComponent } from './dialog-basico-action/dialog-basico-action/dialog-basico-action.component';
+import { NuevaVisitaFormComponent } from './nueva-visita-form/nueva-visita-form.component';
+import { TablaBuscadorVisitasComponent } from './tabla-buscador-visitas/tabla-buscador-visitas.component';
+import { MomentModule } from "ngx-moment";
 
 @NgModule({
     imports: [
@@ -62,17 +65,22 @@ import { DialogBasicoActionComponent } from './dialog-basico-action/dialog-basic
         MatSelectModule,
         MatStepperModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        MomentModule
     ],
     declarations: [
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
         VisitaDetailComponent,
         DialogBasicoActionComponent,
+        NuevaVisitaFormComponent,
+        TablaBuscadorVisitasComponent,
     ],
     exports: [
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
+        NuevaVisitaFormComponent,
+        TablaBuscadorVisitasComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

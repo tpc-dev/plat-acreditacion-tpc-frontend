@@ -39,9 +39,9 @@ export class LogintpcPageComponent implements OnInit {
       this.authService.signIn(credenciales).subscribe((resCuenta: Cuenta) => {
         console.log(resCuenta)
         this.isLoading = false;
-        this.authService.setCuentaActiva(resCuenta);
-        this.authService.setCuentaSessionStorage(resCuenta);
         this.authService.sessionOn.next(true);
+        this.authService.setCuentaSessionStorage(resCuenta);
+        this.authService.setCuentaActiva(resCuenta);
         this.router.navigateByUrl('/home');
         // this.redirectByRol(resCuenta.usuario.tipoRol);
       }, error => {
@@ -49,7 +49,7 @@ export class LogintpcPageComponent implements OnInit {
         this.isLoading = false;
         Swal.fire({
           icon: 'error',
-          title: 'Oops...',
+          title: error.error,
           text: 'Ha ocurrido un problema y no se pudo ingresar',
         })
       }, () => {
@@ -64,6 +64,9 @@ export class LogintpcPageComponent implements OnInit {
 
   redirectByRol(tipoRol: TipoRol): void {
     switch (tipoRol.id) {
+      case 1:
+        this.router.navigateByUrl('/home');
+        break;
       case 2:
         this.router.navigateByUrl('/home');
         break;
@@ -84,7 +87,6 @@ export class LogintpcPageComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.email,
-          Validators.maxLength(30),
         ])
       ),
       password: new FormControl(

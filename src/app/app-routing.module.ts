@@ -7,6 +7,7 @@ import { InduccionRiesgoPageComponent } from './pages/induccion-riesgo-page/indu
 import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.component';
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
 import { TrabajadoresGuardiaComponent } from './pages/trabajadores-guardia/trabajadores-guardia.component';
+import { UsuariosAdminComponent } from './pages/usuarios-admin/usuarios-admin.component';
 import { VehiculosGuardiaComponent } from './pages/vehiculos-guardia/vehiculos-guardia.component';
 import { VisitasAdminComponent } from './pages/visitas-admin/visitas-admin.component';
 import { VisitasGuardiaComponent } from './pages/visitas-guardia/visitas-guardia.component';
@@ -52,6 +53,12 @@ const routes: Routes = [
     component: HomeGuardiaComponent,
     canActivate: [AuthGuard],
     path: 'home-guardia'
+  }
+  ,
+  {
+    component: UsuariosAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'usuarios-admin'
   }
   ,
   {

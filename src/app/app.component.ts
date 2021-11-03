@@ -29,16 +29,24 @@ export class AppComponent {
   listaItemsMenu: ItemMenu[] = [];
   listaItemsMenuGuardia: ItemMenu[] = [
     { name: "Inicio", icon: "home", path: '/home-guardia' },
+    { name: "Empresas", icon: "business", path: '/trabajadores-guardia' },
     { name: "Trabajadores", icon: "engineering", path: '/trabajadores-guardia' },
     { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },
     { name: "Visitas", icon: "groups", path: '/visitas-guardia' },
   ]
 
-  listaItemsMenuAdmin: ItemMenu[] = [
+  listaItemsMenuAdminTPC: ItemMenu[] = [
     { name: "Inicio", icon: "home", path: '/home-guardia' },
     { name: "Trabajadores", icon: "engineering", path: '/trabajadores-guardia' },
     { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },
     { name: "Visitas", icon: "groups", path: '/visitas-admin' },
+  ]
+
+  listaItemsMenuAdminSistema: ItemMenu[] = [
+    { name: "Inicio", icon: "home", path: '/home-guardia' },
+    { name: "Usuarios", icon: "engineering", path: '/usuarios-admin' },
+    // { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },
+    // { name: "Visitas", icon: "groups", path: '/visitas-admin' },
   ]
 
   cuenta!: Cuenta;
@@ -78,6 +86,7 @@ export class AppComponent {
   observeSession() {
     this.authService.isLoggedInObservable().subscribe(status => {
       this.isLoggedIn = status;
+      console.log("status " + status)
       this.cdref.detectChanges();
       if (!this.sidenav) return;
       if (this.isLoggedIn) {
@@ -90,13 +99,16 @@ export class AppComponent {
     })
 
     this.authService.getCuentaActiva().subscribe(cuenta => {
-      console.log(cuenta);
-      if (Object.keys(cuenta).length === 0) return;
-      this.cuenta = cuenta;
-      if (this.cuenta.usuario.tipoRol.id == 2) {
-        this.listaItemsMenu = this.listaItemsMenuAdmin
-      } else if (this.cuenta.usuario.tipoRol.id == 3) {
-        this.listaItemsMenu = this.listaItemsMenuGuardia
+      this.cdref.detectChanges();
+      if (this.isLoggedIn) {
+        this.cuenta = cuenta;
+        if (this.cuenta.usuario.tipoRolId == 2) {
+          this.listaItemsMenu = this.listaItemsMenuAdminTPC
+        } else if (this.cuenta.usuario.tipoRolId == 3) {
+          this.listaItemsMenu = this.listaItemsMenuGuardia
+        } else if (this.cuenta.usuario.tipoRolId == 1) {
+          this.listaItemsMenu = this.listaItemsMenuAdminSistema
+        }
       }
     })
   }

@@ -18,10 +18,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
-import { LoginformComponent } from "./loginform/loginform.component";
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
+import { VisitaDetailComponent } from './visita-detail/visita-detail/visita-detail.component';
+import { DialogBasicoActionComponent } from './dialog-basico-action/dialog-basico-action/dialog-basico-action.component';
+import { NuevaVisitaFormComponent } from './nueva-visita-form/nueva-visita-form.component';
+import { TablaBuscadorVisitasComponent } from './tabla-buscador-visitas/tabla-buscador-visitas.component';
+import { MomentModule } from "ngx-moment";
 
 @NgModule({
     imports: [
@@ -45,17 +57,30 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatFormFieldModule,
         MatPaginatorModule,
         MatTableModule,
-        MatSortModule
+        MatSortModule,
+        MatCheckboxModule,
+        MatExpansionModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatStepperModule,
+        MatTooltipModule,
+        MatDialogModule,
+        MomentModule
     ],
     declarations: [
-        LoginformComponent,
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
+        VisitaDetailComponent,
+        DialogBasicoActionComponent,
+        NuevaVisitaFormComponent,
+        TablaBuscadorVisitasComponent,
     ],
     exports: [
-        LoginformComponent,
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
+        NuevaVisitaFormComponent,
+        TablaBuscadorVisitasComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,
@@ -73,7 +98,15 @@ import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formular
         MatFormFieldModule,
         MatPaginatorModule,
         MatTableModule,
-        MatSortModule
+        MatSortModule,
+        MatCheckboxModule,
+        MatExpansionModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatStepperModule,
+        MatTooltipModule,
+        MatDialogModule
     ]
 })
 export class ComponentsModule { }

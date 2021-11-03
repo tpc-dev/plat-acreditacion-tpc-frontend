@@ -6,7 +6,14 @@ import { MaintpcPageComponent } from "./maintpc-page/maintpc-page.component";
 import { LogintpcPageComponent } from "./logintpc-page/logintpc-page.component";
 import { EdittestriesgosPageComponent } from './edittestriesgos-page/edittestriesgos-page.component';
 import { VisitasGuardiaComponent } from './visitas-guardia/visitas-guardia.component';
-
+import { VehiculosGuardiaComponent } from './vehiculos-guardia/vehiculos-guardia.component';
+import { TrabajadoresGuardiaComponent } from './trabajadores-guardia/trabajadores-guardia.component';
+import { HomeGuardiaComponent } from './home-guardia/home-guardia.component';
+import { VisitasAdminComponent } from './visitas-admin/visitas-admin.component';
+import { InduccionRiesgoPageComponent } from './induccion-riesgo-page/induccion-riesgo-page.component';
+import { MomentModule } from 'ngx-moment';
+import { UsuariosAdminComponent } from './usuarios-admin/usuarios-admin.component';
+import { TipoRolesUsuariosAdminComponent } from './tipo-roles-usuarios-admin/tipo-roles-usuarios-admin.component';
 
 @NgModule({
     imports: [
@@ -14,11 +21,19 @@ import { VisitasGuardiaComponent } from './visitas-guardia/visitas-guardia.compo
         FormsModule,
         ReactiveFormsModule,
         ComponentsModule,
+        MomentModule
     ],
     declarations: [
         LogintpcPageComponent,
         MaintpcPageComponent,
         EdittestriesgosPageComponent,
-        VisitasGuardiaComponent],
+        VisitasGuardiaComponent,
+        VehiculosGuardiaComponent,
+        TrabajadoresGuardiaComponent,
+        HomeGuardiaComponent,
+        VisitasAdminComponent,
+        InduccionRiesgoPageComponent,
+        UsuariosAdminComponent,
+        TipoRolesUsuariosAdminComponent],
 })
 export class PagesModule { }

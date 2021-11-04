@@ -36,9 +36,11 @@ export class AppComponent {
   ]
 
   listaItemsMenuAdminTPC: ItemMenu[] = [
-    { name: "Inicio", icon: "home", path: '/home-guardia' },
-    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-guardia' },
-    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },
+    { name: "Inicio", icon: "home", path: '/home-admin' },
+    { name: "Contratos", icon: "description", path: '/contratos-admin' },
+    { name: "Empresas", icon: "business", path: '/trabajadores-admin' },
+    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
+    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin' },
     { name: "Visitas", icon: "groups", path: '/visitas-admin' },
   ]
 
@@ -102,6 +104,7 @@ export class AppComponent {
       this.cdref.detectChanges();
       if (this.isLoggedIn) {
         this.cuenta = cuenta;
+        this.apiService.setToken(cuenta.token);
         if (this.cuenta.usuario.tipoRolId == 2) {
           this.listaItemsMenu = this.listaItemsMenuAdminTPC
         } else if (this.cuenta.usuario.tipoRolId == 3) {

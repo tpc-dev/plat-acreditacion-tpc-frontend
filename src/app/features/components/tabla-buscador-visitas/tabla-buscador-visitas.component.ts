@@ -29,6 +29,7 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   displayedColumns: string[] = ['rut', 'nombre', 'area', 'encargado', 'fechavisita', 'comentario', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
   fechaBuscada!: Date;
+  estadoBuscado: boolean = false;
   constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService, public dialog: MatDialog) {
     this.minDate = moment().toDate();
   }
@@ -38,8 +39,6 @@ export class TablaBuscadorVisitasComponent implements OnInit {
     this.dataSourceVisitas = new MatTableDataSource(this.listaVisitas);
     this.dataSourceVisitas.paginator = this.paginator;
     this.dataSourceVisitas.sort = this.sort;
-    this.dataSourceVisitas.filterPredicate =
-      (data: Visita, filter: string) => moment(data.fechaVisita).format('DD/MM/YYY') == moment(filter).format('DD/MM/YYY');
   }
 
   applyFilter(event: Event) {
@@ -150,7 +149,17 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   }
 
   onFechaChange(): void {
+    this.dataSourceVisitas.filterPredicate = (data: Visita, filter: string) => moment(data.fechaVisita).format('DD/MM/YYY') == moment(filter).format('DD/MM/YYY');
     this.dataSourceVisitas.filter = this.datepicker.value ? moment(this.datepicker.value).format() : '';
+    if (this.dataSourceVisitas.paginator) {
+      this.dataSourceVisitas.paginator.firstPage();
+    }
+  }
+
+  onEstadoChange(): void {
+    console.log(this.estadoBuscado)
+    this.dataSourceVisitas.filterPredicate = (data: Visita, filter: string) => data.haIngresado?.toString() == filter;
+    this.dataSourceVisitas.filter = this.estadoBuscado ? 'true' : 'false';
     if (this.dataSourceVisitas.paginator) {
       this.dataSourceVisitas.paginator.firstPage();
     }

@@ -1,134 +1,22 @@
-<div>
-    <mat-card>
-        <h4>Agendar Nueva Visita</h4>
-        <form [formGroup]="nuevaVisitaForm">
-            <table cellspacing="2">
-                <tr>
-                    <td>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Nombre</mat-label>
-                            <input formControlName="nombre" matInput>
-                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'nombre')">
-                                Nombre es <strong>necesario</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Apellido</mat-label>
-                            <input formControlName="apellido" matInput>
-                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'apellido')">
-                                Apellido es <strong>necesario</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field appearance="fill">
-                            <mat-label>RUT</mat-label>
-                            <input placeholder="11111111-1" formControlName="rut" matInput>
-                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'rut')">
-                                RUT es <strong>necesario</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Area</mat-label>
-                            <input formControlName="area" matInput>
-                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'area')">
-                                Area es <strong>necesario</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label>Fecha de visita</mat-label>
-                            <input formControlName="fechavisita" matInput [min]="minDate" [matDatepicker]="picker">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'fechavisita')">
-                                Fecha de visita es <strong>necesario</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Comentario</mat-label>
-                            <textarea formControlName="comentario" matInput placeholder="Ex. 100 Main St"></textarea>
-                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'comentario')">
-                                Comentario es <strong>necesario</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <mat-card-actions>
-            <button (click)="agendarVisita()" class="button-form" mat-raised-button color="primary">Agregar</button>
-            <button class="button-form" mat-raised-button color="accent">Limipar</button>
-        </mat-card-actions>
-    </mat-card>
-    <section>
-        <div>
-            <div class="search-input mat-elevation-z2">
-                <mat-form-field appearance="standard">
-                    <mat-label>Buscar Visita</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-                </mat-form-field>
-            </div>
-            <div class="mat-elevation-z8">
-                <table class="table-data" mat-table [dataSource]="dataSource" matSort>
-                    <ng-container matColumnDef="rut">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT </th>
-                        <td mat-cell *matCellDef="let row"> {{row.rut}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="nombre">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-                        <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="apellido">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
-                        <td mat-cell *matCellDef="let row"> {{row.apellido}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="area">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Area </th>
-                        <td mat-cell *matCellDef="let row"> {{row.area}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="encargado">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Encargado </th>
-                        <td mat-cell *matCellDef="let row"> {{row.usuario.nombre}} {{row.usuario.apellido1}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="fechavisita">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de visita</th>
-                        <td mat-cell *matCellDef="let row"> {{row.fechaVisita}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="comentario">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentario</th>
-                        <td mat-cell *matCellDef="let row"> {{row.comentario}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="acciones">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
-                        <td mat-cell *matCellDef="let row">
-                            <button mat-mini-fab color="primary" style="margin-right: 4px;">
-                                <mat-icon>check</mat-icon>
-                            </button>
-                            <button mat-mini-fab color="primary">
-                                <mat-icon>cancel</mat-icon>
-                            </button>
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    <!-- Row shown when there is no matching data. -->
-                    <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No hay registros "{{input.value}}"</td>
-                    </tr>
-                </table>
-                <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Selecciona pagia de visitas">
-                </mat-paginator>
-            </div>
-        </div>
-    </section>
+<div style="text-align: center;">
+    <h1><strong>Visitas</strong></h1>
 </div>
+<mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
+    <mat-tab label="Agendadas para Hoy">
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-tabla-buscador-visitas *ngIf="!isLoading" (actualizarListado)=obtenerMisVisitas()
+            [listaVisitas]="listVisitasHoy" [showDateSearch]="false"></app-tabla-buscador-visitas>
+    </mat-tab>
+    <mat-tab label="Todas Agendadas">
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-tabla-buscador-visitas *ngIf="!isLoading" (actualizarListado)=obtenerMisVisitas()
+            [listaVisitas]="listTodasLasVisitas" [showDateSearch]="true">
+        </app-tabla-buscador-visitas>
+    </mat-tab>
+    <mat-tab label="Ingresar Nueva Visita">
+        <app-nueva-visita-form [isAdministrador]="isAdministrador" (onNuevaVisitaAdded)=obtenerMisVisitas() [listaEncargados]=listaEncargados>
+        </app-nueva-visita-form>
+    </mat-tab>
+    <mat-tab label="Historico">
+    </mat-tab>
+</mat-tab-group>

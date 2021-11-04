@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guard';
+import { ContratosAdminComponent } from './pages/contratos-admin/contratos-admin.component';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { HomeGuardiaComponent } from './pages/home-guardia/home-guardia.component';
 import { InduccionRiesgoPageComponent } from './pages/induccion-riesgo-page/induccion-riesgo-page.component';
@@ -59,6 +60,12 @@ const routes: Routes = [
     component: UsuariosAdminComponent,
     canActivate: [AuthGuard],
     path: 'usuarios-admin'
+  }
+  ,
+  {
+    component: ContratosAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-admin'
   }
   ,
   {

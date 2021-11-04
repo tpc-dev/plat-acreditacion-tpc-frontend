@@ -14,6 +14,7 @@ import { InduccionRiesgoPageComponent } from './induccion-riesgo-page/induccion-
 import { MomentModule } from 'ngx-moment';
 import { UsuariosAdminComponent } from './usuarios-admin/usuarios-admin.component';
 import { TipoRolesUsuariosAdminComponent } from './tipo-roles-usuarios-admin/tipo-roles-usuarios-admin.component';
+import { ContratosAdminComponent } from './contratos-admin/contratos-admin.component';
 
 @NgModule({
     imports: [
@@ -34,6 +35,7 @@ import { TipoRolesUsuariosAdminComponent } from './tipo-roles-usuarios-admin/tip
         VisitasAdminComponent,
         InduccionRiesgoPageComponent,
         UsuariosAdminComponent,
-        TipoRolesUsuariosAdminComponent],
+        TipoRolesUsuariosAdminComponent,
+        ContratosAdminComponent],
 })
 export class PagesModule { }

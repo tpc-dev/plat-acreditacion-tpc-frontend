@@ -22,6 +22,7 @@ export class ApiService {
   }
 
   setToken(token: string): void {
+    console.log(token)
     this.token = token;
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -46,6 +47,10 @@ export class ApiService {
 
   obtenerVisitasActivas(): Observable<any> {
     return this.http.get<any>(`${API_URL}/visitas/activas`, this.httpOptions)
+  }
+
+  obtenerVisitas(): Observable<any> {
+    return this.http.get<any>(`${API_URL}/visitas`, this.httpOptions)
   }
 
   getUsuarios(): Observable<any> {

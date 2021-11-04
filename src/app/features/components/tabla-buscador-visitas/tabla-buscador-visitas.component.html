@@ -9,6 +9,19 @@
                             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
                         </mat-form-field>
                     </td>
+                    <!-- <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Buscar Por Estado</mat-label>
+                            <mat-select  (ngModelChange)="onEstadoChange()" [(ngModel)]="estadoBuscado">
+                                <mat-option value="true">
+                                    Ya Ingresado
+                                </mat-option>
+                                <mat-option value="false">
+                                    Agendada
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td> -->
                     <td *ngIf="showDateSearch">
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Buscar Por Fecha</mat-label>
@@ -51,7 +64,7 @@
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                     <td mat-cell *matCellDef="let row">
-                        <button (click)="marcarIngresoVisita(row)" mat-mini-fab color="accent"
+                        <button *ngIf="!row.haIngresado" (click)="marcarIngresoVisita(row)" mat-mini-fab color="accent"
                             style="margin-right: 6px;" matTooltip="Marcar Ingreso de la visita"
                             [matTooltipPosition]="'below'" matTooltipHideDelay="100">
                             <mat-icon>check</mat-icon>

@@ -22,7 +22,8 @@ export class VisitasGuardiaComponent implements AfterViewInit {
   listaEncargados: Array<Usuario> = [];
   isLoading = false;
   constructor(public api: ApiService, public utilService: UtilService, public dialog: MatDialog) {
-    this.obtenerVisitasActivas();
+    // this.obtenerVisitasActivas();
+    this.obtenerVisitas();
     this.obtenerEncargados();
   }
 
@@ -33,6 +34,20 @@ export class VisitasGuardiaComponent implements AfterViewInit {
   obtenerVisitasActivas() {
     this.isLoading = true;
     this.api.obtenerVisitasActivas().toPromise().then((res) => {
+      console.log(res);
+      this.listTodasLasVisitas = res;
+      this.obtenerVisitasHoy(res);
+      this.obtenerVisitasIngresadas(res);
+      this.isLoading = false;
+    }).catch((err: any) => {
+      console.log(err);
+      this.isLoading = false;
+    });
+  }
+
+  obtenerVisitas() {
+    this.isLoading = true;
+    this.api.obtenerVisitas().toPromise().then((res) => {
       console.log(res);
       this.listTodasLasVisitas = res;
       this.obtenerVisitasHoy(res);

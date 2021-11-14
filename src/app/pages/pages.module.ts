@@ -15,6 +15,9 @@ import { MomentModule } from 'ngx-moment';
 import { UsuariosAdminComponent } from './usuarios-admin/usuarios-admin.component';
 import { TipoRolesUsuariosAdminComponent } from './tipo-roles-usuarios-admin/tipo-roles-usuarios-admin.component';
 import { ContratosAdminComponent } from './contratos-admin/contratos-admin.component';
+import { EmpresasAdminComponent } from './empresas-admin/empresas-admin.component';
+import { PlatformSettingsAdminComponent } from './platform-settings-admin/platform-settings-admin.component';
+import { MicuentaPageComponent } from './micuenta-page/micuenta-page.component';
 
 @NgModule({
     imports: [
@@ -36,6 +39,9 @@ import { ContratosAdminComponent } from './contratos-admin/contratos-admin.compo
         InduccionRiesgoPageComponent,
         UsuariosAdminComponent,
         TipoRolesUsuariosAdminComponent,
-        ContratosAdminComponent],
+        ContratosAdminComponent,
+        EmpresasAdminComponent,
+        PlatformSettingsAdminComponent,
+        MicuentaPageComponent],
 })
 export class PagesModule { }

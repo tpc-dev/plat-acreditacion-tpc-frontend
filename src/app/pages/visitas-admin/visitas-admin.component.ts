@@ -1,9 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatTabGroup } from '@angular/material/tabs';
 import * as moment from 'moment';
 import { Cuenta, Usuario } from 'src/app/core/interfaces/cuenta.interface';
@@ -26,7 +22,7 @@ export class VisitasAdminComponent implements OnInit {
   isLoading = false;
   isAdministrador: boolean = true;
   cuenta!: Cuenta;
-  constructor(public utilService: UtilService, public formBuilder: FormBuilder, public _snackBar: MatSnackBar, public api: ApiService, public authService: AuthService) {
+  constructor(public utilService: UtilService, public _snackBar: MatSnackBar, public api: ApiService, public authService: AuthService) {
     // this.obtenerVisitasActivas();
     this.obtenerEncargados();
     this.authService.getCuentaActiva().subscribe((cuenta: Cuenta) => {
@@ -39,9 +35,10 @@ export class VisitasAdminComponent implements OnInit {
     this.isLoading = true;
     this.api.obtenerVisitasPorEncargado(this.cuenta.usuario.id).toPromise().then((res) => {
       console.log(res);
-      this.listTodasLasVisitas = res.filter((visita: Visita) => {
-        return visita.haIngresado == false;
-      });
+      // this.listTodasLasVisitas = res.filter((visita: Visita) => {
+      //   return visita.haIngresado == false;
+      // });
+      this.listTodasLasVisitas = res;
       this.obtenerVisitasHoy(this.listTodasLasVisitas);
       this.isLoading = false;
     }).catch((err: any) => {

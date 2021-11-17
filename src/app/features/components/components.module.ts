@@ -39,6 +39,7 @@ import { MomentModule } from "ngx-moment";
 import { TablaBuscadorEmpresasComponent } from './tabla-buscador-empresas/tabla-buscador-empresas.component';
 import { NuevaEmpresaFormComponent } from './nueva-empresa-form/nueva-empresa-form.component';
 import { VisitaIngresosHistoricoComponent } from './visita-ingresos-historico/visita-ingresos-historico.component';
+import { IngresarContratoStepperComponent } from './ingresar-contrato-stepper/ingresar-contrato-stepper.component';
 
 @NgModule({
     imports: [
@@ -85,6 +86,7 @@ import { VisitaIngresosHistoricoComponent } from './visita-ingresos-historico/vi
         TablaBuscadorEmpresasComponent,
         NuevaEmpresaFormComponent,
         VisitaIngresosHistoricoComponent,
+        IngresarContratoStepperComponent,
     ],
     exports: [
         InputTestRiesgoComponent,
@@ -93,6 +95,7 @@ import { VisitaIngresosHistoricoComponent } from './visita-ingresos-historico/vi
         TablaBuscadorVisitasComponent,
         TablaBuscadorEmpresasComponent,
         NuevaEmpresaFormComponent,
+        IngresarContratoStepperComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

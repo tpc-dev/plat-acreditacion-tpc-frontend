@@ -26,6 +26,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
@@ -34,6 +36,10 @@ import { DialogBasicoActionComponent } from './dialog-basico-action/dialog-basic
 import { NuevaVisitaFormComponent } from './nueva-visita-form/nueva-visita-form.component';
 import { TablaBuscadorVisitasComponent } from './tabla-buscador-visitas/tabla-buscador-visitas.component';
 import { MomentModule } from "ngx-moment";
+import { TablaBuscadorEmpresasComponent } from './tabla-buscador-empresas/tabla-buscador-empresas.component';
+import { NuevaEmpresaFormComponent } from './nueva-empresa-form/nueva-empresa-form.component';
+import { VisitaIngresosHistoricoComponent } from './visita-ingresos-historico/visita-ingresos-historico.component';
+import { IngresarContratoStepperComponent } from './ingresar-contrato-stepper/ingresar-contrato-stepper.component';
 
 @NgModule({
     imports: [
@@ -65,8 +71,10 @@ import { MomentModule } from "ngx-moment";
         MatSelectModule,
         MatStepperModule,
         MatTooltipModule,
+        MomentModule,
         MatDialogModule,
-        MomentModule
+        MatMenuModule,
+        MatSlideToggleModule
     ],
     declarations: [
         InputTestRiesgoComponent,
@@ -75,12 +83,19 @@ import { MomentModule } from "ngx-moment";
         DialogBasicoActionComponent,
         NuevaVisitaFormComponent,
         TablaBuscadorVisitasComponent,
+        TablaBuscadorEmpresasComponent,
+        NuevaEmpresaFormComponent,
+        VisitaIngresosHistoricoComponent,
+        IngresarContratoStepperComponent,
     ],
     exports: [
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
         NuevaVisitaFormComponent,
         TablaBuscadorVisitasComponent,
+        TablaBuscadorEmpresasComponent,
+        NuevaEmpresaFormComponent,
+        IngresarContratoStepperComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,
@@ -106,7 +121,9 @@ import { MomentModule } from "ngx-moment";
         MatSelectModule,
         MatStepperModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        MatMenuModule,
+        MatSlideToggleModule
     ]
 })
 export class ComponentsModule { }

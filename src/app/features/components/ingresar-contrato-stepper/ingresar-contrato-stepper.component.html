@@ -1,0 +1,103 @@
+<mat-card>
+  <mat-vertical-stepper orientation="vertical" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="datosRevisionFormGroup" errorMessage="Complete el formulario.">
+      <form style="margin-top: 8px;" [formGroup]="datosRevisionFormGroup">
+        <ng-template matStepLabel>Datos Revisión</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de la Empresa</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="empresa" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>OC/Contrato</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="contrato" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Descripción del Contrato</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="descripcionContrato" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Área de desempeño</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="areaDesempeno" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="encargadosFormGroup" errorMessage="Complete el formulario.">
+      <form style="margin-top: 8px;" [formGroup]="encargadosFormGroup">
+        <ng-template matStepLabel>Datos Encargados</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>NOMBRE DEL ADC EECC</mat-label>
+          <input matInput formControlName="nombreADCEECC" placeholder="" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>NOMBRE DEL ADC TPC</mat-label>
+          <input matInput formControlName="nombreADCTPC" placeholder="" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>GERENCIA</mat-label>
+          <input matInput formControlName="gerencia" placeholder="" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>ÁREA</mat-label>
+          <input matInput formControlName="area" placeholder="" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha</mat-label>
+          <input formControlName="fecha" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Atrás</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Elementos Carpeta de Arranque</ng-template>
+      <div *ngFor="let item of elementosCarpetaArranque">
+        <table class="table-item">
+          <tr>
+            <td>
+              <mat-checkbox  [disabled]="item.obligatorio" [checked]="item.obligatorio" labelPosition="before" class="example-margin">
+              </mat-checkbox>
+            </td>
+            <td class="td-accordion">
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{item.description}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      <!-- This is a summary of the content -->
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-list role="list">
+                    <mat-list-item role="listitem">Docuemnto 1</mat-list-item>
+                    <mat-list-item role="listitem">Docuemnto 2</mat-list-item>
+                    <mat-list-item role="listitem">Docuemnto 3</mat-list-item>
+                  </mat-list>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Listo</ng-template>
+      <p>Se notificara al administrador de contrato de la empresa contratista, para que complete
+        los pasos necesarios para la acreditación.</p>
+      <div>
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-raised-button color="primary" (click)="stepper.reset()">
+          Notificar
+          <mat-icon>bookmark</mat-icon>
+        </button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</mat-card>

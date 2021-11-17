@@ -12,6 +12,7 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { UtilService } from 'src/app/core/services/util/util.service';
 import Swal from 'sweetalert2';
 import { VisitaDetailComponent } from '../visita-detail/visita-detail/visita-detail.component';
+import { VisitaIngresosHistoricoComponent } from '../visita-ingresos-historico/visita-ingresos-historico.component';
 
 @Component({
   selector: 'app-tabla-buscador-visitas',
@@ -21,14 +22,16 @@ import { VisitaDetailComponent } from '../visita-detail/visita-detail/visita-det
 export class TablaBuscadorVisitasComponent implements OnInit {
   @Input() listaVisitas: Visita[] = [];
   @Input() showDateSearch: boolean = false;
+  @Input() isAdministrador: boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   minDate: Date;
   dataSourceVisitas!: MatTableDataSource<Visita>;
-  displayedColumns: string[] = ['rut', 'nombre', 'area', 'encargado', 'fechavisita', 'comentario', 'acciones'];
+  displayedColumns: string[] = ['rut', 'nombre', 'area', 'encargado', 'fechavisita', 'comentario', 'haIngresado', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
   fechaBuscada!: Date;
+  estadoBuscado: boolean = false;
   constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService, public dialog: MatDialog) {
     this.minDate = moment().toDate();
   }
@@ -38,8 +41,6 @@ export class TablaBuscadorVisitasComponent implements OnInit {
     this.dataSourceVisitas = new MatTableDataSource(this.listaVisitas);
     this.dataSourceVisitas.paginator = this.paginator;
     this.dataSourceVisitas.sort = this.sort;
-    this.dataSourceVisitas.filterPredicate =
-      (data: Visita, filter: string) => moment(data.fechaVisita).format('DD/MM/YYY') == moment(filter).format('DD/MM/YYY');
   }
 
   applyFilter(event: Event) {
@@ -64,6 +65,38 @@ export class TablaBuscadorVisitasComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.marcarIngresoVisita(visita).subscribe(res => {
+          console.log(res)
+          Swal.fire(
+            'Ingreso Registrado!',
+            'Se ha marcado el ingreso correctamente.',
+            'success'
+          )
+          this.recargarVisitas();
+        }, error => {
+          console.log(error);
+          Swal.fire(
+            'Ha ocurrido un error!',
+            'No se pudo registrar el acceso, intentalo nuevamente.',
+            'error'
+          )
+        });
+      }
+    })
+  }
+
+  marcarSalidaVisita(visita: Visita): void {
+    console.log(visita)
+    Swal.fire({
+      title: '¿Desea marcar el ingreso de esta visita?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.marcarSalidaVisita(visita).subscribe(res => {
           console.log(res)
           Swal.fire(
             'Ingreso Registrado!',
@@ -115,12 +148,48 @@ export class TablaBuscadorVisitasComponent implements OnInit {
     })
   }
 
-  editarCamposVisita(visita: Visita): void {
+ 
+
+  verVisitaIngresosHistorico(visita: Visita): void {
     console.log(visita)
-    this.openDialog(visita)
+    this.openDialogVisitaIngresosHistorico(visita)
   }
 
-  openDialog(visita: Visita): void {
+  openDialogVisitaIngresosHistorico(visita: Visita): void {
+    const dialogRef = this.dialog.open(VisitaIngresosHistoricoComponent, {
+      width: '650px',
+      data: { ...visita }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (!result) return;
+      this.api.editarVisita(result).subscribe(res => {
+        console.log(res)
+        Swal.fire({
+          title: 'Datos Actualizados',
+          icon: 'warning',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Aceptar'
+        })
+        this.recargarVisitas();
+      }, (error: any) => {
+        console.log(error);
+        Swal.fire(
+          'Ha ocurrido un error!',
+          'No se pudo modificar la visita, intentalo nuevamente.',
+          'error'
+        )
+      });
+    });
+  }
+
+  editarCamposVisita(visita: Visita): void {
+    console.log(visita)
+    this.openDialogVisitaDetail(visita)
+  }
+
+  openDialogVisitaDetail(visita: Visita): void {
     const dialogRef = this.dialog.open(VisitaDetailComponent, {
       width: '650px',
       data: { ...visita }
@@ -150,7 +219,17 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   }
 
   onFechaChange(): void {
+    this.dataSourceVisitas.filterPredicate = (data: Visita, filter: string) => moment(data.fechaVisita).format('DD/MM/YYY') == moment(filter).format('DD/MM/YYY');
     this.dataSourceVisitas.filter = this.datepicker.value ? moment(this.datepicker.value).format() : '';
+    if (this.dataSourceVisitas.paginator) {
+      this.dataSourceVisitas.paginator.firstPage();
+    }
+  }
+
+  onEstadoChange(): void {
+    console.log(this.estadoBuscado)
+    this.dataSourceVisitas.filterPredicate = (data: Visita, filter: string) => data.haIngresado?.toString() == filter;
+    this.dataSourceVisitas.filter = this.estadoBuscado ? 'true' : 'false';
     if (this.dataSourceVisitas.paginator) {
       this.dataSourceVisitas.paginator.firstPage();
     }

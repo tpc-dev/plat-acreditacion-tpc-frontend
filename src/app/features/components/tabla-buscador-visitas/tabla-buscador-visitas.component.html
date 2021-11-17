@@ -48,12 +48,17 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentario</th>
                     <td mat-cell *matCellDef="let row"> {{row.comentario}} </td>
                 </ng-container>
+                <ng-container matColumnDef="haIngresado">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ha Ingresado</th>
+                    <td mat-cell *matCellDef="let row"> {{row.haIngresado? 'Si':'No'}} </td>
+                </ng-container>
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                     <td mat-cell *matCellDef="let row">
-                        <button (click)="marcarIngresoVisita(row)" mat-mini-fab color="accent"
-                            style="margin-right: 6px;" matTooltip="Marcar Ingreso de la visita"
-                            [matTooltipPosition]="'below'" matTooltipHideDelay="100">
+                        <!-- <button *ngIf="!row.haIngresado && !isAdministrador" (click)="marcarIngresoVisita(row)"
+                            mat-mini-fab color="accent" style="margin-right: 6px;"
+                            matTooltip="Marcar Ingreso de la visita" [matTooltipPosition]="'below'"
+                            matTooltipHideDelay="100">
                             <mat-icon>check</mat-icon>
                         </button>
                         <button (click)="cancelarVisita(row)" mat-mini-fab color="warn" style="margin-right: 6px;"
@@ -63,7 +68,34 @@
                         <button (click)="editarCamposVisita(row)" mat-mini-fab color="primary"
                             matTooltip="Editar campos" [matTooltipPosition]="'below'" matTooltipHideDelay="100">
                             <mat-icon>edit</mat-icon>
+                        </button> -->
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
                         </button>
+                        <mat-menu #menu="matMenu">
+                            <button *ngIf="!row.haIngresado && !isAdministrador" (click)="marcarIngresoVisita(row)"
+                                mat-menu-item>
+                                <mat-icon>meeting_room</mat-icon>
+                                <span>Marcar Ingreso</span>
+                            </button>
+                            <button *ngIf="row.haIngresado && !isAdministrador" (click)="marcarSalidaVisita(row)"
+                                mat-menu-item>
+                                <mat-icon>meeting_room</mat-icon>
+                                <span>Marcar Salida</span>
+                            </button>
+                            <button (click)="editarCamposVisita(row)" mat-menu-item>
+                                <mat-icon>edit</mat-icon>
+                                <span>Editar</span>
+                            </button>
+                            <button (click)="verVisitaIngresosHistorico(row)" mat-menu-item>
+                                <mat-icon>description</mat-icon>
+                                <span>Ver Detalles</span>
+                            </button>
+                            <button (click)="cancelarVisita(row)" [disabled]="row.haIngresado" mat-menu-item>
+                                <mat-icon>event_busy</mat-icon>
+                                <span>Cancelar</span>
+                            </button>
+                        </mat-menu>
                     </td>
                 </ng-container>
 

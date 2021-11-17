@@ -36,15 +36,38 @@ export class AppComponent {
   ]
 
   listaItemsMenuAdminTPC: ItemMenu[] = [
-    { name: "Inicio", icon: "home", path: '/home-guardia' },
-    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-guardia' },
-    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },
+    { name: "Inicio", icon: "home", path: '/home-admin' },
+    // { name: "Contratos", icon: "description", path: '/contratos-admin' },
+    // { name: "Empresas", icon: "business", path: '/trabajadores-admin' },
+    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
+    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin' },
+    { name: "Visitas", icon: "groups", path: '/visitas-admin' },
+  ]
+
+  listaItemsMenuAdminContratoTPC: ItemMenu[] = [
+    { name: "Inicio", icon: "home", path: '/home-admin' },
+    { name: "Contratos", icon: "description", path: '/contratos-admin' },
+    { name: "Empresas", icon: "business", path: '/empresas-admin' },
+    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
+    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin' },
+    { name: "Visitas", icon: "groups", path: '/visitas-admin' },
+  ]
+
+  listaItemsMenuAdminContratoExterno: ItemMenu[] = [
+    { name: "Inicio", icon: "home", path: '/home-admin' },
+    { name: "Contratos", icon: "description", path: '/contratos-admin' },
+    { name: "Empresas", icon: "business", path: '/trabajadores-admin' },
+    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
+    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin' },
     { name: "Visitas", icon: "groups", path: '/visitas-admin' },
   ]
 
   listaItemsMenuAdminSistema: ItemMenu[] = [
     { name: "Inicio", icon: "home", path: '/home-guardia' },
     { name: "Usuarios", icon: "engineering", path: '/usuarios-admin' },
+    { name: "Tipo Roles", icon: "perm_identity", path: '/tipos-roles-admin' },
+    { name: "Empresas", icon: "business", path: '/trabajadores-admin' },
+    { name: "Configuracion", icon: "settings", path: '/platform-settings-admin' },
     // { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },
     // { name: "Visitas", icon: "groups", path: '/visitas-admin' },
   ]
@@ -58,6 +81,11 @@ export class AppComponent {
     // this.http.get('https://localhost:44385/api/administrador-contrato-externo', { headers: this.header }).subscribe((response) => {
     //   console.log(response)
     // })
+    // this.apiService.getSharePointAccesToken().then((response) => {
+    //   console.log(response)
+    // })
+
+
     let cuenta = this.authService.getCuentaSessionStorage();
     if (cuenta) {
       this.authService.setCuentaActiva(cuenta);
@@ -102,12 +130,16 @@ export class AppComponent {
       this.cdref.detectChanges();
       if (this.isLoggedIn) {
         this.cuenta = cuenta;
+        this.apiService.setToken(cuenta.token);
+        console.log(this.cuenta.usuario.tipoRolId)
         if (this.cuenta.usuario.tipoRolId == 2) {
-          this.listaItemsMenu = this.listaItemsMenuAdminTPC
+          this.listaItemsMenu = this.listaItemsMenuAdminTPC;
         } else if (this.cuenta.usuario.tipoRolId == 3) {
-          this.listaItemsMenu = this.listaItemsMenuGuardia
+          this.listaItemsMenu = this.listaItemsMenuGuardia;
         } else if (this.cuenta.usuario.tipoRolId == 1) {
-          this.listaItemsMenu = this.listaItemsMenuAdminSistema
+          this.listaItemsMenu = this.listaItemsMenuAdminSistema;
+        } else if (this.cuenta.usuario.tipoRolId == 4) {
+          this.listaItemsMenu = this.listaItemsMenuAdminContratoTPC;
         }
       }
     })

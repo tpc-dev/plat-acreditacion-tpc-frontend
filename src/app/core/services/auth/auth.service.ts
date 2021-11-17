@@ -52,6 +52,10 @@ export class AuthService {
     return this.cuenta;
   }
 
+  getCuentaActivaValue(): Cuenta {
+    return this.cuenta.value;
+  }
+
   setSession(status: boolean): void {
     this.sessionOn.next(status);
   }

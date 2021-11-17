@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TipoRol, Usuario } from 'src/app/core/interfaces/cuenta.interface';
+import { Empresa } from 'src/app/core/interfaces/empresa.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UtilService } from 'src/app/core/services/util/util.service';
@@ -18,6 +19,7 @@ import Swal from 'sweetalert2';
 export class UsuariosAdminComponent implements OnInit {
   nuevoUsuarioForm: FormGroup;
   listaTipoRol: TipoRol[] = [];
+  listaEmpresas: Empresa[] = [];
   dataSource!: MatTableDataSource<Usuario>;
   displayedColumns: string[] = ['rut', 'nombre', 'apellido1', 'apellido2', 'email', 'telefono', 'activo', 'tiporol',];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -81,6 +83,12 @@ export class UsuariosAdminComponent implements OnInit {
           Validators.required,
         ])
       ),
+      empresaId: new FormControl(
+        null,
+        Validators.compose([
+          Validators.required,
+        ])
+      ),
       activo: new FormControl(
         true,
         Validators.compose([
@@ -93,8 +101,17 @@ export class UsuariosAdminComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerUsuarios();
     this.obtenerListaRoles();
+    this.obtenerListaEmpresas();
   }
 
+  obtenerListaEmpresas() {
+    this.api.GETAPI("/empresas").then((empresas: Empresa[]) => {
+      this.listaEmpresas = empresas;
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+  
   obtenerListaRoles() {
     this.api.getRoles().toPromise().then((roles: TipoRol[]) => {
       console.log(roles);

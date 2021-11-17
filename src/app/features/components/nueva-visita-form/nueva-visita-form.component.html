@@ -62,7 +62,7 @@
                                 </mat-error>
                             </mat-form-field>
                         </td>
-                        <td>
+                        <td *ngIf="!isAdministrador">
                             <mat-form-field appearance="fill">
                                 <mat-label>Encargado</mat-label>
                                 <mat-select formControlName="usuarioid" name="usuarioid">

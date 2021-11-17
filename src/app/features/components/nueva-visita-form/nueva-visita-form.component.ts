@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { Usuario } from 'src/app/core/interfaces/cuenta.interface';
+import { Cuenta, Usuario } from 'src/app/core/interfaces/cuenta.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UtilService } from 'src/app/core/services/util/util.service';
 import { TPCValidations } from 'src/app/core/utils/TPCValidations';
 import Swal from 'sweetalert2';
@@ -13,18 +14,22 @@ import Swal from 'sweetalert2';
   styleUrls: ['./nueva-visita-form.component.scss']
 })
 export class NuevaVisitaFormComponent implements OnInit {
-  nuevaVisitaForm: FormGroup;
+  nuevaVisitaForm!: FormGroup;
   isLoadingNew = false;
   minDate: Date;
   @Input() listaEncargados: Array<Usuario> = [];
+  @Input() isAdministrador: boolean = false;
   @Output() onNuevaVisitaAdded = new EventEmitter();
-
-  constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService) {
+  usuarioId!: number | undefined;
+  constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService,
+    public authService: AuthService) {
     this.minDate = moment().toDate();
-    this.nuevaVisitaForm = this.createNuevaVisitaForm();
   }
 
   ngOnInit(): void {
+    console.log(this.isAdministrador)
+    this.usuarioId = this.isAdministrador ? this.authService.getCuentaActivaValue().usuario.id : undefined
+    this.nuevaVisitaForm = this.createNuevaVisitaForm();
   }
 
   createNuevaVisitaForm() {
@@ -57,7 +62,7 @@ export class NuevaVisitaFormComponent implements OnInit {
         ])
       ),
       usuarioid: new FormControl(
-        null,
+        this.usuarioId,
         Validators.compose([
           Validators.required,
         ])
@@ -80,7 +85,8 @@ export class NuevaVisitaFormComponent implements OnInit {
 
   agendarVisita(): void {
     this.nuevaVisitaForm.markAllAsTouched();
-    console.log('agendarVisita')
+    console.log(this.nuevaVisitaForm.value)
+    console.log(this.authService.getCuentaActivaValue().usuario.id)
     if (this.nuevaVisitaForm.invalid) return;
     console.log(this.nuevaVisitaForm.value)
     this.isLoadingNew = true;

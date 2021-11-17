@@ -1,0 +1,99 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Mi Cuenta
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="usuarioForm">
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                    <mat-card-subtitle>
+                        Datos Peronales
+                    </mat-card-subtitle>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombre">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Apellido Materno</mat-label>
+                            <input matInput formControlName="apellido1">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Apellido Paterno</mat-label>
+                            <input matInput formControlName="apellido2">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Rut</mat-label>
+                            <input matInput formControlName="rut">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <mat-divider></mat-divider>
+                <tr>
+                    <mat-card-subtitle>
+                        Contacto
+                    </mat-card-subtitle>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Telefono</mat-label>
+                            <input matInput formControlName="telefono">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <mat-divider></mat-divider>
+                <tr>
+                    <mat-card-subtitle>
+                        Trabajo
+                    </mat-card-subtitle>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Empresa</mat-label>
+                            <!-- <input matInput formControlName="empresaId"> -->
+                            <mat-select formControlName="empresaId" name="empresaId">
+                                <!-- <mat-option> TPC </mat-option> -->
+                                <mat-option *ngFor="let empresa of listaEmpresas" [value]="empresa.id">
+                                    {{empresa.razonSocial}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Tipo Rol</mat-label>
+                            <mat-select formControlName="tipoRolId" name="tipoRolId">
+                                <mat-option *ngFor="let tipoRol of listaTipoRol" [value]="tipoRol.id">
+                                    {{tipoRol.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <mat-divider></mat-divider>
+            </table>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary">Guardar Cambios</button>
+        <button mat-raised-button color="accent">Restablecer</button>
+    </mat-card-actions>
+</mat-card>

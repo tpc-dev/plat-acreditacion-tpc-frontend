@@ -12,7 +12,7 @@
 
 <mat-sidenav-container>
     <mat-sidenav *ngIf="isLoggedIn" #sidenav="matSidenav"
-        [ngClass]="{'mat-sidenav-admin':cuenta?.usuario?.tipoRol?.id==1 ,'mat-sidenav-admin-tpc':cuenta?.usuario?.tipoRol?.id==2 ,'mat-sidenav-normal':cuenta?.usuario?.tipoRol?.id==3} "
+        [ngClass]="{'mat-sidenav-admin':cuenta?.usuario?.tipoRol?.id==1 ,'mat-sidenav-admin-tpc':cuenta?.usuario?.tipoRol?.id==2 || cuenta?.usuario?.tipoRol?.id==4 ,'mat-sidenav-normal':cuenta?.usuario?.tipoRol?.id==3} "
         class="mat-elevation-z8">
         <h4 class="name">{{cuenta?.usuario?.nombre || ''}} {{cuenta?.usuario?.apellido1 || ''}}</h4>
         <p class="designation">{{cuenta?.usuario?.tipoRol?.nombre || ''}}</p>
@@ -22,7 +22,7 @@
             <span>{{item.name}}</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-button class="menu-button">
+        <button (click)="router.navigate(['/mi-cuenta'])" mat-button class="menu-button">
             <mat-icon class="mat-icon-menu">account_circle</mat-icon>
             <span>Mi Cuenta</span>
         </button>

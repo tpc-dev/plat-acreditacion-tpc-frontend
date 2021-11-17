@@ -183,6 +183,25 @@
                                     </mat-error>
                                 </mat-form-field>
                             </td>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Empresa</mat-label>
+                                    <mat-select formControlName="empresaId" name="empresaId">
+                                        <!-- <mat-option> TPC </mat-option> -->
+                                        <mat-option *ngFor="let empresa of listaEmpresas" [value]="empresa.id">
+                                            {{empresa.razonSocial}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <button *ngIf="nuevoUsuarioForm.get('empresaId')?.value != null" matSuffix
+                                        mat-icon-button aria-label="Clear"
+                                        (click)="nuevoUsuarioForm.patchValue({'empresaId':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'empresaId')">
+                                        Encargado es <strong>necesario</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
                         </tr>
                     </table>
                     <table>
@@ -199,5 +218,152 @@
                 </mat-progress-bar>
             </section>
         </mat-card>
+    </mat-tab>
+    <mat-tab label="Agregar Usuario TPC">
+        <!-- <mat-card>
+            <section>
+                <form [formGroup]="nuevoUsuarioForm">
+                    <table class="table-form" cellspacing="2">
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Nombre</mat-label>
+                                    <input formControlName="nombre" matInput>
+                                    <button *ngIf="nuevoUsuarioForm.get('nombre')?.value != null" matSuffix
+                                        mat-icon-button aria-label="Clear"
+                                        (click)="nuevoUsuarioForm.patchValue({'nombre':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'nombre')">
+                                        Nombre es <strong>necesario</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Apellido Paterno </mat-label>
+                                    <input formControlName="apellido1" matInput>
+                                    <button *ngIf="nuevoUsuarioForm.get('apellido1')?.value != null" matSuffix
+                                        mat-icon-button aria-label="Clear"
+                                        (click)="nuevoUsuarioForm.patchValue({'apellido1':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'apellido1')">
+                                        Apellido es <strong>necesario</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Apellido Materno</mat-label>
+                                    <input formControlName="apellido2" matInput>
+                                    <button *ngIf="nuevoUsuarioForm.get('apellido2')?.value != null" matSuffix
+                                        mat-icon-button aria-label="Clear"
+                                        (click)="nuevoUsuarioForm.patchValue({'apellido2':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'apellido2')">
+                                        Apellido es <strong>necesario</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>RUT</mat-label>
+                                    <input placeholder="11111111-1" formControlName="rut" matInput>
+                                    <button *ngIf="nuevoUsuarioForm.get('rut')?.value != null" matSuffix mat-icon-button
+                                        aria-label="Clear" (click)="nuevoUsuarioForm.patchValue({'rut':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'rut')">
+                                        RUT es <strong>necesario</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Email</mat-label>
+                                    <input formControlName="email" matInput>
+                                    <button *ngIf="nuevoUsuarioForm.get('email')?.value != null" matSuffix
+                                        mat-icon-button aria-label="Clear"
+                                        (click)="nuevoUsuarioForm.patchValue({'email':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'email')">
+                                        Email es <strong>necesario</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('email', 'email')">
+                                        Formato email <strong>incorrecto</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>telefono</mat-label>
+                                    <input formControlName="telefono" matInput>
+                                    <button *ngIf="nuevoUsuarioForm.get('telefono')?.value != null" matSuffix
+                                        mat-icon-button aria-label="Clear"
+                                        (click)="nuevoUsuarioForm.patchValue({'telefono':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'telefono')">
+                                        telefono es <strong>necesario</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Rol</mat-label>
+                                    <mat-select formControlName="tiporolid" name="tiporolid">
+                                        <mat-option *ngFor="let tipoRol of listaTipoRol" [value]="tipoRol.id">
+                                            {{tipoRol.nombre}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <button *ngIf="nuevoUsuarioForm.get('tiporolid')?.value != null" matSuffix
+                                        mat-icon-button aria-label="Clear"
+                                        (click)="nuevoUsuarioForm.patchValue({'tiporolid':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'tiporolid')">
+                                        Encargado es <strong>necesario</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Empresa</mat-label>
+                                    <mat-select formControlName="empresaId" name="empresaId">
+                                        <mat-option *ngFor="let empresa of listaEmpresas" [value]="empresa.id">
+                                            {{empresa.razonSocial}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <button *ngIf="nuevoUsuarioForm.get('empresaId')?.value != null" matSuffix
+                                        mat-icon-button aria-label="Clear"
+                                        (click)="nuevoUsuarioForm.patchValue({'empresaId':null})">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="nuevoUsuarioForm.hasError('required', 'empresaId')">
+                                        Encargado es <strong>necesario</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <mat-card-actions>
+                                <button (click)="crearUsuario()" [disabled]="nuevoUsuarioForm.invalid"
+                                    class=" button-form button-add-form" mat-raised-button
+                                    color="primary">Agregar</button>
+                            </mat-card-actions>
+                        </tr>
+                    </table>
+                </form>
+                <mat-progress-bar *ngIf="isLoadingNew" style="margin-top: 8px;" color="accent" mode="query">
+                </mat-progress-bar>
+            </section>
+        </mat-card> -->
     </mat-tab>
 </mat-tab-group>

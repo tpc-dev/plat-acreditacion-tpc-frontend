@@ -1,0 +1,20 @@
+<div style="text-align: center;">
+    <h1><strong>Contratos</strong></h1>
+</div>
+<mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
+    <mat-tab label="Acreditados">
+        <!-- <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-tabla-buscador-empresas *ngIf="!isLoading" (actualizarListado)=obtenerEmpresas()
+            [listaEmpresas]="listAcreditadas" ></app-tabla-buscador-empresas> -->
+    </mat-tab>
+    <mat-tab label="En Acreditación">
+        <!-- <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-tabla-buscador-empresas *ngIf="!isLoading" (actualizarListado)=obtenerEmpresas()
+            [listaEmpresas]="listEnAcreditacion" ></app-tabla-buscador-empresas> -->
+    </mat-tab>
+    <mat-tab label="Ingresar Contrato">
+        <!-- <app-nueva-empresa-form  (onNuevaEmpresaAgregada)=obtenerEmpresas()>
+        </app-nueva-empresa-form> -->
+        <app-ingresar-contrato-stepper></app-ingresar-contrato-stepper>
+    </mat-tab>
+</mat-tab-group>

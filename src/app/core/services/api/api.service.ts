@@ -137,7 +137,7 @@ export class ApiService {
     })
   }
 
-  GETAPI(URL: string): Promise<any> {
+  GET(URL: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.get<any>(`${API_URL}${URL}`, this.httpOptions).subscribe(res => {
         resolve(res);
@@ -147,9 +147,19 @@ export class ApiService {
     })
   }
 
-  POSTAPI(URL: string, params: {}): Promise<any> {
+  POST(URL: string, params: {}): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post<any>(`${API_URL}${URL}`, params, this.httpOptions).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      })
+    })
+  }
+
+  PUT(URL: string, params: {}): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.put<any>(`${API_URL}${URL}`, params, this.httpOptions).subscribe(res => {
         resolve(res);
       }, err => {
         reject(err);

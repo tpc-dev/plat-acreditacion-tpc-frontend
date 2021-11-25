@@ -64,7 +64,7 @@ export class IngresarContratoStepperComponent implements OnInit {
   }
 
   obtenerItemsCarpetaArranque() {
-    this.apiService.GETAPI('/item-carpeta-arranque')
+    this.apiService.GET('/item-carpeta-arranque')
       .then((data) => {
         console.log(data);
         this.elementosCarpetaArranque = data;

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guard';
+import { FormularioProtocoloCovidComponent } from './features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { ContratosAdminComponent } from './pages/contratos-admin/contratos-admin.component';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { EmpresasAdminComponent } from './pages/empresas-admin/empresas-admin.component';
+import { FormularioCovidComponent } from './pages/formulario-covid/formulario-covid.component';
 import { HomeGuardiaComponent } from './pages/home-guardia/home-guardia.component';
 import { InduccionRiesgoPageComponent } from './pages/induccion-riesgo-page/induccion-riesgo-page.component';
 import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.component';
@@ -106,6 +108,12 @@ const routes: Routes = [
     component: MicuentaPageComponent,
     // canActivate: [AuthGuard],
     path: 'mi-cuenta'
+  }
+  ,
+  {
+    component: FormularioCovidComponent,
+    // canActivate: [AuthGuard],
+    path: 'formulario-covid'
   }
 ];
 

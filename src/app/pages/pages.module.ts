@@ -18,6 +18,7 @@ import { ContratosAdminComponent } from './contratos-admin/contratos-admin.compo
 import { EmpresasAdminComponent } from './empresas-admin/empresas-admin.component';
 import { PlatformSettingsAdminComponent } from './platform-settings-admin/platform-settings-admin.component';
 import { MicuentaPageComponent } from './micuenta-page/micuenta-page.component';
+import { FormularioCovidComponent } from './formulario-covid/formulario-covid.component';
 
 @NgModule({
     imports: [
@@ -42,6 +43,7 @@ import { MicuentaPageComponent } from './micuenta-page/micuenta-page.component';
         ContratosAdminComponent,
         EmpresasAdminComponent,
         PlatformSettingsAdminComponent,
-        MicuentaPageComponent],
+        MicuentaPageComponent,
+        FormularioCovidComponent],
 })
 export class PagesModule { }

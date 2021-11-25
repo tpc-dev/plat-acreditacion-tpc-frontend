@@ -1,0 +1,64 @@
+.datos-personales {
+    mat-form-field {
+        margin-right: 16px;
+    }
+}
+
+.empresa-input {
+    margin-top: 16px;
+    .label-empresa {
+        margin-top: 16px;
+    }
+    .form-radio-button {
+        margin-right: 16px;
+    }
+}
+
+.div-divider {
+    margin-top: 16px;
+    .label-empresa {
+        margin-top: 32px;
+    }
+}
+
+.r-group {
+    margin-top: 16px;
+    .form-radio-button {
+        margin-right: 16px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+}
+
+.div-sintomas-label {
+    margin-top: 32px;
+    .label-empresa {
+        margin-top: 32px;
+    }
+}
+
+@media (min-width: 412px) {
+    .div-sintomas {
+        margin-top: 16px;
+        width: 600px;
+    }
+}
+
+@media (max-width: 411px) {
+    .div-sintomas {
+        margin-top: 16px;
+    }
+}
+
+.buton-send {
+    text-align: center;
+    button {
+        margin-top: 16px;
+        width: 400px;
+        margin-bottom: 16px;
+    }
+}
+
+mat-error {
+    margin-bottom: 12px;
+}

@@ -17,12 +17,13 @@ export class VisitasGuardiaComponent implements AfterViewInit {
 
   @ViewChild(MatTabGroup) tabs!: MatTabGroup;
   listVisitasHoy: Array<Visita> = [];
+  listVisitasAgendadas: Array<Visita> = [];
+  listVisitasHistorico: Array<Visita> = [];
   listTodasLasVisitas: Array<Visita> = [];
   listVisitasIngresadas: Array<Visita> = [];
   listaEncargados: Array<Usuario> = [];
   isLoading = false;
   constructor(public api: ApiService, public utilService: UtilService, public dialog: MatDialog) {
-    // this.obtenerVisitasActivas();
     this.obtenerVisitas();
     this.obtenerEncargados();
   }
@@ -31,32 +32,30 @@ export class VisitasGuardiaComponent implements AfterViewInit {
 
   }
 
-  obtenerVisitasActivas() {
-    this.isLoading = true;
-    this.api.obtenerVisitasActivas().toPromise().then((res) => {
-      console.log(res);
-      this.listTodasLasVisitas = res;
-      this.obtenerVisitasHoy(res);
-      this.obtenerVisitasIngresadas(res);
-      this.isLoading = false;
-    }).catch((err: any) => {
-      console.log(err);
-      this.isLoading = false;
-    });
-  }
-
   obtenerVisitas() {
     this.isLoading = true;
-    this.api.obtenerVisitas().toPromise().then((res) => {
-      console.log(res);
-      this.listTodasLasVisitas = res;
-      this.obtenerVisitasHoy(res);
-      this.obtenerVisitasIngresadas(res);
-      this.isLoading = false;
-    }).catch((err: any) => {
-      console.log(err);
-      this.isLoading = false;
-    });
+    // this.obtenerVisitasAgendadasHoy();
+    // this.obtenerVisitasAgendadas();
+    // this.obtenerVisitasHistorico();
+    this.api.GET('/visitas/hoy')
+      .then((res: any) => {
+        this.listVisitasHoy = res;
+        return this.api.GET('/visitas/agendadas')
+      })
+      .then((res: any) => {
+        this.listVisitasAgendadas = res;
+        console.log(this.listVisitasAgendadas);
+        return this.api.GET('/visitas/historico')
+      }).then((res: any) => {
+        this.listVisitasHistorico = res;
+        this.isLoading = false;
+      }).catch((err: any) => {
+        console.log(err);
+      }).catch((err: any) => {
+        console.log(err);
+      }).catch((err: any) => {
+        console.log(err);
+      });
   }
 
   obtenerEncargados(): void {
@@ -68,11 +67,39 @@ export class VisitasGuardiaComponent implements AfterViewInit {
     })
   }
 
+  obtenerVisitasAgendadasHoy() {
+    this.api.GET('/visitas/hoy').then((res: any) => {
+      console.log(res);
+      this.listVisitasHoy = res;
+      this.isLoading = false;
+    }).catch((err: any) => {
+      console.log(err);
+    });
+  }
+
+  obtenerVisitasAgendadas() {
+    this.api.GET('/visitas/agendadas').then((res: any) => {
+      console.log(res);
+      this.listVisitasAgendadas = res;
+    }).catch((err: any) => {
+      console.log(err);
+    });
+  }
+
+  obtenerVisitasHistorico() {
+    this.api.GET('/visitas/historico').then((res: any) => {
+      console.log(res);
+      this.listVisitasHistorico = res;
+    }).catch((err: any) => {
+      console.log(err);
+    });
+  }
+
   obtenerVisitasHoy(listaTodasLasVisitas: Array<Visita>) {
     this.listVisitasHoy = listaTodasLasVisitas.filter((visita: Visita) => {
       const fechaVisita = moment(visita.fechaVisita).format('L');
       const fechaHoy = moment().format('L');
-      return fechaVisita == fechaHoy && visita.haIngresado == false;
+      return fechaVisita == fechaHoy;
     });
   }
 

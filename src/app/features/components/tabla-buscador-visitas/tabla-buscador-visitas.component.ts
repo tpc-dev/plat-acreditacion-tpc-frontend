@@ -7,10 +7,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Data } from '@angular/router';
 import * as moment from 'moment';
+import { ProtocoloIngreso } from 'src/app/core/interfaces/protocoloingreso.interface';
 import { Visita } from 'src/app/core/interfaces/visita.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { UtilService } from 'src/app/core/services/util/util.service';
 import Swal from 'sweetalert2';
+import { FormularioProtocoloCovidComponent } from '../formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { VisitaDetailComponent } from '../visita-detail/visita-detail/visita-detail.component';
 import { VisitaIngresosHistoricoComponent } from '../visita-ingresos-historico/visita-ingresos-historico.component';
 
@@ -23,8 +25,10 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   @Input() listaVisitas: Visita[] = [];
   @Input() showDateSearch: boolean = false;
   @Input() isAdministrador: boolean = false;
+  @Input() candEdit: boolean = false;
+  @Input() canMarcar: boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort, { static: false }) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   minDate: Date;
   dataSourceVisitas!: MatTableDataSource<Visita>;
@@ -32,15 +36,34 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   @Output() actualizarListado = new EventEmitter();
   fechaBuscada!: Date;
   estadoBuscado: boolean = false;
+  isProtocoloCovidActivo = false;
   constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService, public dialog: MatDialog) {
     this.minDate = moment().toDate();
   }
 
   ngOnInit(): void {
     console.log(this.listaVisitas)
+    this.obtenerProtocolos();
     this.dataSourceVisitas = new MatTableDataSource(this.listaVisitas);
     this.dataSourceVisitas.paginator = this.paginator;
     this.dataSourceVisitas.sort = this.sort;
+  }
+
+  obtenerProtocolos() {
+    this.api.GET('/protocolos-ingreso')
+      .then(data => {
+        let protocoloCovid = data.find((protocolo: ProtocoloIngreso) => protocolo.nombre.toLocaleLowerCase().includes("covid"));
+        this.isProtocoloCovidActivo = protocoloCovid.activo;
+        
+      })
+      .catch(err => {
+        console.log(err);
+        Swal.fire(
+          'Ha ocurrido un error',
+          'No se pudo cargar los protocolos.',
+          'error'
+        )
+      });
   }
 
   applyFilter(event: Event) {
@@ -51,9 +74,52 @@ export class TablaBuscadorVisitasComponent implements OnInit {
     }
   }
 
+  ingresarTemperaturaVisita(visita: Visita): void {
 
-  marcarIngresoVisita(visita: Visita): void {
-    console.log(visita)
+    const dialogRef = this.dialog.open(FormularioProtocoloCovidComponent, {
+      width: '850px',
+      height: '400px',
+      data: { ...visita }
+    });
+    // Swal.fire({
+    //   title: 'Ingrese la temperatura',
+    //   input: 'text',
+    //   inputAttributes: {
+    //     autocapitalize: 'off'
+    //   },
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Guardar',
+    //   cancelButtonText: 'Cancelar',
+    //   showLoaderOnConfirm: true,
+    //   preConfirm: (login) => {
+    //     console.log(login)
+    //     // return fetch(`//api.github.com/users/${login}`)
+    //     //   .then(response => {
+    //     //     if (!response.ok) {
+    //     //       throw new Error(response.statusText)
+    //     //     }
+    //     //     return response.json()
+    //     //   })
+    //     //   .catch(error => {
+    //     //     Swal.showValidationMessage(
+    //     //       `Request failed: ${error}`
+    //     //     )
+    //     //   })
+    //   },
+    //   allowOutsideClick: () => !Swal.isLoading()
+    // }).then((result) => {
+    //   console.log(result);
+
+    //   // if (result.isConfirmed) {
+    //   //   Swal.fire({
+    //   //     title: `${result.value.login}'s avatar`,
+    //   //     imageUrl: result.value.avatar_url
+    //   //   })
+    //   // }
+    // })
+  }
+
+  ingresarVisita(visita: Visita): void {
     Swal.fire({
       title: '¿Desea marcar el ingreso de esta visita?',
       icon: 'warning',
@@ -82,6 +148,15 @@ export class TablaBuscadorVisitasComponent implements OnInit {
         });
       }
     })
+  }
+
+  marcarIngresoVisita(visita: Visita): void {
+    console.log(visita)
+    if (this.isProtocoloCovidActivo) {
+      this.ingresarTemperaturaVisita(visita);
+    } else {
+      this.ingresarVisita(visita);
+    }
   }
 
   marcarSalidaVisita(visita: Visita): void {
@@ -147,8 +222,6 @@ export class TablaBuscadorVisitasComponent implements OnInit {
       }
     })
   }
-
- 
 
   verVisitaIngresosHistorico(visita: Visita): void {
     console.log(visita)

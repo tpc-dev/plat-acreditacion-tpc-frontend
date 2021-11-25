@@ -32,11 +32,11 @@ export class EmpresasAdminComponent implements OnInit {
 
   obtenerEmpresas(): void {
     this.isLoading = true;
-    this.api.GETAPI("/empresas/en-acreditacion")
+    this.api.GET("/empresas/en-acreditacion")
       .then((empresas: Empresa[]) => {
         console.log(empresas);
         this.listEnAcreditacion = empresas;
-        return this.api.GETAPI("/empresas/acreditadas")
+        return this.api.GET("/empresas/acreditadas")
       })
       .then((empresas: Empresa[]) => {
         console.log(empresas);
@@ -52,7 +52,7 @@ export class EmpresasAdminComponent implements OnInit {
 
   // obtenerEmpresasEnAcreditacion(): void {
   //   this.isLoading = true;
-  //   this.api.GETAPI("/empresas/en-acreditacion")
+  //   this.api.GET("/empresas/en-acreditacion")
   //     .then((empresas: Empresa[]) => {
   //       console.log(empresas);
   //       this.listEnAcreditación = empresas;
@@ -66,7 +66,7 @@ export class EmpresasAdminComponent implements OnInit {
 
   // obtenerEmpresasAcreditadas(): void {
   //   this.isLoading = true;
-  //   this.api.GETAPI("/empresas/acreditadas")
+  //   this.api.GET("/empresas/acreditadas")
   //     .then((empresas: Empresa[]) => {
   //       console.log(empresas);
   //       this.listAcreditadas = empresas;

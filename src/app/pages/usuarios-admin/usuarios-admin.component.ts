@@ -105,7 +105,7 @@ export class UsuariosAdminComponent implements OnInit {
   }
 
   obtenerListaEmpresas() {
-    this.api.GETAPI("/empresas").then((empresas: Empresa[]) => {
+    this.api.GET("/empresas").then((empresas: Empresa[]) => {
       this.listaEmpresas = empresas;
     }).catch(error => {
       console.log(error);

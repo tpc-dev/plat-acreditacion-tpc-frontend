@@ -40,6 +40,7 @@ import { TablaBuscadorEmpresasComponent } from './tabla-buscador-empresas/tabla-
 import { NuevaEmpresaFormComponent } from './nueva-empresa-form/nueva-empresa-form.component';
 import { VisitaIngresosHistoricoComponent } from './visita-ingresos-historico/visita-ingresos-historico.component';
 import { IngresarContratoStepperComponent } from './ingresar-contrato-stepper/ingresar-contrato-stepper.component';
+import { FormularioProtocoloCovidComponent } from './formulario-protocolo-covid/formulario-protocolo-covid.component';
 
 @NgModule({
     imports: [
@@ -87,6 +88,7 @@ import { IngresarContratoStepperComponent } from './ingresar-contrato-stepper/in
         NuevaEmpresaFormComponent,
         VisitaIngresosHistoricoComponent,
         IngresarContratoStepperComponent,
+        FormularioProtocoloCovidComponent,
     ],
     exports: [
         InputTestRiesgoComponent,
@@ -96,6 +98,7 @@ import { IngresarContratoStepperComponent } from './ingresar-contrato-stepper/in
         TablaBuscadorEmpresasComponent,
         NuevaEmpresaFormComponent,
         IngresarContratoStepperComponent,
+        FormularioProtocoloCovidComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

@@ -19,6 +19,8 @@ import { EmpresasAdminComponent } from './empresas-admin/empresas-admin.componen
 import { PlatformSettingsAdminComponent } from './platform-settings-admin/platform-settings-admin.component';
 import { MicuentaPageComponent } from './micuenta-page/micuenta-page.component';
 import { FormularioCovidComponent } from './formulario-covid/formulario-covid.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { RecuperarPasswordComponent } from './recuperar-password/recuperar-password.component';
 
 @NgModule({
     imports: [
@@ -44,6 +46,8 @@ import { FormularioCovidComponent } from './formulario-covid/formulario-covid.co
         EmpresasAdminComponent,
         PlatformSettingsAdminComponent,
         MicuentaPageComponent,
-        FormularioCovidComponent],
+        FormularioCovidComponent,
+        ResetpasswordComponent,
+        RecuperarPasswordComponent],
 })
 export class PagesModule { }

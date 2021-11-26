@@ -100,4 +100,8 @@ export class LogintpcPageComponent implements OnInit {
     });
   }
 
+  mostrarRecuperarPasswrod() {
+    this.router.navigateByUrl('/recuperar-password');
+  }
+
 }

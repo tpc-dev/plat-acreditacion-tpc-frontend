@@ -12,6 +12,8 @@ import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.compo
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
 import { MicuentaPageComponent } from './pages/micuenta-page/micuenta-page.component';
 import { PlatformSettingsAdminComponent } from './pages/platform-settings-admin/platform-settings-admin.component';
+import { RecuperarPasswordComponent } from './pages/recuperar-password/recuperar-password.component';
+import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 import { TipoRolesUsuariosAdminComponent } from './pages/tipo-roles-usuarios-admin/tipo-roles-usuarios-admin.component';
 import { TrabajadoresGuardiaComponent } from './pages/trabajadores-guardia/trabajadores-guardia.component';
 import { UsuariosAdminComponent } from './pages/usuarios-admin/usuarios-admin.component';
@@ -114,6 +116,18 @@ const routes: Routes = [
     component: FormularioCovidComponent,
     // canActivate: [AuthGuard],
     path: 'formulario-covid'
+  }
+  ,
+  {
+    component: ResetpasswordComponent,
+    // canActivate: [AuthGuard],
+    path: 'resetpassword'
+  }
+  ,
+  {
+    component: RecuperarPasswordComponent,
+    // canActivate: [AuthGuard],
+    path: 'recuperar-password'
   }
 ];
 

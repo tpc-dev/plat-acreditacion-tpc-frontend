@@ -9,30 +9,47 @@ import { ApiService } from 'src/app/core/services/api/api.service';
   styleUrls: ['./formulario-protocolo-covid.component.scss']
 })
 export class FormularioProtocoloCovidComponent implements OnInit {
-
-
   temperatura!: number;
   encuestaCovidRespondida: boolean = false;
-
+  consulting: boolean = false;
   constructor(public dialogRef: MatDialogRef<Visita>,
-    @Inject(MAT_DIALOG_DATA) public visita: Visita, public apiService: ApiService) { }
+    @Inject(MAT_DIALOG_DATA) public visita: Visita, public api: ApiService) { }
 
   ngOnInit(): void {
     console.log(this.visita);
-    this.obtenerEncuestaCovid(this.visita.rut);
+    this.obtenerEncuestaCovid();
   }
 
-  obtenerEncuestaCovid(rut: string) {
-    this.apiService.GET(`/encuesta-covid/${rut}`)
+  obtenerEncuestaCovid() {
+    this.consulting = true;
+    this.api.GET(`/registro-covid-formulario/ultimo-contestado/${this.visita.rut}`)
       .then(data => {
         console.log(data);
-        if (data.length > 0) {
-          this.encuestaCovidRespondida = true;
+        this.consulting = false;
+        if (data.code == '002') {
+          this.encuestaCovidRespondida = false;
+          return;
         }
+
+        this.encuestaCovidRespondida = true;
+        // if (data.length > 0) {
+        //   this.encuestaCovidRespondida = true;
+        // }
       })
       .catch(err => {
+        this.consulting = false;
         console.log(err);
+      }).finally(() => {
+        this.consulting = false;
+        if (!this.encuestaCovidRespondida) {
+          setTimeout(() => {
+            this.obtenerEncuestaCovid()
+          }, 2000);
+        }
       });
   }
+
+
+
 
 }

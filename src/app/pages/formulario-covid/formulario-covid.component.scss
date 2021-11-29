@@ -4,6 +4,14 @@
     }
 }
 
+.form-covid{
+    margin-top: 16px;
+}
+
+.input-form-field{
+    width: 100%;
+}
+
 .empresa-input {
     margin-top: 16px;
     .label-empresa {
@@ -40,13 +48,14 @@
 @media (min-width: 412px) {
     .div-sintomas {
         margin-top: 16px;
-        width: 600px;
+        width: 100%;
     }
 }
 
 @media (max-width: 411px) {
     .div-sintomas {
         margin-top: 16px;
+        width: 100%;
     }
 }
 

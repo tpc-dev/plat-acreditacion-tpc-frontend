@@ -3,107 +3,137 @@
         <span>Cuestionario Covid-19 Terminal Puerto Coquimbo</span>
     </mat-toolbar-row>
 </mat-toolbar>
-<div>
-    <mat-card>
-        <form [formGroup]="formularioCovidForm" class="example-form">
-            <div class="datos-personales">
-                <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Nombre</mat-label>
-                    <input type="text" matInput formControlName="nombre" placeholder="Tomas">
-                    <mat-error *ngIf="formularioCovidForm.hasError('required','nombre')">
-                        Nombre es <strong>necesario</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Apellido</mat-label>
-                    <input type="text" matInput formControlName="apellido" placeholder="Gonzales">
-                    <mat-error *ngIf="formularioCovidForm.hasError('required','apellido')">
-                        Apellido es <strong>necesario</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Rut</mat-label>
-                    <input type="text" matInput formControlName="rut" placeholder="111111-1">
-                    <mat-error *ngIf="formularioCovidForm.hasError('required','rut')">
-                        Rut es <strong>necesario</strong>
-                    </mat-error>
-                    <mat-error *ngIf="formularioCovidForm.hasError('rutValido', 'rut')">
-                        <!-- <mat-error *ngIf="nuevaVisitaForm.get('rut')?.errors?.passwordStrength"> -->
-                        RUT no <strong>valido</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <mat-divider></mat-divider>
-            <div>
-                <div class="empresa-input" appearance="outline">
+
+<div class="container form-covid">
+    <div>
+        <mat-card>
+            <form [formGroup]="formularioCovidForm" class="example-form">
+                <div class="row datos-personales">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <mat-form-field class="input-form-field" appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input type="text" matInput formControlName="nombre" placeholder="Tomas">
+                            <mat-error *ngIf="formularioCovidForm.hasError('required','nombre')">
+                                Nombre es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <mat-form-field class="input-form-field" appearance="outline">
+                            <mat-label>Apellido</mat-label>
+                            <input type="text" matInput formControlName="apellido" placeholder="Gonzales">
+                            <mat-error *ngIf="formularioCovidForm.hasError('required','apellido')">
+                                Apellido es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <mat-form-field class="input-form-field" appearance="outline">
+                            <mat-label>Rut</mat-label>
+                            <input type="text" matInput formControlName="rut" placeholder="111111-1">
+                            <mat-error *ngIf="formularioCovidForm.hasError('required','rut')">
+                                Rut es <strong>necesario</strong>
+                            </mat-error>
+                            <mat-error *ngIf="formularioCovidForm.hasError('rutValido', 'rut')">
+                                <!-- <mat-error *ngIf="nuevaVisitaForm.get('rut')?.errors?.passwordStrength"> -->
+                                RUT no <strong>valido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="empresa-input" appearance="outline">
+                            <div class="label-empresa">
+                                <label>Empresa</label>
+                            </div>
+                            <div>
+                                <mat-radio-group class="r-group" matInput formControlName="empresa">
+                                    <mat-radio-button class="form-radio-button" *ngFor="let empresa of empresas"
+                                        [value]="empresa">
+                                        {{empresa}}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                                <mat-error *ngIf="formularioCovidForm.hasError('required','empresa')">
+                                    Empresa es <strong>necesario</strong>
+                                </mat-error>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="div-divider" appearance="outline">
+                    <div class="row label-empresa">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <mat-label>¿Usted tiene o ha sentido algún síntoma asociado a COVID-19?¿Usted tiene o ha
+                                sentido
+                                algún
+                                síntoma asociado a COVID-19?</mat-label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <mat-radio-group (change)="onChangeHaTenidoSintomas()" class="r-group"
+                                formControlName="haTenidoSintomas">
+                                <mat-radio-button class="form-radio-button" value=true>Si</mat-radio-button>
+                                <mat-radio-button class="form-radio-button" value=false>No</mat-radio-button>
+                            </mat-radio-group>
+                            <mat-error *ngIf="formularioCovidForm.hasError('required','haTenidoSintomas')">
+                                Es <strong>necesario</strong>
+                            </mat-error>
+                        </div>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div>
+                    <div class="row">
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 div-sintomas-label">
+                            <label class="label-empresa">
+                                Si su respuesta fue Si, marque he indique cuales.
+                                Dar Aviso inmediato según Protocolo y la persona NO debe entrar al Puerto, espere
+                                indicaciones.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <mat-form-field class="div-sintomas" appearance="outline">
+                                <mat-label>Seleccione los síntomas</mat-label>
+                                <mat-select formControlName="sintomas" multiple>
+                                    <mat-option *ngFor="let sintoma of sintomas" [value]="sintoma">{{sintoma}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="div-divider" appearance="outline">
                     <div class="label-empresa">
-                        <label>Empresa</label>
+                        <mat-label>¿Usted ha tenido contacto estrecho con una persona en cuarentena preventiva o con
+                            resultado positivo para COVID-19 en los últimos 14 días ?
+                            Si la respuesta es Si, Avisar inmediatamente según Protocolo y Retener en Portería
+                        </mat-label>
                     </div>
-                    <div>
-                        <mat-radio-group class="r-group" matInput formControlName="empresa">
-                            <mat-radio-button class="form-radio-button" *ngFor="let empresa of empresas"
-                                [value]="empresa">
-                                {{empresa}}
-                            </mat-radio-button>
-                        </mat-radio-group>
-                        <mat-error *ngIf="formularioCovidForm.hasError('required','empresa')">
-                            Empresa es <strong>necesario</strong>
-                        </mat-error>
-                    </div>
+                    <mat-radio-group class="r-group" formControlName="haTenidoContactoEstrecho">
+                        <mat-radio-button class="form-radio-button" value=true>Si</mat-radio-button>
+                        <mat-radio-button class="form-radio-button" value=false>No</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="formularioCovidForm.hasError('required','haTenidoContactoEstrecho')">
+                        Es <strong>necesario</strong>
+                    </mat-error>
                 </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="div-divider" appearance="outline">
-                <div class="label-empresa">
-                    <mat-label>¿Usted tiene o ha sentido algún síntoma asociado a COVID-19?¿Usted tiene o ha sentido
-                        algún
-                        síntoma asociado a COVID-19?</mat-label>
-                </div>
-                <mat-radio-group class="r-group" formControlName="haTenidoSintomas">
-                    <mat-radio-button class="form-radio-button" value="true">Si</mat-radio-button>
-                    <mat-radio-button class="form-radio-button" value="false">No</mat-radio-button>
-                </mat-radio-group>
-                <mat-error *ngIf="formularioCovidForm.hasError('required','haTenidoSintomas')">
-                    Es <strong>necesario</strong>
+                <mat-divider></mat-divider>
+            </form>
+            <mat-card-actions class="buton-send">
+                <mat-progress-bar *ngIf="isLoading" mode="query"></mat-progress-bar>
+                <mat-error *ngIf="formularioCovidForm.invalid">
+                    Complete Todos los datos correctamente
                 </mat-error>
-            </div>
-            <mat-divider></mat-divider>
-            <div>
-                <div class="div-sintomas-label">
-                    <label class="label-empresa">
-                        Si su respuesta fue Si, marque he indique cuales.
-                        Dar Aviso inmediato según Protocolo y la persona NO debe entrar al Puerto, espere indicaciones.
-                    </label>
-                </div>
-                <mat-form-field class="div-sintomas" appearance="outline">
-                    <mat-label>Seleccione los síntomas</mat-label>
-                    <mat-select formControlName="sintomas" multiple>
-                        <mat-option *ngFor="let sintoma of sintomas" [value]="sintoma">{{sintoma}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="div-divider" appearance="outline">
-                <div class="label-empresa">
-                    <mat-label>¿Usted ha tenido contacto estrecho con una persona en cuarentena preventiva o con
-                        resultado positivo para COVID-19 en los últimos 14 días ?
-                        Si la respuesta es Si, Avisar inmediatamente según Protocolo y Retener en Portería</mat-label>
-                </div>
-                <mat-radio-group class="r-group" formControlName="haTenidoContacto">
-                    <mat-radio-button class="form-radio-button" value="true">Si</mat-radio-button>
-                    <mat-radio-button class="form-radio-button" value="false">No</mat-radio-button>
-                </mat-radio-group>
-                <mat-error *ngIf="formularioCovidForm.hasError('required','haTenidoContacto')">
-                    Es <strong>necesario</strong>
-                </mat-error>
-            </div>
-            <mat-divider></mat-divider>
-        </form>
-        <mat-card-actions class="buton-send">
-            <mat-error *ngIf="formularioCovidForm.invalid">
-                Complete Todos los datos correctamente
-            </mat-error>
-            <button [disabled]="formularioCovidForm.invalid" (click)="guardarFormulario()" mat-raised-button color="primary">Guardar y Enviar</button>
-        </mat-card-actions>
-    </mat-card>
+                <button [disabled]="formularioCovidForm.invalid" (click)="guardarFormulario()" mat-raised-button
+                    color="primary">Guardar y Enviar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>

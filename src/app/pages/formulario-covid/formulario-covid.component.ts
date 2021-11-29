@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from 'src/app/core/services/api/api.service';
 import { TPCValidations } from 'src/app/core/utils/TPCValidations';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-covid',
@@ -38,10 +40,57 @@ export class FormularioCovidComponent implements OnInit {
     'Pérdida brusca y completa del olfato (anosmia).',
     'Pérdida brusca y completa del gusto (ageusia).',
   ];
-  constructor(public formBuilder: FormBuilder) { }
+  isLoading: boolean = false;
+  sintomasDisabled: boolean = false;
+  constructor(public formBuilder: FormBuilder, public api: ApiService) { }
 
   ngOnInit(): void {
     this.formularioCovidForm = this.createFormularioCovidForm();
+  }
+
+  guardarFormulario() {
+    let req = this.formularioCovidForm.value;
+    req.sintomas = JSON.stringify(this.formularioCovidForm.get('sintomas')?.value.toString());
+    req.haTenidoContactoEstrecho = JSON.parse(req.haTenidoContactoEstrecho);
+    req.haTenidoSintomas = JSON.parse(req.haTenidoSintomas);
+    this.isLoading = true;
+    this.api.POST('/registro-covid-formulario', this.formularioCovidForm.value)
+      .then(res => {
+        this.isLoading = false;
+        Swal.fire({
+          title: 'Registro exitoso',
+          text: 'Se ha registrado correctamente el formulario',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        })
+        this.formularioCovidForm.reset();
+      })
+      .catch(err => {
+        this.isLoading = false;
+        Swal.fire({
+          title: 'Error',
+          text: 'Ha ocurrido un error al registrar el formulario',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        })
+        console.log(err);
+      });
+  }
+
+  onChangeHaTenidoSintomas() {
+    console.log(typeof this.formularioCovidForm.get('haTenidoSintomas')?.value);
+
+    const sintomas = <FormControl>this.formularioCovidForm.get('sintomas');
+    if (this.formularioCovidForm.get('haTenidoSintomas')?.value == 'true') {
+      console.log("enable");
+      this.formularioCovidForm.controls['sintomas'].enable();
+      sintomas.setValidators([Validators.required])
+    }
+    else if (this.formularioCovidForm.get('haTenidoSintomas')?.value == 'false') {
+      // sintomas.setValidators(null);
+      console.log("disable");
+      this.formularioCovidForm.controls['sintomas'].disable();
+    }
   }
 
   createFormularioCovidForm() {
@@ -80,12 +129,10 @@ export class FormularioCovidComponent implements OnInit {
         ])
       ),
       sintomas: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-        ])
+        { value: '', disabled: true },
+        Validators.compose([Validators.required])
       ),
-      haTenidoContacto: new FormControl(
+      haTenidoContactoEstrecho: new FormControl(
         null,
         Validators.compose([
           Validators.required,
@@ -94,8 +141,6 @@ export class FormularioCovidComponent implements OnInit {
     });
   }
 
-  guardarFormulario(){
-    // TODO guardar formulario
-  }
+
 
 }

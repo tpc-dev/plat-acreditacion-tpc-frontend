@@ -6,10 +6,13 @@
         <p>Se debe verificar la temperatura y el llenado del formulario COVID 19
         </p>
     </div>
-    <div>
-        <mat-form-field class="example-full-width" appearance="fill">
+    <mat-divider></mat-divider>
+    <div *ngIf="registroCovidFormularioResp">
+        <mat-form-field class="field-temperatura" appearance="outline">
             <mat-label>Temperatura</mat-label>
-            <input type="number" [(ngModel)]="temperatura" matInput>
+            <input
+                [disabled]="registroCovidFormularioResp.haTenidoSintomas || registroCovidFormularioResp.haTenidoContactoEstrecho"
+                required type="number" [(ngModel)]="temperatura" matInput>
         </mat-form-field>
         <mat-divider></mat-divider>
         <section style="margin-top: 12px;">
@@ -22,13 +25,69 @@
         </section>
     </div>
     <mat-divider></mat-divider>
+    <mat-accordion *ngIf="registroCovidFormularioResp">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Ver Respuestas
+                </mat-panel-title>
+                <mat-panel-description>
+                    <strong> Contestado el {{ registroCovidFormularioResp.fecha | amDateFormat:'L'}}</strong>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="container-alerts">
+                <div class="row row-resp">
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        ¿Usted tiene o ha sentido algún síntoma asociado a COVID-19?
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <strong>{{ registroCovidFormularioResp.haTenidoSintomas? 'SI': 'NO' }}</strong>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row row-resp">
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        ¿Usted ha tenido contacto estrecho con una persona en cuarentena preventiva o con resultado
+                        positivo
+                        para COVID-19 en los últimos 14 días ?
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <strong>{{ registroCovidFormularioResp.haTenidoContactoEstrecho? 'SI': 'NO' }}</strong>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row row-resp">
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        Empresa
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <strong>{{ registroCovidFormularioResp.empresa }}</strong>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row row-resp">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        Sintomas
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                        <strong>{{ registroCovidFormularioResp.sintomas }}</strong>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
     <div class="button-action">
-        <button  [disabled]="consulting" (click)="obtenerEncuestaCovid()" mat-raised-button color="primary">
+        <button [disabled]="consulting || encuestaCovidRespondida" (click)="obtenerEncuestaCovid()" mat-raised-button
+            color="primary">
             <mat-icon aria-hidden="false" aria-label="advertencia">refresh</mat-icon>
             Recargar
         </button>
     </div>
     <div class="button-action">
-        <button [disabled]="!encuestaCovidRespondida" mat-raised-button color="accent">Marcar Ingreso</button>
+        <button [disabled]="!encuestaCovidRespondida || !temperatura" (click)="guardarIngresoProtocoloCOVID()"
+            mat-raised-button color="accent">Marcar Ingreso</button>
+        <mat-error *ngIf="!temperatura" style="margin-top: 12px;">
+            <strong>Ingrese temperatura</strong>
+        </mat-error>
     </div>
 </div>

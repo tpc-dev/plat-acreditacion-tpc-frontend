@@ -131,7 +131,7 @@
                 <mat-error *ngIf="formularioCovidForm.invalid">
                     Complete Todos los datos correctamente
                 </mat-error>
-                <button [disabled]="formularioCovidForm.invalid" (click)="guardarFormulario()" mat-raised-button
+                <button [disabled]="formularioCovidForm.invalid || isLoading" (click)="guardarFormulario()" mat-raised-button
                     color="primary">Guardar y Enviar</button>
             </mat-card-actions>
         </mat-card>

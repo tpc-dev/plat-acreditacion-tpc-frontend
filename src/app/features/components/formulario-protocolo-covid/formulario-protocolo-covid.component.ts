@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RegistroCovidFormulario } from 'src/app/core/interfaces/registrocovidformulario.interface';
 import { Visita } from 'src/app/core/interfaces/visita.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-protocolo-covid',
@@ -12,6 +14,7 @@ export class FormularioProtocoloCovidComponent implements OnInit {
   temperatura!: number;
   encuestaCovidRespondida: boolean = false;
   consulting: boolean = false;
+  registroCovidFormularioResp!: RegistroCovidFormulario;
   constructor(public dialogRef: MatDialogRef<Visita>,
     @Inject(MAT_DIALOG_DATA) public visita: Visita, public api: ApiService) { }
 
@@ -24,17 +27,32 @@ export class FormularioProtocoloCovidComponent implements OnInit {
     this.consulting = true;
     this.api.GET(`/registro-covid-formulario/ultimo-contestado/${this.visita.rut}`)
       .then(data => {
-        console.log(data);
         this.consulting = false;
         if (data.code == '002') {
           this.encuestaCovidRespondida = false;
           return;
         }
 
+        if (data.code == '003') {
+
+          this.encuestaCovidRespondida = false;
+          return;
+        }
+
+        this.registroCovidFormularioResp = data;
+        console.log(this.registroCovidFormularioResp);
+
         this.encuestaCovidRespondida = true;
-        // if (data.length > 0) {
-        //   this.encuestaCovidRespondida = true;
-        // }
+
+        if (this.registroCovidFormularioResp.haTenidoContactoEstrecho || this.registroCovidFormularioResp.haTenidoSintomas) {
+          Swal.fire({
+            title: 'ADVERTENCIA',
+            text: 'Esta persona ha tenido sintomas COVID-19 y/o ha estado en contacto estrecho con alguien con COVID-19',
+            icon: 'warning',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+
       })
       .catch(err => {
         this.consulting = false;
@@ -51,5 +69,22 @@ export class FormularioProtocoloCovidComponent implements OnInit {
 
 
 
+  guardarIngresoProtocoloCOVID() {
+    let req = {
+      temperatura: this.temperatura,
+      registroCovidFormularioId: this.registroCovidFormularioResp.id
+    }
+
+    console.log(req);
+    
+
+    this.api.POST('/registro-covid-accesos', req)
+      .then(data => {
+        this.dialogRef.close(true);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
 }

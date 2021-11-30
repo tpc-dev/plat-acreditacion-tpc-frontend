@@ -54,7 +54,7 @@ export class TablaBuscadorVisitasComponent implements OnInit {
       .then(data => {
         let protocoloCovid = data.find((protocolo: ProtocoloIngreso) => protocolo.nombre.toLocaleLowerCase().includes("covid"));
         this.isProtocoloCovidActivo = protocoloCovid.activo;
-        
+
       })
       .catch(err => {
         console.log(err);
@@ -78,8 +78,15 @@ export class TablaBuscadorVisitasComponent implements OnInit {
 
     const dialogRef = this.dialog.open(FormularioProtocoloCovidComponent, {
       width: '850px',
-      height: '400px',
+      height: '680px',
       data: { ...visita }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ingresarVisita(visita);
+        // this.actualizarListado.emit();
+      }
     });
     // Swal.fire({
     //   title: 'Ingrese la temperatura',
@@ -162,7 +169,7 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   marcarSalidaVisita(visita: Visita): void {
     console.log(visita)
     Swal.fire({
-      title: '¿Desea marcar el ingreso de esta visita?',
+      title: '¿Desea marcar la salida de esta visita?',
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',

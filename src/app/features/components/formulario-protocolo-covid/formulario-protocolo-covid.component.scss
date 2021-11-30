@@ -7,3 +7,33 @@
         }
     }
 }
+
+.card-safe {
+    background-color: green;
+    color: white;
+    width: 90%;
+    height: 100%;
+}
+
+.card-alert {
+    background-color: red;
+    color: white;
+    width: 90%;
+    height: 100%;
+}
+
+.field-temperatura {
+    margin-top: 16px;
+}
+
+.container-alerts {
+    text-align: initial;
+    // margin-bottom: 12px;
+    // margin-top: 12px;
+}
+
+.row-resp {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+

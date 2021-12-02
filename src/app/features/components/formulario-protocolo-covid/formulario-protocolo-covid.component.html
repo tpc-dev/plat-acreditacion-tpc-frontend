@@ -7,8 +7,8 @@
         </p>
     </div>
     <mat-divider></mat-divider>
-    <div *ngIf="registroCovidFormularioResp">
-        <mat-form-field class="field-temperatura" appearance="outline">
+    <div >
+        <mat-form-field *ngIf="registroCovidFormularioResp" class="field-temperatura" appearance="outline">
             <mat-label>Temperatura</mat-label>
             <input
                 [disabled]="registroCovidFormularioResp.haTenidoSintomas || registroCovidFormularioResp.haTenidoContactoEstrecho"

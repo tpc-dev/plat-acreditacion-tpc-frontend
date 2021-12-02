@@ -54,7 +54,10 @@ export class FormularioCovidComponent implements OnInit {
     req.haTenidoContactoEstrecho = JSON.parse(req.haTenidoContactoEstrecho);
     req.haTenidoSintomas = JSON.parse(req.haTenidoSintomas);
     this.isLoading = true;
-    this.api.POST('/registro-covid-formulario', this.formularioCovidForm.value)
+    // remover espacios en blanco en rut
+    req.rut = req.rut.replace(/\s/g, '');
+    // this.api.POST('/registro-covid-formulario', this.formularioCovidForm.value)
+    this.api.POST('/registro-covid-formulario', req)
       .then(res => {
         this.isLoading = false;
         Swal.fire({

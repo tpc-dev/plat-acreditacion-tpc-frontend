@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guard';
 import { FormularioProtocoloCovidComponent } from './features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { ContratosAdminComponent } from './pages/contratos-admin/contratos-admin.component';
+import { DetalleItemCarpetaArranqueAdminComponent } from './pages/detalle-item-carpeta-arranque-admin/detalle-item-carpeta-arranque-admin.component';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { EmpresasAdminComponent } from './pages/empresas-admin/empresas-admin.component';
 import { FormularioCovidComponent } from './pages/formulario-covid/formulario-covid.component';
 import { HomeGuardiaComponent } from './pages/home-guardia/home-guardia.component';
 import { InduccionRiesgoPageComponent } from './pages/induccion-riesgo-page/induccion-riesgo-page.component';
+import { ItemCarpetaArranqueAdminComponent } from './pages/item-carpeta-arranque-admin/item-carpeta-arranque-admin.component';
 import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.component';
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
 import { MicuentaPageComponent } from './pages/micuenta-page/micuenta-page.component';
@@ -129,6 +131,18 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     path: 'recuperar-password'
   }
+  ,
+  {
+    component: ItemCarpetaArranqueAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'item-carpeta-arranque-admin',
+  },
+  {
+    component: DetalleItemCarpetaArranqueAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'item-carpeta-arranque-admin/:id'
+  }
+
 ];
 
 @NgModule({

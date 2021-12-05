@@ -1,0 +1,28 @@
+<div class="">
+    <mat-card>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Elementos Carpeta de Arranque</h1>
+            </div>
+        </div>
+        <!-- <div style="text-align: center;" class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                OBLIGATORIO
+            </div>
+            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+                ELEMENTO
+            </div>
+        </div> -->
+        <div class="item-ca" *ngFor="let item of elementosCarpetaArranque">
+            <div class="row">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <button (click)="verDetallesElemento(item)" style="margin-bottom: 12px;" color="primary" mat-raised-button>Ver</button>
+                </div>
+                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+                    {{item.description}}
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-card>
+</div>

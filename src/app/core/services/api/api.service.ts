@@ -15,6 +15,7 @@ export class ApiService {
 
   httpOptions: any;
   token: string;
+  headers:Headers = new Headers();
   constructor(private http: HttpClient) {
     // this.headers.set('Access-Control-Allow-Origin', '*');
     // this.headers.set('Content-Type', 'application/json');
@@ -24,6 +25,12 @@ export class ApiService {
   setToken(token: string): void {
     console.log(token)
     this.token = token;
+    // this.headers = new Headers();
+    // this.headers.append('Access-Control-Allow-Headers', 'Content-Type');
+    // this.headers.append('Access-Control-Allow-Methods', 'GET');
+    // this.headers.append('Access-Control-Allow-Origin', '*');
+    // add authorization bearer token to header
+    this.headers.append('Authorization', 'Bearer ' + token);
     this.httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -55,7 +62,7 @@ export class ApiService {
     // client_secret:+wNqx/w+K1gL15zlk/O5QyQ/BEbxuNDXKySIF7ki+ks=
     // resource:00000003-0000-0ff1-ce00-000000000000/terminalpuertocoquimbo.sharepoint.com@bb4e77c2-896b-4876-ba85-073a2bb991e6`;
     return new Promise((resolve, reject) => {
-      this.http.post<any>(`https://accounts.accesscontrol.windows.net/bb4e77c2-896b-4876-ba85-073a2bb991e6/tokens/OAuth/2/`, formData,this.httpOptions).subscribe(res => {
+      this.http.post<any>(`https://accounts.accesscontrol.windows.net/bb4e77c2-896b-4876-ba85-073a2bb991e6/tokens/OAuth/2/`, formData, this.httpOptions).subscribe(res => {
         resolve(res);
       }, err => {
         reject(err);
@@ -98,7 +105,7 @@ export class ApiService {
     return this.http.get<any>(`${API_URL}/visitas`, this.httpOptions)
   }
 
-  getAccesosHistoricosVisita(visitaid:number): Observable<any> {
+  getAccesosHistoricosVisita(visitaid: number): Observable<any> {
     // /api/ingreso-visitas/${visitaid}/ingresos-historico
     return this.http.get<any>(`${API_URL}/ingreso-visitas/${visitaid}/ingresos-historico`, this.httpOptions)
   }

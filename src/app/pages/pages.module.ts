@@ -21,6 +21,9 @@ import { MicuentaPageComponent } from './micuenta-page/micuenta-page.component';
 import { FormularioCovidComponent } from './formulario-covid/formulario-covid.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { RecuperarPasswordComponent } from './recuperar-password/recuperar-password.component';
+import { ItemCarpetaArranqueAdminComponent } from './item-carpeta-arranque-admin/item-carpeta-arranque-admin.component';
+import { DetalleItemCarpetaArranqueAdminComponent } from './detalle-item-carpeta-arranque-admin/detalle-item-carpeta-arranque-admin.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
     imports: [
@@ -48,6 +51,9 @@ import { RecuperarPasswordComponent } from './recuperar-password/recuperar-passw
         MicuentaPageComponent,
         FormularioCovidComponent,
         ResetpasswordComponent,
-        RecuperarPasswordComponent],
+        RecuperarPasswordComponent,
+        ItemCarpetaArranqueAdminComponent,
+        DetalleItemCarpetaArranqueAdminComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

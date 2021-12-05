@@ -1,57 +1,108 @@
 <mat-card>
-  <mat-vertical-stepper orientation="vertical" [linear]="isLinear" #stepper>
+  <mat-vertical-stepper orientation="vertical" [linear]="false" #stepper>
     <mat-step [stepControl]="datosRevisionFormGroup" errorMessage="Complete el formulario.">
       <form style="margin-top: 8px;" [formGroup]="datosRevisionFormGroup">
         <ng-template matStepLabel>Datos Revisión</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre de la Empresa</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="empresa" required>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>OC/Contrato</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="contrato" required>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Descripción del Contrato</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="descripcionContrato" required>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Área de desempeño</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="areaDesempeno" required>
-        </mat-form-field>
+        <div class="row">
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>Nombre de la Empresa</mat-label>
+              <mat-select formControlName="empresa" required>
+                <mat-option *ngFor="let empresa of listEmpresas" value="empresa.id">{{empresa.razonSocial}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>OC/Contrato</mat-label>
+              <input matInput placeholder="Last name, First name" formControlName="contrato" required>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>Área de desempeño</mat-label>
+              <input matInput placeholder="Last name, First name" formControlName="areaDesempeno" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>Descripción del Contrato</mat-label>
+              <input matInput placeholder="Last name, First name" formControlName="descripcionContrato" required>
+            </mat-form-field>
+          </div>
+        </div>
         <div>
-          <button mat-button matStepperNext>Siguiente</button>
+          <button mat-stroked-button color="primary" matStepperNext>Siguiente</button>
         </div>
       </form>
     </mat-step>
     <mat-step [stepControl]="encargadosFormGroup" errorMessage="Complete el formulario.">
       <form style="margin-top: 8px;" [formGroup]="encargadosFormGroup">
         <ng-template matStepLabel>Datos Encargados</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>NOMBRE DEL ADC EECC</mat-label>
-          <input matInput formControlName="nombreADCEECC" placeholder="" required>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>NOMBRE DEL ADC TPC</mat-label>
-          <input matInput formControlName="nombreADCTPC" placeholder="" required>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>GERENCIA</mat-label>
-          <input matInput formControlName="gerencia" placeholder="" required>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>ÁREA</mat-label>
-          <input matInput formControlName="area" placeholder="" required>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Fecha</mat-label>
-          <input formControlName="fecha" matInput [matDatepicker]="picker">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        <div class="row">
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>ADC EECC</mat-label>
+              <mat-select formControlName="adceecc" required>
+                <mat-option *ngFor="let adceecc of listADCEECC" value="adceecc.id">{{adceecc.nombre}}
+                  {{adceecc.apellido1}} {{adceecc.apellido2}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>Fecha</mat-label>
+              <input required formControlName="fecha" matInput [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>GERENCIA</mat-label>
+              <input matInput formControlName="gerencia" placeholder="" required>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>ÁREA</mat-label>
+              <input matInput formControlName="area" placeholder="" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>ADC TPC</mat-label>
+              <mat-select formControlName="adctpc1" class="select-adctpc" required>
+                <mat-option [id]="adctpc.rut" *ngFor="let adctpc of listADCTPCAvailable" value="adctpc.id">
+                  {{adctpc.nombre}}
+                  {{adctpc.apellido1}} {{adctpc.apellido2}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>ADC TPC</mat-label>
+              <mat-select formControlName="adctpc2" class="select-adctpc" required>
+                <mat-option [id]="adctpc.rut" *ngFor="let adctpc of listADCTPCAvailable" value="adctpc.id">
+                  {{adctpc.nombre}}
+                  {{adctpc.apellido1}} {{adctpc.apellido2}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
         <div>
-          <button mat-button matStepperPrevious>Atrás</button>
-          <button mat-button matStepperNext>Siguiente</button>
+          <button mat-stroked-button color="primary"  matStepperPrevious>Atrás</button>
+          <button mat-stroked-button color="primary"  matStepperNext>Siguiente</button>
         </div>
       </form>
     </mat-step>
@@ -61,7 +112,8 @@
         <table class="table-item">
           <tr>
             <td>
-              <mat-checkbox  [disabled]="item.obligatorio" [checked]="item.obligatorio" labelPosition="before" class="example-margin">
+              <mat-checkbox [disabled]="item.obligatorio" [checked]="item.obligatorio" labelPosition="before"
+                class="example-margin">
               </mat-checkbox>
             </td>
             <td class="td-accordion">

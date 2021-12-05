@@ -1,0 +1,39 @@
+<div class="">
+    <mat-card>
+        <div class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <button (click)="goBack()" style="margin-top: -6px;" mat-icon-button>
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+                <h3><strong>Documentos de la carpeta</strong></h3>
+            </div>
+        </div>
+        <mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+        <div *ngFor="let documento of tiposDocumentos">
+            <div class="row row-doc">
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <p>{{documento.nombre}}</p>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <mat-checkbox [checked]="documento.obligatorio">OBLIGATORIO</mat-checkbox>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <button (click)="editTipoDoc(documento)" mat-flat-button color="primary">Editar</button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="row">
+            <div style="margin-top: 12px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button (click)="newTipoDoc()" mat-raised-button color="primary">Agregar Nuevo Tipo Documento</button>
+            </div>
+        </div>
+        <div class="row">
+            <div style="margin-top: 12px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button mat-raised-button color="accent">Guardar Cambios</button>
+            </div>
+        </div>
+    </mat-card>
+</div>

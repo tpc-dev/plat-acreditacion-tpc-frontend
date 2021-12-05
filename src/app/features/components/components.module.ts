@@ -41,12 +41,15 @@ import { NuevaEmpresaFormComponent } from './nueva-empresa-form/nueva-empresa-fo
 import { VisitaIngresosHistoricoComponent } from './visita-ingresos-historico/visita-ingresos-historico.component';
 import { IngresarContratoStepperComponent } from './ingresar-contrato-stepper/ingresar-contrato-stepper.component';
 import { FormularioProtocoloCovidComponent } from './formulario-protocolo-covid/formulario-protocolo-covid.component';
+import { MatTableExporterModule } from "mat-table-exporter";
+import { DetailTipoDocAcreditacionComponent } from './detail-tipo-doc-acreditacion/detail-tipo-doc-acreditacion.component';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        MatTableExporterModule,
         MatIconModule,
         MatButtonModule,
         MatIconModule,
@@ -89,8 +92,10 @@ import { FormularioProtocoloCovidComponent } from './formulario-protocolo-covid/
         VisitaIngresosHistoricoComponent,
         IngresarContratoStepperComponent,
         FormularioProtocoloCovidComponent,
+        DetailTipoDocAcreditacionComponent,
     ],
     exports: [
+        MatTableExporterModule,
         InputTestRiesgoComponent,
         FormularioTestRiesgoComponent,
         NuevaVisitaFormComponent,

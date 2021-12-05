@@ -12,6 +12,7 @@ export class AuthService {
   public sessionOn = new BehaviorSubject(false);
   redirectUrl!: string;
   headers = new HttpHeaders();
+  
   private cuenta = new BehaviorSubject<Cuenta>({} as any) ;
   constructor(private http: HttpClient) {
     this.headers.set('Access-Control-Allow-Origin', '*');
@@ -19,6 +20,12 @@ export class AuthService {
   }
 
   signIn({ email, password }: Credenciales): Observable<Cuenta> {
+    console.log(this.headers);
+    // const headers = new Headers();
+    // headers.append('Access-Control-Allow-Headers', 'Content-Type');
+    // headers.append('Access-Control-Allow-Methods', 'GET');
+    // headers.append('Access-Control-Allow-Origin', '*');
+    
     const req = {
       email,
       password,

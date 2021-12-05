@@ -67,6 +67,7 @@ export class AppComponent {
     { name: "Usuarios", icon: "engineering", path: '/usuarios-admin' },
     { name: "Tipo Roles", icon: "perm_identity", path: '/tipos-roles-admin' },
     { name: "Empresas", icon: "business", path: '/trabajadores-admin' },
+    { name: "Elementos CA", icon: "settings", path: '/item-carpeta-arranque-admin' },
     { name: "Protocolos", icon: "settings", path: '/platform-settings-admin' },
     // { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },
     // { name: "Visitas", icon: "groups", path: '/visitas-admin' },
@@ -91,7 +92,7 @@ export class AppComponent {
       this.authService.setCuentaActiva(cuenta);
       this.authService.sessionOn.next(true);
       this.apiService.setToken(cuenta.token);
-      this.router.navigateByUrl('/home');
+    //  this.router.navigateByUrl('/home');
     }
   }
 

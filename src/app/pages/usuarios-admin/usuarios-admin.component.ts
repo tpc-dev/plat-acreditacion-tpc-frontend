@@ -9,6 +9,7 @@ import { Empresa } from 'src/app/core/interfaces/empresa.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UtilService } from 'src/app/core/services/util/util.service';
+import { TPCValidations } from 'src/app/core/utils/TPCValidations';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -56,6 +57,7 @@ export class UsuariosAdminComponent implements OnInit {
         null,
         Validators.compose([
           Validators.required,
+          TPCValidations.isRutInvalido,
         ])
       ),
       email: new FormControl(
@@ -111,7 +113,7 @@ export class UsuariosAdminComponent implements OnInit {
       console.log(error);
     });
   }
-  
+
   obtenerListaRoles() {
     this.api.getRoles().toPromise().then((roles: TipoRol[]) => {
       console.log(roles);

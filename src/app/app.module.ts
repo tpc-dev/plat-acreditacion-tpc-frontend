@@ -15,6 +15,7 @@ import { ApiService } from './core/services/api/api.service';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { TPC_DATE_FORMATS } from './core/constants/TPC_DATE_FORMATS';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 //#endregion
 
@@ -33,7 +34,8 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     LayoutModule,
     MatNativeDateModule,
     MomentModule,
-    MomentDateModule
+    MomentDateModule,
+    MatTableExporterModule
   ],
   providers: [
     AuthService,

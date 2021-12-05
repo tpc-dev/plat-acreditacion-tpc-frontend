@@ -27,8 +27,8 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   @Input() isAdministrador: boolean = false;
   @Input() candEdit: boolean = false;
   @Input() canMarcar: boolean = false;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   minDate: Date;
   dataSourceVisitas!: MatTableDataSource<Visita>;
@@ -37,14 +37,23 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   fechaBuscada!: Date;
   estadoBuscado: boolean = false;
   isProtocoloCovidActivo = false;
+  fechaHoyString = moment().format('DD/MM/YYYY');
   constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService, public dialog: MatDialog) {
-    this.minDate = moment().toDate();
+
   }
 
   ngOnInit(): void {
     console.log(this.listaVisitas)
     this.obtenerProtocolos();
+    if (this.candEdit || this.canMarcar) {
+      this.minDate = moment().toDate();
+    }
     this.dataSourceVisitas = new MatTableDataSource(this.listaVisitas);
+    this.dataSourceVisitas.paginator = this.paginator;
+    this.dataSourceVisitas.sort = this.sort;
+  }
+
+  ngAfterViewInit(): void {
     this.dataSourceVisitas.paginator = this.paginator;
     this.dataSourceVisitas.sort = this.sort;
   }
@@ -67,8 +76,11 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
+
     const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
     this.dataSourceVisitas.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSourceVisitas.filteredData);
     if (this.dataSourceVisitas.paginator) {
       this.dataSourceVisitas.paginator.firstPage();
     }

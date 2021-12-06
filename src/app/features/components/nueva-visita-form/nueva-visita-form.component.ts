@@ -21,15 +21,27 @@ export class NuevaVisitaFormComponent implements OnInit {
   @Input() isAdministrador: boolean = false;
   @Output() onNuevaVisitaAdded = new EventEmitter();
   usuarioId!: number | undefined;
+  listAreas: any[] = [];
   constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService,
     public authService: AuthService) {
     this.minDate = moment().toDate();
   }
 
   ngOnInit(): void {
+    this.obtenerAreasActivas();
     console.log(this.isAdministrador)
     this.usuarioId = this.isAdministrador ? this.authService.getCuentaActivaValue().usuario.id : undefined
     this.nuevaVisitaForm = this.createNuevaVisitaForm();
+  }
+
+  obtenerAreasActivas() {
+    this.api.GET('/areas/activos')
+      .then(res => {
+        this.listAreas = res;
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   createNuevaVisitaForm() {
@@ -85,16 +97,18 @@ export class NuevaVisitaFormComponent implements OnInit {
 
   agendarVisita(): void {
     this.nuevaVisitaForm.markAllAsTouched();
-    console.log(this.nuevaVisitaForm.value)
-    console.log(this.authService.getCuentaActivaValue().usuario.id)
     if (this.nuevaVisitaForm.invalid) return;
-    console.log(this.nuevaVisitaForm.value)
     this.isLoadingNew = true;
     if (!this.utilService.validateRut(this.nuevaVisitaForm.value.rut)) {
       this.utilService.openSnackBar('Rut no valido', 2000);
       return;
     }
     let nuevaVisita = this.nuevaVisitaForm.value;
+    nuevaVisita.areaId = nuevaVisita.area;  
+    delete nuevaVisita.area;
+    // nuevaVisita.fechavisita = nuevaVisita.fechavisita.toDate();
+    console.log(nuevaVisita);
+
     this.api.agendarVisita(nuevaVisita).subscribe(res => {
       Swal.fire({
         title: 'Nueva Visita Agendada',
@@ -108,6 +122,13 @@ export class NuevaVisitaFormComponent implements OnInit {
     }, error => {
       console.log(error);
       this.isLoadingNew = false;
+      Swal.fire({
+        title: 'Error',
+        text: 'Error al agendar la visita',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Aceptar'
+      })
     });
   }
 

@@ -51,11 +51,16 @@
                         <td>
                             <mat-form-field appearance="outline">
                                 <mat-label>Area</mat-label>
-                                <input formControlName="area" matInput>
+                                <!-- <input formControlName="area" matInput>
                                 <button *ngIf="nuevaVisitaForm.get('area')?.value != null" matSuffix mat-icon-button
                                     aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'area':null})">
                                     <mat-icon>close</mat-icon>
-                                </button>
+                                </button> -->
+                                <mat-select formControlName="area" placeholder="Seleccione una opción">
+                                    <mat-option *ngFor="let area of listAreas" [value]="area.id">
+                                        {{area.nombre}}
+                                    </mat-option>
+                                </mat-select>
                                 <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'area')">
                                     Area es <strong>necesario</strong>
                                 </mat-error>

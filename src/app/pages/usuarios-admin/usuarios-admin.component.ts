@@ -142,6 +142,7 @@ export class UsuariosAdminComponent implements OnInit {
         title: 'Usuario Creado!',
         text: "Se le enviara un correo con usuario y contraseña al nuevo usuario",
       });
+      this.nuevoUsuarioForm.reset();
     }, error => {
       Swal.fire({
         icon: 'error',

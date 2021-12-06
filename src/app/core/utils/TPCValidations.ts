@@ -5,7 +5,6 @@ export class TPCValidations {
 
     static isRutInvalido(control: AbstractControl): ValidationErrors | null {
         const value = control.value;
-        console.log(value)
         if (!value) {
             return null;
         }

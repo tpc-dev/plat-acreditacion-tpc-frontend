@@ -24,6 +24,7 @@ import { RecuperarPasswordComponent } from './recuperar-password/recuperar-passw
 import { ItemCarpetaArranqueAdminComponent } from './item-carpeta-arranque-admin/item-carpeta-arranque-admin.component';
 import { DetalleItemCarpetaArranqueAdminComponent } from './detalle-item-carpeta-arranque-admin/detalle-item-carpeta-arranque-admin.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AreasAdminComponent } from './areas-admin/areas-admin.component';
 
 @NgModule({
     imports: [
@@ -53,7 +54,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         ResetpasswordComponent,
         RecuperarPasswordComponent,
         ItemCarpetaArranqueAdminComponent,
-        DetalleItemCarpetaArranqueAdminComponent],
+        DetalleItemCarpetaArranqueAdminComponent,
+        AreasAdminComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

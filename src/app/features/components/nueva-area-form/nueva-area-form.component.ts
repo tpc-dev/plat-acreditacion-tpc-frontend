@@ -7,74 +7,66 @@ import { TPCValidations } from 'src/app/core/utils/TPCValidations';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-nueva-empresa-form',
-  templateUrl: './nueva-empresa-form.component.html',
-  styleUrls: ['./nueva-empresa-form.component.scss']
+  selector: 'app-nueva-area-form',
+  templateUrl: './nueva-area-form.component.html',
+  styleUrls: ['./nueva-area-form.component.scss']
 })
-export class NuevaEmpresaFormComponent implements OnInit {
-  nuevaEmpresaForm!: FormGroup;
+export class NuevaAreaFormComponent implements OnInit {
+
+  nuevaAreaForm!: FormGroup;
   isLoadingNew = false;
-  @Output() onNuevaEmpresaAgregada = new EventEmitter();
+  @Output() onNuevaAreaAgregada = new EventEmitter();
   usuarioId!: number | undefined;
   constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService,
     public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.nuevaEmpresaForm = this.createNuevaEmpresaForm();
+    this.nuevaAreaForm = this.createNuevaAreaForm();
   }
 
   obtenerEstadosAcreditacion() {
 
   }
 
-  createNuevaEmpresaForm() {
+  createNuevaAreaForm() {
     return this.formBuilder.group({
-      rut: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-          TPCValidations.isRutInvalido
-        ])
-      ),
-      razonsocial: new FormControl(
+      nombre: new FormControl(
         null,
         Validators.compose([
           Validators.required,
         ])
       ),
-      estadoacreditacionid: new FormControl(
-        1,
+      activo: new FormControl(
+        null,
         Validators.compose([
           Validators.required,
         ])
-      ),
+      )
     });
   }
 
-  crearEmpresa() {
+  crearArea() {
     this.isLoadingNew = true;
     let req = {
-      rut: this.nuevaEmpresaForm.value.rut.trim(),
-      razonSocial: this.nuevaEmpresaForm.value.razonsocial,
-      estadoAcreditacionId: 1,
-      activo: true
+      nombre: this.nuevaAreaForm.value.nombre,
+      activo: this.nuevaAreaForm.value.activo == "true" ? true : false,
     }
-    this.api.POST('/empresas', req)
+    this.api.POST('/areas', req)
       .then(res => {
-        this.onNuevaEmpresaAgregada.emit(res);
+        this.onNuevaAreaAgregada.emit(res);
         Swal.fire({
-          title: 'Empresa creada',
-          text: 'La empresa ha sido creada con éxito',
+          title: 'Area creada',
+          text: 'La área ha sido creada con éxito',
           icon: 'success',
           confirmButtonText: 'Ok'
         });
-        this.nuevaEmpresaForm.reset();
+        this.nuevaAreaForm.reset();
       })
       .catch(err => {
         console.log(err);
         Swal.fire({
           title: 'Error',
-          text: `No se pudo crear la empresa. ${err.error}`,
+          text: `No se pudo crear la área. ${err.error}`,
           icon: 'error',
           confirmButtonText: 'Ok'
         })
@@ -83,4 +75,5 @@ export class NuevaEmpresaFormComponent implements OnInit {
         this.isLoadingNew = false;
       });
   }
+
 }

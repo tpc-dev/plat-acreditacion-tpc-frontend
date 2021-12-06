@@ -61,9 +61,9 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   obtenerProtocolos() {
     this.api.GET('/protocolos-ingreso')
       .then(data => {
+        if (data.length == 0) return;
         let protocoloCovid = data.find((protocolo: ProtocoloIngreso) => protocolo.nombre.toLocaleLowerCase().includes("covid"));
         this.isProtocoloCovidActivo = protocoloCovid.activo;
-
       })
       .catch(err => {
         console.log(err);

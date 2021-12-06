@@ -5,7 +5,7 @@
                 <table class="table-nueva-visita" cellspacing="2">
                     <tr>
                         <td>
-                            <mat-form-field appearance="fill">
+                            <mat-form-field appearance="outline">
                                 <mat-label>Nombre</mat-label>
                                 <input formControlName="nombre" matInput>
                                 <button *ngIf="nuevaVisitaForm.get('nombre')?.value != null" matSuffix mat-icon-button
@@ -18,7 +18,7 @@
                             </mat-form-field>
                         </td>
                         <td>
-                            <mat-form-field appearance="fill">
+                            <mat-form-field appearance="outline">
                                 <mat-label>Apellido</mat-label>
                                 <input formControlName="apellido" matInput>
                                 <button *ngIf="nuevaVisitaForm.get('apellido')?.value != null" matSuffix mat-icon-button
@@ -31,7 +31,7 @@
                             </mat-form-field>
                         </td>
                         <td>
-                            <mat-form-field appearance="fill">
+                            <mat-form-field appearance="outline">
                                 <mat-label>RUT</mat-label>
                                 <input placeholder="11111111-1" formControlName="rut" matInput>
                                 <button *ngIf="nuevaVisitaForm.get('rut')?.value != null" matSuffix mat-icon-button
@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <mat-form-field appearance="fill">
+                            <mat-form-field appearance="outline">
                                 <mat-label>Area</mat-label>
                                 <input formControlName="area" matInput>
                                 <button *ngIf="nuevaVisitaForm.get('area')?.value != null" matSuffix mat-icon-button
@@ -62,7 +62,7 @@
                             </mat-form-field>
                         </td>
                         <td *ngIf="!isAdministrador">
-                            <mat-form-field appearance="fill">
+                            <mat-form-field appearance="outline">
                                 <mat-label>Encargado</mat-label>
                                 <mat-select formControlName="usuarioid" name="usuarioid">
                                     <mat-option *ngFor="let encargado of listaEncargados" [value]="encargado.id">
@@ -80,7 +80,7 @@
                             </mat-form-field>
                         </td>
                         <td>
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width" appearance="outline">
                                 <mat-label>Fecha de visita</mat-label>
                                 <input formControlName="fechavisita" matInput [min]="minDate" [matDatepicker]="picker">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -100,7 +100,7 @@
                 <table>
                     <tr>
                         <td style="width: 648px;">
-                            <mat-form-field appearance="fill">
+                            <mat-form-field appearance="outline">
                                 <mat-label>Comentario</mat-label>
                                 <textarea style="height: 10px;" formControlName="comentario" matInput
                                     placeholder="Visita con motivo de negocios"></textarea>

@@ -16,6 +16,7 @@ export class EmpresasAdminComponent implements OnInit {
   @ViewChild(MatTabGroup) tabs!: MatTabGroup;
   listAcreditadas: Array<Empresa> = [];
   listEnAcreditacion: Array<Empresa> = [];
+  listaEmpresas: Array<Empresa> = [];
   isLoading = false;
   isAdministrador: boolean = true;
   cuenta!: Cuenta;
@@ -32,15 +33,10 @@ export class EmpresasAdminComponent implements OnInit {
 
   obtenerEmpresas(): void {
     this.isLoading = true;
-    this.api.GET("/empresas/en-acreditacion")
+    this.api.GET("/empresas")
       .then((empresas: Empresa[]) => {
         console.log(empresas);
-        this.listEnAcreditacion = empresas;
-        return this.api.GET("/empresas/acreditadas")
-      })
-      .then((empresas: Empresa[]) => {
-        console.log(empresas);
-        this.listAcreditadas = empresas;
+        this.listaEmpresas = empresas;
       })
       .catch(error => {
         console.log(error)
@@ -48,6 +44,22 @@ export class EmpresasAdminComponent implements OnInit {
         console.log('finally')
         this.isLoading = false;
       });
+    // this.api.GET("/empresas/en-acreditacion")
+    //   .then((empresas: Empresa[]) => {
+    //     console.log(empresas);
+    //     this.listEnAcreditacion = empresas;
+    //     return this.api.GET("/empresas/acreditadas")
+    //   })
+    //   .then((empresas: Empresa[]) => {
+    //     console.log(empresas);
+    //     this.listAcreditadas = empresas;
+    //   })
+    //   .catch(error => {
+    //     console.log(error)
+    //   }).finally(() => {
+    //     console.log('finally')
+    //     this.isLoading = false;
+    //   });
   }
 
   // obtenerEmpresasEnAcreditacion(): void {

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guard';
 import { FormularioProtocoloCovidComponent } from './features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
+import { AreasAdminComponent } from './pages/areas-admin/areas-admin.component';
 import { ContratosAdminComponent } from './pages/contratos-admin/contratos-admin.component';
 import { DetalleItemCarpetaArranqueAdminComponent } from './pages/detalle-item-carpeta-arranque-admin/detalle-item-carpeta-arranque-admin.component';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
@@ -141,6 +142,11 @@ const routes: Routes = [
     component: DetalleItemCarpetaArranqueAdminComponent,
     canActivate: [AuthGuard],
     path: 'item-carpeta-arranque-admin/:id'
+  },
+  {
+    component: AreasAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'areas-admin'
   }
 
 ];

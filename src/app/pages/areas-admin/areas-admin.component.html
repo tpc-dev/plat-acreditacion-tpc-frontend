@@ -1,0 +1,14 @@
+<div style="text-align: center;">
+    <h1><strong>Áreas de Trabajo</strong></h1>
+</div>
+<mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
+    <mat-tab label="Listado">
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-tabla-buscador-areas *ngIf="!isLoading" (actualizarListado)=obtenerAreas()
+            [listaAreas]="listaAreas" ></app-tabla-buscador-areas>
+    </mat-tab>
+    <mat-tab label="Ingresar Nueva Área">
+        <app-nueva-area-form  (onNuevaAreaAgregada)=obtenerAreas()>
+        </app-nueva-area-form>
+    </mat-tab>
+</mat-tab-group>

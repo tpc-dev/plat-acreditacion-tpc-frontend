@@ -5,8 +5,8 @@
                 <tr>
                     <td>
                         <mat-form-field appearance="outline">
-                            <mat-label>Buscar Empresa</mat-label>
-                            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                            <mat-label>Buscar Área</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Area 1" #input>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -15,13 +15,13 @@
 
         <div class="container-table  mat-elevation-z2">
             <table class="table-data" mat-table [dataSource]="dataSource" matSort>
-                <ng-container matColumnDef="rut">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT </th>
-                    <td mat-cell *matCellDef="let row"> {{row.rut}} </td>
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                    <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
                 </ng-container>
-                <ng-container matColumnDef="razonsocial">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Razon Social </th>
-                    <td mat-cell *matCellDef="let row"> {{row.razonSocial}}</td>
+                <ng-container matColumnDef="activo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
+                    <td mat-cell *matCellDef="let row"> {{row.activo? 'Si':'No'}}</td>
                 </ng-container>
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
@@ -36,7 +36,7 @@
                     <td class="mat-cell" colspan="4">No hay registros "{{input.value}}"</td>
                 </tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Selecciona pagia de empresas">
+            <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Selecciona página de áreas">
             </mat-paginator>
         </div>
     </div>

@@ -3,13 +3,13 @@
     <table>
         <tr>
             <td>
-                <mat-form-field class="input-form" appearance="fill">
+                <mat-form-field class="input-form" appearance="outline">
                     <mat-label>Nombre</mat-label>
                     <input matInput [(ngModel)]="data.nombre">
                 </mat-form-field>
             </td>
             <td>
-                <mat-form-field class="input-form" appearance="fill">
+                <mat-form-field class="input-form" appearance="outline">
                     <mat-label>Apellido</mat-label>
                     <input matInput [(ngModel)]="data.apellido">
                 </mat-form-field>
@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <td>
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Fecha de visita</mat-label>
                     <input [(ngModel)]="data.fechaVisita" matInput [min]="minDate" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

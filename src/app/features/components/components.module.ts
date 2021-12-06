@@ -43,6 +43,8 @@ import { IngresarContratoStepperComponent } from './ingresar-contrato-stepper/in
 import { FormularioProtocoloCovidComponent } from './formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { MatTableExporterModule } from "mat-table-exporter";
 import { DetailTipoDocAcreditacionComponent } from './detail-tipo-doc-acreditacion/detail-tipo-doc-acreditacion.component';
+import { TablaBuscadorAreasComponent } from './tabla-buscador-areas/tabla-buscador-areas.component';
+import { NuevaAreaFormComponent } from './nueva-area-form/nueva-area-form.component';
 
 @NgModule({
     imports: [
@@ -93,6 +95,8 @@ import { DetailTipoDocAcreditacionComponent } from './detail-tipo-doc-acreditaci
         IngresarContratoStepperComponent,
         FormularioProtocoloCovidComponent,
         DetailTipoDocAcreditacionComponent,
+        TablaBuscadorAreasComponent,
+        NuevaAreaFormComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -104,6 +108,8 @@ import { DetailTipoDocAcreditacionComponent } from './detail-tipo-doc-acreditaci
         NuevaEmpresaFormComponent,
         IngresarContratoStepperComponent,
         FormularioProtocoloCovidComponent,
+        TablaBuscadorAreasComponent,
+        NuevaAreaFormComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

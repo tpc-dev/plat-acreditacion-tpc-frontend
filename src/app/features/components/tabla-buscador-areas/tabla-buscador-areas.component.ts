@@ -17,7 +17,7 @@ export class TablaBuscadorAreasComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   dataSource!: MatTableDataSource<Empresa>;
-  displayedColumns: string[] = ['nombre', 'activo'];
+  displayedColumns: string[] = ['nombre', 'activo','acciones'];
   @Output() actualizarListado = new EventEmitter();
   constructor() { }
 

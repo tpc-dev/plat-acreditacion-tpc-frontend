@@ -19,8 +19,13 @@ export class LogintpcPageComponent implements OnInit {
     this.loginForm = this.createloginForm();
   }
 
+
+
   ngOnInit(): void {
     console.log('doLogindoLogindoLogin')
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/home');
+    }
   }
 
   doLogin(): void {

@@ -93,7 +93,7 @@ export class AppComponent {
       this.authService.setCuentaActiva(cuenta);
       this.authService.sessionOn.next(true);
       this.apiService.setToken(cuenta.token);
-    //  this.router.navigateByUrl('/home');
+      //  this.router.navigateByUrl('/home');
     }
   }
 

@@ -29,6 +29,7 @@ const routes: Routes = [
   // { path: '**', component: NotfoundComponent },
   {
     component: LogintpcPageComponent,
+    canLoad: [AuthGuard],
     path: 'login-tpc'
   },
   {

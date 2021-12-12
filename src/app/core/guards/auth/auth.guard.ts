@@ -6,27 +6,24 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate
+export class AuthGuard implements CanActivate, CanLoad
 // CanActivateChild,
-//  CanLoad
+
 {
 
-  constructor(private authService: AuthService, private router: Router) {}
-
+  constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.checkLogin('/home');  
+    return this.checkLogin('/home');
     return true;
   }
 
-  checkLogin(url: string): true|UrlTree {
+  checkLogin(url: string): true | UrlTree {
     if (this.authService.isLoggedIn()) { return true; }
-
     // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;
-
     // Redirect to the login page
     return this.router.parseUrl('/login-tpc');
   }
@@ -35,9 +32,11 @@ export class AuthGuard implements CanActivate
   //   state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
   //   return true;
   // }
-  // canLoad(
-  //   route: Route,
-  //   segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-  //   return true;
-  // }
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    console.log("asd");
+    if (!this.authService.isLoggedIn()) { return true; }
+    return false;
+  }
 }

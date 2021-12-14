@@ -6,13 +6,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Empresa } from 'src/app/core/interfaces/empresa.interface';
 
 @Component({
-  selector: 'app-tabla-buscador-areas',
-  templateUrl: './tabla-buscador-areas.component.html',
-  styleUrls: ['./tabla-buscador-areas.component.scss']
+  selector: 'app-tabla-buscador-gerencias',
+  templateUrl: './tabla-buscador-gerencias.component.html',
+  styleUrls: ['./tabla-buscador-gerencias.component.scss']
 })
-export class TablaBuscadorAreasComponent implements OnInit {
+export class TablaBuscadorGerenciasComponent implements OnInit {
 
-  @Input() listaAreas: any[] = [];
+  @Input() listaGerencias: any[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
@@ -22,7 +22,9 @@ export class TablaBuscadorAreasComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.listaAreas);
+    console.log(this.listaGerencias);
+    
+    this.dataSource = new MatTableDataSource(this.listaGerencias);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -35,7 +37,7 @@ export class TablaBuscadorAreasComponent implements OnInit {
     }
   }
 
-  recargarAreas(): void {
+  recargarGerencias(): void {
     // this.obtenerVisitasActivas();
     this.actualizarListado.emit();
   }

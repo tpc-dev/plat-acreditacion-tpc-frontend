@@ -1,0 +1,48 @@
+<div style="margin-top:8px">
+    <mat-card class="container-table  mat-elevation-z2">
+        <section>
+            <form [formGroup]="nuevaGerenciaForm">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input formControlName="nombre" matInput>
+                            <button *ngIf="nuevaGerenciaForm.get('nombre')?.value != null" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nuevaGerenciaForm.patchValue({'nombre':null})">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="nuevaGerenciaForm.hasError('required', 'nombre')">
+                                nombre es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label>Activo</mat-label>
+                            <!-- <input formControlName="rut" matInput> -->
+                            <!-- <button *ngIf="nuevaGerenciaForm.get('rut')?.value != null" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nuevaGerenciaForm.patchValue({'rut':null})">
+                                <mat-icon>close</mat-icon>
+                            </button> -->
+                            <mat-select formControlName="activo" matInput>
+                                <mat-option value="true">Si</mat-option>
+                                <mat-option value="false">No</mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="nuevaGerenciaForm.hasError('required', 'rut')">
+                                RUT es <strong>necesario</strong>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button (click)="crearArea()" [disabled]="nuevaGerenciaForm.invalid || isLoadingNew"
+                            class="button-form button-add-form" mat-raised-button color="primary">Agregar</button>
+                    </div>
+                </div>
+            </form>
+            <mat-progress-bar *ngIf="isLoadingNew" style="margin-top: 8px;" color="accent" mode="query">
+            </mat-progress-bar>
+        </section>
+    </mat-card>
+</div>

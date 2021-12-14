@@ -8,6 +8,7 @@ import { DetalleItemCarpetaArranqueAdminComponent } from './pages/detalle-item-c
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { EmpresasAdminComponent } from './pages/empresas-admin/empresas-admin.component';
 import { FormularioCovidComponent } from './pages/formulario-covid/formulario-covid.component';
+import { GerenciasAdminComponent } from './pages/gerencias-admin/gerencias-admin.component';
 import { HomeGuardiaComponent } from './pages/home-guardia/home-guardia.component';
 import { InduccionRiesgoPageComponent } from './pages/induccion-riesgo-page/induccion-riesgo-page.component';
 import { ItemCarpetaArranqueAdminComponent } from './pages/item-carpeta-arranque-admin/item-carpeta-arranque-admin.component';
@@ -148,8 +149,12 @@ const routes: Routes = [
     component: AreasAdminComponent,
     canActivate: [AuthGuard],
     path: 'areas-admin'
+  },
+  {
+    component: GerenciasAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'gerencias-admin'
   }
-
 ];
 
 @NgModule({

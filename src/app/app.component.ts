@@ -68,6 +68,7 @@ export class AppComponent {
     { name: "Tipo Roles", icon: "perm_identity", path: '/tipos-roles-admin' },
     { name: "Empresas", icon: "business", path: '/empresas-admin' },
     { name: "Areas", icon: "home_work", path: '/areas-admin' },
+    { name: "Gerencias", icon: "groups", path: '/gerencias-admin' },
     { name: "Elementos CA", icon: "settings", path: '/item-carpeta-arranque-admin' },
     { name: "Protocolos", icon: "settings", path: '/platform-settings-admin' },
     // { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },

@@ -45,6 +45,8 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { DetailTipoDocAcreditacionComponent } from './detail-tipo-doc-acreditacion/detail-tipo-doc-acreditacion.component';
 import { TablaBuscadorAreasComponent } from './tabla-buscador-areas/tabla-buscador-areas.component';
 import { NuevaAreaFormComponent } from './nueva-area-form/nueva-area-form.component';
+import { TablaBuscadorGerenciasComponent } from './tabla-buscador-gerencias/tabla-buscador-gerencias.component';
+import { NuevaGerenciaFormComponent } from './nueva-gerencia-form/nueva-gerencia-form.component';
 
 @NgModule({
     imports: [
@@ -97,6 +99,8 @@ import { NuevaAreaFormComponent } from './nueva-area-form/nueva-area-form.compon
         DetailTipoDocAcreditacionComponent,
         TablaBuscadorAreasComponent,
         NuevaAreaFormComponent,
+        TablaBuscadorGerenciasComponent,
+        NuevaGerenciaFormComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -110,6 +114,8 @@ import { NuevaAreaFormComponent } from './nueva-area-form/nueva-area-form.compon
         FormularioProtocoloCovidComponent,
         TablaBuscadorAreasComponent,
         NuevaAreaFormComponent,
+        TablaBuscadorGerenciasComponent,
+        NuevaGerenciaFormComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

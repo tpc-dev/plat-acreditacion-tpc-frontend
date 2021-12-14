@@ -25,6 +25,7 @@ import { ItemCarpetaArranqueAdminComponent } from './item-carpeta-arranque-admin
 import { DetalleItemCarpetaArranqueAdminComponent } from './detalle-item-carpeta-arranque-admin/detalle-item-carpeta-arranque-admin.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AreasAdminComponent } from './areas-admin/areas-admin.component';
+import { GerenciasAdminComponent } from './gerencias-admin/gerencias-admin.component';
 
 @NgModule({
     imports: [
@@ -55,7 +56,8 @@ import { AreasAdminComponent } from './areas-admin/areas-admin.component';
         RecuperarPasswordComponent,
         ItemCarpetaArranqueAdminComponent,
         DetalleItemCarpetaArranqueAdminComponent,
-        AreasAdminComponent],
+        AreasAdminComponent,
+        GerenciasAdminComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

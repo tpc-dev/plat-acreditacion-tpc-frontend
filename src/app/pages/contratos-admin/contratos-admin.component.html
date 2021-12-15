@@ -2,15 +2,20 @@
     <h1><strong>Contratos</strong></h1>
 </div>
 <mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
-    <mat-tab label="Acreditados">
+    <mat-tab label="Todos">
         <!-- <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
         <app-tabla-buscador-empresas *ngIf="!isLoading" (actualizarListado)=obtenerEmpresas()
             [listaEmpresas]="listAcreditadas" ></app-tabla-buscador-empresas> -->
+        <app-tabla-buscador-contratos></app-tabla-buscador-contratos>
     </mat-tab>
-    <mat-tab label="En Acreditación">
-        <!-- <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-        <app-tabla-buscador-empresas *ngIf="!isLoading" (actualizarListado)=obtenerEmpresas()
-            [listaEmpresas]="listEnAcreditacion" ></app-tabla-buscador-empresas> -->
+    <mat-tab label="En Paso 1">
+        <app-tabla-buscador-contratos></app-tabla-buscador-contratos>
+    </mat-tab>
+    <mat-tab label="En Paso 2">
+        <app-tabla-buscador-contratos></app-tabla-buscador-contratos>
+    </mat-tab>
+    <mat-tab label="En Paso 3">
+        <app-tabla-buscador-contratos></app-tabla-buscador-contratos>
     </mat-tab>
     <mat-tab label="Ingresar Contrato">
         <!-- <app-nueva-empresa-form  (onNuevaEmpresaAgregada)=obtenerEmpresas()>

@@ -47,6 +47,7 @@ import { TablaBuscadorAreasComponent } from './tabla-buscador-areas/tabla-buscad
 import { NuevaAreaFormComponent } from './nueva-area-form/nueva-area-form.component';
 import { TablaBuscadorGerenciasComponent } from './tabla-buscador-gerencias/tabla-buscador-gerencias.component';
 import { NuevaGerenciaFormComponent } from './nueva-gerencia-form/nueva-gerencia-form.component';
+import { TablaBuscadorContratosComponent } from './tabla-buscador-contratos/tabla-buscador-contratos.component';
 
 @NgModule({
     imports: [
@@ -101,6 +102,7 @@ import { NuevaGerenciaFormComponent } from './nueva-gerencia-form/nueva-gerencia
         NuevaAreaFormComponent,
         TablaBuscadorGerenciasComponent,
         NuevaGerenciaFormComponent,
+        TablaBuscadorContratosComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -116,6 +118,7 @@ import { NuevaGerenciaFormComponent } from './nueva-gerencia-form/nueva-gerencia
         NuevaAreaFormComponent,
         TablaBuscadorGerenciasComponent,
         NuevaGerenciaFormComponent,
+        TablaBuscadorContratosComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

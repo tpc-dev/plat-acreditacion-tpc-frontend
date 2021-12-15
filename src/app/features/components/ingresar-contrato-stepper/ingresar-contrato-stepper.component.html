@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-vertical-stepper orientation="vertical" [linear]="false" #stepper>
+  <mat-vertical-stepper orientation="vertical" [linear]="isLinear" #stepper>
     <mat-step [stepControl]="datosRevisionFormGroup" errorMessage="Complete el formulario.">
       <form style="margin-top: 8px;" [formGroup]="datosRevisionFormGroup">
         <ng-template matStepLabel>Datos Revisión</ng-template>
@@ -22,7 +22,32 @@
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <mat-form-field class="input-form" appearance="outline">
               <mat-label>Área de desempeño</mat-label>
-              <input matInput placeholder="Área desempeño" formControlName="areaDesempeno" required>
+              <!-- <input matInput placeholder="Área desempeño" formControlName="areaDesempeno" required> -->
+              <mat-select formControlName="areaDesempeno" required>
+                <mat-option [value]="area.id" *ngFor="let area of listAreas">{{area.nombre}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>Fecha Inicio</mat-label>
+              <input (dateChange)="verificarRangosFechaValido();setFechaMinimoTerminoContrato()" [max]="datosRevisionFormGroup.get('fechaFin')?.value" required formControlName="fechaInicio" matInput
+                [matDatepicker]="pickerFechaInicio">
+              <mat-datepicker-toggle matSuffix [for]="pickerFechaInicio">
+              </mat-datepicker-toggle>
+              <mat-datepicker #pickerFechaInicio></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>Fecha Término</mat-label>
+              <input (dateChange)="verificarRangosFechaValido();setFechaMaximoInicioContrato()" [min]="datosRevisionFormGroup.get('fechaInicio')?.value" required formControlName="fechaFin" matInput
+                [matDatepicker]="pickerFechaFin">
+              <mat-datepicker-toggle matSuffix [for]="pickerFechaFin">
+              </mat-datepicker-toggle>
+              <mat-datepicker #pickerFechaFin></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -34,16 +59,31 @@
             </mat-form-field>
           </div>
         </div>
-        <div>
-          <button mat-stroked-button color="primary" matStepperNext>Siguiente</button>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <mat-error>
+              <span *ngIf="rangoFechasInvalido">La fecha de Inicio debe ser <strong>Menor</strong> a la de
+                Término</span>
+            </mat-error>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <button [disabled]="datosRevisionFormGroup.invalid || rangoFechasInvalido" class="button-step2"
+              mat-raised-button (click)="guardarContratoPaso1()" color="accent">Guardar
+              Contrato</button>
+          </div>
+        </div>
+        <!-- <div>
+          <button [disabled]="datosRevisionFormGroup.invalid" mat-stroked-button color="primary"  (click)="guardarContrato()" matStepperNext>Siguiente</button>
+        </div> -->
       </form>
     </mat-step>
     <mat-step [stepControl]="encargadosFormGroup" errorMessage="Complete el formulario.">
       <form style="margin-top: 8px;" [formGroup]="encargadosFormGroup">
         <ng-template matStepLabel>Datos Encargados</ng-template>
         <div class="row">
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field class="input-form" appearance="outline">
               <mat-label>ADC EECC</mat-label>
               <mat-select formControlName="adceecc" required>
@@ -51,26 +91,6 @@
                   {{adceecc.apellido1}} {{adceecc.apellido2}}
                 </mat-option>
               </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <mat-form-field class="input-form" appearance="outline">
-              <mat-label>Fecha</mat-label>
-              <input required formControlName="fecha" matInput [matDatepicker]="picker">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <mat-form-field class="input-form" appearance="outline">
-              <mat-label>GERENCIA</mat-label>
-              <input matInput formControlName="gerencia" placeholder="" required>
-            </mat-form-field>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <mat-form-field class="input-form" appearance="outline">
-              <mat-label>ÁREA</mat-label>
-              <input matInput formControlName="area" placeholder="" required>
             </mat-form-field>
           </div>
         </div>
@@ -83,6 +103,24 @@
                   {{adctpc.nombre}}
                   {{adctpc.apellido1}} {{adctpc.apellido2}}
                 </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>GERENCIA</mat-label>
+              <!-- <input matInput formControlName="gerencia" placeholder="" required> -->
+              <mat-select formControlName="gerencia" required>
+                <mat-option value="gerencia.id" *ngFor="let gerencia of listGerencias">{{gerencia.nombre}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>ÁREA</mat-label>
+              <!-- <input matInput formControlName="area" placeholder="" required> -->
+              <mat-select formControlName="area" required>
+                <mat-option value="area.id" *ngFor="let area of listAreas">{{area.nombre}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -99,16 +137,36 @@
               </mat-select>
             </mat-form-field>
           </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>GERENCIA</mat-label>
+              <!-- <input matInput formControlName="gerencia" placeholder="" required> -->
+              <mat-select formControlName="gerencia2" required>
+                <mat-option value="gerencia.id" *ngFor="let gerencia of listGerencias">{{gerencia.nombre}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="input-form" appearance="outline">
+              <mat-label>ÁREA</mat-label>
+              <!-- <input matInput formControlName="area" placeholder="" required> -->
+              <mat-select formControlName="area2" required>
+                <mat-option value="area.id" *ngFor="let area of listAreas">{{area.nombre}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             <button class="button-step2" mat-stroked-button color="primary" matStepperPrevious>Atrás</button>
           </div>
           <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <button class="button-step2" mat-stroked-button color="primary" matStepperNext>Siguiente</button>
+            <button [disabled]="!contratoGuardado" class="button-step2" mat-stroked-button color="primary"
+              matStepperNext>Siguiente</button>
           </div>
           <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <button class="button-step2" mat-raised-button color="accent">Guardar Contrato</button>
+            <button class="button-step2" mat-raised-button (click)="guardarContratoPaso2()" color="accent">Guardar
+              Contrato</button>
           </div>
         </div>
       </form>

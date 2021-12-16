@@ -1,33 +1,24 @@
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatVerticalStepper } from '@angular/material/stepper';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Usuario } from 'src/app/core/interfaces/cuenta.interface';
+import { Empresa } from 'src/app/core/interfaces/empresa.interface';
+import { EtapaCreacionContrato } from 'src/app/core/interfaces/etapacreacioncontrato.interface';
 import { ItemCarpetaArranque } from 'src/app/core/interfaces/itemcarpetaarranque.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
-import { Empresa } from 'src/app/core/interfaces/empresa.interface';
-import { Usuario } from 'src/app/core/interfaces/cuenta.interface';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import Swal from 'sweetalert2';
-import { MatVerticalStepper } from '@angular/material/stepper';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { EtapaCreacionContrato } from 'src/app/core/interfaces/etapacreacioncontrato.interface';
 
 @Component({
-  selector: 'app-ingresar-contrato-stepper',
-  templateUrl: './ingresar-contrato-stepper.component.html',
-  styleUrls: ['./ingresar-contrato-stepper.component.scss'],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
-  ],
+  selector: 'app-contrato-detail',
+  templateUrl: './contrato-detail.component.html',
+  styleUrls: ['./contrato-detail.component.scss']
 })
+export class ContratoDetailComponent implements OnInit {
 
-export class IngresarContratoStepperComponent implements OnInit {
-
-  // @ViewChild('stepper', { static: true }) stepper: MatVerticalStepper;
   @ViewChild('stepper') stepper: MatVerticalStepper;
-
   listEmpresas: Empresa[] = [];
   listAreas: any[] = [];
   listGerencias: any[] = [];
@@ -36,31 +27,55 @@ export class IngresarContratoStepperComponent implements OnInit {
   cantidadADCTPC: number[] = [];
 
   listEtapasCreacionContrato: EtapaCreacionContrato[] = [];
-
-
   listADCEECC: Usuario[] = [];
-
   isLinear = true;
   datosRevisionFormGroup!: FormGroup;
   encargadosFormGroup!: FormGroup;
   elementosCarpetaArranque: ItemCarpetaArranque[] = []
-
   contratoGuardado: boolean = false;
   rangoFechasInvalido = false;
-
   minFechaContrato = new Date();
   maxFechaContrato = new Date();
-
   currentContrato: any;
-
-  constructor(private elRef: ElementRef, private _formBuilder: FormBuilder, public apiService: ApiService, public authService: AuthService, private _snackBar: MatSnackBar) {
+  etapa: number;
+  constructor(private route: ActivatedRoute, private router: Router, private elRef: ElementRef, private _formBuilder: FormBuilder, public apiService: ApiService, public authService: AuthService, private _snackBar: MatSnackBar) {
     this.cantidadADCTPC.push(0);
+    if (this.router.getCurrentNavigation()?.extras.state) {
+      console.log(this.router.getCurrentNavigation()?.extras.state);
+      this.currentContrato = this.router.getCurrentNavigation()?.extras.state?.contrato;
+      this.etapa = this.router.getCurrentNavigation()?.extras.state?.etapa;
+    } else {
+      this.router.navigate(['/contratos-admin']);
+    }
   }
 
-  ngAfterViewInit(): void {
+
+  loadContratoDataToForm() {
+    // COMPLETAR DATOS ETAPA UNO
+    if (this.etapa == 1) {
+      this.datosRevisionFormGroup.get('contrato')?.setValue(this.currentContrato.codigoContrato);
+      this.datosRevisionFormGroup.get('empresa')?.setValue(this.currentContrato.empresaContrato.empresaId);
+      this.datosRevisionFormGroup.get('areaDesempeno')?.setValue(this.currentContrato.areaId);
+      this.datosRevisionFormGroup.get('fechaInicio')?.setValue(this.currentContrato.inicioContrato);
+      this.datosRevisionFormGroup.get('fechaFin')?.setValue(this.currentContrato.terminoContrato);
+      this.datosRevisionFormGroup.get('descripcionContrato')?.setValue(this.currentContrato.codigoContrato);
+    }
+
+    // COMPLETAR DATOS ETAPA DOS
+    if (this.etapa == 2) {
+
+    }
+
+    // COMPLETAR DATOS ETAPA TRES
+    if (this.etapa == 3) {
+
+    }
+
   }
+
 
   ngOnInit() {
+
     this.obtenerEtapaCreacionContrato();
     this.obtenerItemsCarpetaArranque();
     this.obtenerEmpresas();
@@ -68,6 +83,7 @@ export class IngresarContratoStepperComponent implements OnInit {
     this.obtenerGerencias();
     this.obtenerADCEECC();
     this.obtenerADCTPC();
+
     this.datosRevisionFormGroup = this._formBuilder.group(
       {
         empresa: ['', Validators.required],
@@ -93,6 +109,8 @@ export class IngresarContratoStepperComponent implements OnInit {
       gerencia2: ['', Validators.required],
       area2: ['', Validators.required],
     });
+
+    this.loadContratoDataToForm();
   }
 
   obtenerEtapaCreacionContrato() {

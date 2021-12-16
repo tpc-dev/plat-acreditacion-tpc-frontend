@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/core/services/api/api.service';
-import { VisitaDetailComponent } from '../visita-detail/visita-detail/visita-detail.component';
+import { VisitaDetailComponent } from '../visita-detail/visita-detail.component';
 
 @Component({
   selector: 'app-visita-ingresos-historico',

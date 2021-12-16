@@ -8,7 +8,7 @@
             <mat-form-field class="input-form" appearance="outline">
               <mat-label>Nombre de la Empresa</mat-label>
               <mat-select formControlName="empresa" required>
-                <mat-option *ngFor="let empresa of listEmpresas" value="empresa.id">{{empresa.razonSocial}}
+                <mat-option *ngFor="let empresa of listEmpresas" [value]="empresa.id">{{empresa.razonSocial}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

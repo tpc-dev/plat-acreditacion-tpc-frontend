@@ -31,8 +31,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
-import { VisitaDetailComponent } from './visita-detail/visita-detail/visita-detail.component';
-import { DialogBasicoActionComponent } from './dialog-basico-action/dialog-basico-action/dialog-basico-action.component';
+import { VisitaDetailComponent } from './visita-detail/visita-detail.component';
+import { DialogBasicoActionComponent } from './dialog-basico-action/dialog-basico-action.component';
 import { NuevaVisitaFormComponent } from './nueva-visita-form/nueva-visita-form.component';
 import { TablaBuscadorVisitasComponent } from './tabla-buscador-visitas/tabla-buscador-visitas.component';
 import { MomentModule } from "ngx-moment";
@@ -48,6 +48,8 @@ import { NuevaAreaFormComponent } from './nueva-area-form/nueva-area-form.compon
 import { TablaBuscadorGerenciasComponent } from './tabla-buscador-gerencias/tabla-buscador-gerencias.component';
 import { NuevaGerenciaFormComponent } from './nueva-gerencia-form/nueva-gerencia-form.component';
 import { TablaBuscadorContratosComponent } from './tabla-buscador-contratos/tabla-buscador-contratos.component';
+import { ContratoDetailComponent } from './contrato-detail/contrato-detail.component';
+import { RouterModule } from "@angular/router";
 
 @NgModule({
     imports: [
@@ -83,7 +85,8 @@ import { TablaBuscadorContratosComponent } from './tabla-buscador-contratos/tabl
         MomentModule,
         MatDialogModule,
         MatMenuModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        RouterModule
     ],
     declarations: [
         InputTestRiesgoComponent,
@@ -103,6 +106,7 @@ import { TablaBuscadorContratosComponent } from './tabla-buscador-contratos/tabl
         TablaBuscadorGerenciasComponent,
         NuevaGerenciaFormComponent,
         TablaBuscadorContratosComponent,
+        ContratoDetailComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -119,6 +123,7 @@ import { TablaBuscadorContratosComponent } from './tabla-buscador-contratos/tabl
         TablaBuscadorGerenciasComponent,
         NuevaGerenciaFormComponent,
         TablaBuscadorContratosComponent,
+        ContratoDetailComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

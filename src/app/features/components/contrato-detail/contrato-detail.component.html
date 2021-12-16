@@ -1,0 +1,249 @@
+<div>
+    <div style="text-align: center;">
+        <h1><strong>Contrato</strong></h1>
+    </div>
+    <mat-card>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <button [routerLink]="['/contratos-admin', {}]" mat-icon-button color="primary">
+                    Atrás
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-vertical-stepper orientation="vertical" [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="datosRevisionFormGroup" errorMessage="Complete el formulario.">
+                <form style="margin-top: 8px;" [formGroup]="datosRevisionFormGroup">
+                    <ng-template matStepLabel>Datos Revisión</ng-template>
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>Nombre de la Empresa</mat-label>
+                                <mat-select formControlName="empresa" required>
+                                    <mat-option *ngFor="let empresa of listEmpresas" [value]="empresa.id">
+                                        {{empresa.razonSocial}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>OC/Contrato</mat-label>
+                                <input matInput placeholder="OC/Contrato" formControlName="contrato" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>Área de desempeño</mat-label>
+                                <!-- <input matInput placeholder="Área desempeño" formControlName="areaDesempeno" required> -->
+                                <mat-select formControlName="areaDesempeno" required>
+                                    <mat-option [value]="area.id" *ngFor="let area of listAreas">{{area.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>Fecha Inicio</mat-label>
+                                <input (dateChange)="verificarRangosFechaValido();setFechaMinimoTerminoContrato()"
+                                    [max]="datosRevisionFormGroup.get('fechaFin')?.value" required
+                                    formControlName="fechaInicio" matInput [matDatepicker]="pickerFechaInicio">
+                                <mat-datepicker-toggle matSuffix [for]="pickerFechaInicio">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #pickerFechaInicio></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>Fecha Término</mat-label>
+                                <input (dateChange)="verificarRangosFechaValido();setFechaMaximoInicioContrato()"
+                                    [min]="datosRevisionFormGroup.get('fechaInicio')?.value" required
+                                    formControlName="fechaFin" matInput [matDatepicker]="pickerFechaFin">
+                                <mat-datepicker-toggle matSuffix [for]="pickerFechaFin">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #pickerFechaFin></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>Descripción del Contrato</mat-label>
+                                <input matInput placeholder="Last name, First name"
+                                    formControlName="descripcionContrato" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <mat-error>
+                                <span *ngIf="rangoFechasInvalido">La fecha de Inicio debe ser <strong>Menor</strong> a
+                                    la de
+                                    Término</span>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <button [disabled]="datosRevisionFormGroup.invalid || rangoFechasInvalido"
+                                class="button-step2" mat-raised-button (click)="guardarContratoPaso1()"
+                                color="accent">Guardar
+                                Contrato</button>
+                        </div>
+                    </div>
+                    <!-- <div>
+                <button [disabled]="datosRevisionFormGroup.invalid" mat-stroked-button color="primary"  (click)="guardarContrato()" matStepperNext>Siguiente</button>
+              </div> -->
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="encargadosFormGroup" errorMessage="Complete el formulario.">
+                <form style="margin-top: 8px;" [formGroup]="encargadosFormGroup">
+                    <ng-template matStepLabel>Datos Encargados</ng-template>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>ADC EECC</mat-label>
+                                <mat-select formControlName="adceecc" required>
+                                    <mat-option *ngFor="let adceecc of listADCEECC" value="adceecc.id">
+                                        {{adceecc.nombre}}
+                                        {{adceecc.apellido1}} {{adceecc.apellido2}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>ADC TPC</mat-label>
+                                <mat-select formControlName="adctpc1" class="select-adctpc" required>
+                                    <mat-option [id]="adctpc.rut" *ngFor="let adctpc of listADCTPCAvailable"
+                                        value="adctpc.id">
+                                        {{adctpc.nombre}}
+                                        {{adctpc.apellido1}} {{adctpc.apellido2}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>GERENCIA</mat-label>
+                                <!-- <input matInput formControlName="gerencia" placeholder="" required> -->
+                                <mat-select formControlName="gerencia" required>
+                                    <mat-option value="gerencia.id" *ngFor="let gerencia of listGerencias">
+                                        {{gerencia.nombre}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>ÁREA</mat-label>
+                                <!-- <input matInput formControlName="area" placeholder="" required> -->
+                                <mat-select formControlName="area" required>
+                                    <mat-option value="area.id" *ngFor="let area of listAreas">{{area.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>ADC TPC</mat-label>
+                                <mat-select formControlName="adctpc2" class="select-adctpc" required>
+                                    <mat-option [id]="adctpc.rut" *ngFor="let adctpc of listADCTPCAvailable"
+                                        value="adctpc.id">
+                                        {{adctpc.nombre}}
+                                        {{adctpc.apellido1}} {{adctpc.apellido2}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>GERENCIA</mat-label>
+                                <!-- <input matInput formControlName="gerencia" placeholder="" required> -->
+                                <mat-select formControlName="gerencia2" required>
+                                    <mat-option value="gerencia.id" *ngFor="let gerencia of listGerencias">
+                                        {{gerencia.nombre}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <mat-form-field class="input-form" appearance="outline">
+                                <mat-label>ÁREA</mat-label>
+                                <!-- <input matInput formControlName="area" placeholder="" required> -->
+                                <mat-select formControlName="area2" required>
+                                    <mat-option value="area.id" *ngFor="let area of listAreas">{{area.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <button class="button-step2" mat-stroked-button color="primary"
+                                matStepperPrevious>Atrás</button>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <button [disabled]="!contratoGuardado" class="button-step2" mat-stroked-button
+                                color="primary" matStepperNext>Siguiente</button>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <button class="button-step2" mat-raised-button (click)="guardarContratoPaso2()"
+                                color="accent">Guardar
+                                Contrato</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Elementos Carpeta de Arranque</ng-template>
+                <div *ngFor="let item of elementosCarpetaArranque">
+                    <table class="table-item">
+                        <tr>
+                            <td>
+                                <mat-checkbox [disabled]="item.obligatorio" [checked]="item.obligatorio"
+                                    labelPosition="before" class="example-margin">
+                                </mat-checkbox>
+                            </td>
+                            <td class="td-accordion">
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                {{item.description}}
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <!-- This is a summary of the content -->
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <mat-list role="list">
+                                            <mat-list-item role="listitem">Docuemnto 1</mat-list-item>
+                                            <mat-list-item role="listitem">Docuemnto 2</mat-list-item>
+                                            <mat-list-item role="listitem">Docuemnto 3</mat-list-item>
+                                        </mat-list>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Listo</ng-template>
+                <p>Se notificara al administrador de contrato de la empresa contratista, para que complete
+                    los pasos necesarios para la acreditación.</p>
+                <div>
+                    <button mat-button matStepperPrevious>Atrás</button>
+                    <button mat-raised-button color="primary" (click)="stepper.reset()">
+                        Notificar
+                        <mat-icon>bookmark</mat-icon>
+                    </button>
+                </div>
+            </mat-step>
+        </mat-vertical-stepper>
+    </mat-card>
+</div>

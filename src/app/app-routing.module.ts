@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guard';
+import { ContratoDetailComponent } from './features/components/contrato-detail/contrato-detail.component';
 import { FormularioProtocoloCovidComponent } from './features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { AreasAdminComponent } from './pages/areas-admin/areas-admin.component';
 import { ContratosAdminComponent } from './pages/contratos-admin/contratos-admin.component';
@@ -78,9 +79,15 @@ const routes: Routes = [
   {
     component: ContratosAdminComponent,
     canActivate: [AuthGuard],
-    path: 'contratos-admin'
-  }
-  ,
+    path: 'contratos-admin',
+    // children: [
+    //   {
+    //     component: ContratoDetailComponent,
+    //     canActivate: [AuthGuard],
+    //     path: 'contrato-detail'
+    //   }
+    // ]
+  },
   {
     component: PlatformSettingsAdminComponent,
     canActivate: [AuthGuard],
@@ -154,6 +161,11 @@ const routes: Routes = [
     component: GerenciasAdminComponent,
     canActivate: [AuthGuard],
     path: 'gerencias-admin'
+  },
+  {
+    component: ContratoDetailComponent,
+    canActivate: [AuthGuard],
+    path: 'contrato-detail'
   }
 ];
 

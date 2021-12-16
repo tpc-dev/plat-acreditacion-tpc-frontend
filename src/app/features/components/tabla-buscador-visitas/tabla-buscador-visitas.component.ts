@@ -13,7 +13,7 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { UtilService } from 'src/app/core/services/util/util.service';
 import Swal from 'sweetalert2';
 import { FormularioProtocoloCovidComponent } from '../formulario-protocolo-covid/formulario-protocolo-covid.component';
-import { VisitaDetailComponent } from '../visita-detail/visita-detail/visita-detail.component';
+import { VisitaDetailComponent } from '../visita-detail/visita-detail.component';
 import { VisitaIngresosHistoricoComponent } from '../visita-ingresos-historico/visita-ingresos-historico.component';
 
 @Component({

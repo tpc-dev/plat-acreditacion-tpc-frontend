@@ -1,0 +1,25 @@
+mat-form-field {
+    margin-right: 8px;
+}
+
+.table-item {
+    margin-top: 12px;
+    .td-accordion {
+        padding-left: 26px;
+        mat-accordion {
+            mat-expansion-panel {
+                width: 72vw;
+            }
+        }
+    }
+}
+
+.input-form {
+    width: 100%;
+}
+
+.button-step2 {
+    width: 100%;
+    margin-top: 8px;
+    margin-right: 8px;
+}

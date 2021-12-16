@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DialogBasicoActionComponent } from 'src/app/features/components/dialog-basico-action/dialog-basico-action/dialog-basico-action.component';
+import { DialogBasicoActionComponent } from 'src/app/features/components/dialog-basico-action/dialog-basico-action.component';
 
 @Injectable({
   providedIn: 'root'

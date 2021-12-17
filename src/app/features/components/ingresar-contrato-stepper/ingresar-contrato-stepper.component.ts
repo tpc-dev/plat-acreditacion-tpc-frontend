@@ -225,28 +225,6 @@ export class IngresarContratoStepperComponent implements OnInit {
     });
   }
 
-  verificarRangosFechaValido() {
-    console.log("verificarRangosFechaValido");
-
-    if (!this.datosRevisionFormGroup.get('fechaInicio')?.value || !this.datosRevisionFormGroup.get('fechaFin')?.value) return;
-
-    // this.setFechaMinimoTerminoContrato();
-    // this.setFechaMaximoInicioContrato
-
-    // if (this.datosRevisionFormGroup.get('fechaInicio')?.value > this.datosRevisionFormGroup.get('fechaFin')?.value) {
-    //   this.rangoFechasInvalido = true;
-    //   Swal.fire({
-    //     title: 'Fechas inválidas',
-    //     text: 'La fecha de inicio debe ser menor a la fecha de termino',
-    //     icon: 'error',
-    //     confirmButtonText: 'Ok'
-    //   });
-    //   return;
-    // }
-
-    this.rangoFechasInvalido = false;
-  }
-
   setFechaMinimoTerminoContrato() {
     // if (!this.datosRevisionFormGroup.get('fechaInicio')?.value) return;
     // this.datosRevisionFormGroup.get('fechaFin')?.setValue(this.datosRevisionFormGroup.get('fechaInicio')?.value);
@@ -312,17 +290,41 @@ export class IngresarContratoStepperComponent implements OnInit {
 
   guardarContratoPaso2() {
     const idEtapa = this.listEtapasCreacionContrato.find(x => x.orden == 2)?.id;
-    this.apiService.PUT(`/contratos/cambiar-etapa-creacion/${this.currentContrato.id}`, { idEtapa: idEtapa })
+
+    const pasoDosData = {
+      adctpc1Id: this.encargadosFormGroup.get('adctpc1')?.value,
+      adctpc2Id: this.encargadosFormGroup.get('adctpc2')?.value || -1,
+      adceeccId: this.encargadosFormGroup.get('adceecc')?.value,
+      areaId: this.encargadosFormGroup.get('area')?.value,
+      area2Id: this.encargadosFormGroup.get('area2')?.value  || -1,
+      gerenciaId: this.encargadosFormGroup.get('gerencia')?.value,
+      gerencia2Id: this.encargadosFormGroup.get('gerencia2')?.value  || -1,
+      contratoId: this.currentContrato.id,
+    };
+
+    console.log(pasoDosData);
+
+    this.apiService.POST('/contratos/completar-paso-dos', pasoDosData)
       .then((data) => {
         console.log(data);
-        this.currentContrato = data;
-        // this.obtenerContrato();
+        return this.apiService.PUT(`/contratos/${this.currentContrato.id}/cambiar-etapa-creacion/${idEtapa}`, {});
+      })
+      .then((data) => {
+        this.stepper.next();
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire({
+          title: 'Error al guardar contrato',
+          text: 'El contrato no se pudo guardar',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
       })
       .finally(() => {
+        //this.loading = false;
       });
+    //CREAR REGISTRO EN TABLA CONTRATO USUARIO POR CADA ADC TPC Y EL ADC EECC
   }
 
   guardarContratoPaso3() {

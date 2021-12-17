@@ -1,6 +1,6 @@
 <div>
     <div style="text-align: center;">
-        <h1><strong>Contrato</strong></h1>
+        <h1><strong>Detalles Contrato </strong></h1>
     </div>
     <mat-card>
         <div class="row">
@@ -11,8 +11,8 @@
                 </button>
             </div>
         </div>
-        <mat-vertical-stepper orientation="vertical" [linear]="isLinear" #stepper>
-            <mat-step [stepControl]="datosRevisionFormGroup" errorMessage="Complete el formulario.">
+        <mat-vertical-stepper orientation="vertical" [selectedIndex]="etapa" [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="datosRevisionFormGroup" errorMessage="Complete el formulario." #stepperOne>
                 <form style="margin-top: 8px;" [formGroup]="datosRevisionFormGroup">
                     <ng-template matStepLabel>Datos Revisión</ng-template>
                     <div class="row">
@@ -47,7 +47,7 @@
                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                             <mat-form-field class="input-form" appearance="outline">
                                 <mat-label>Fecha Inicio</mat-label>
-                                <input (dateChange)="verificarRangosFechaValido();setFechaMinimoTerminoContrato()"
+                                <input (dateChange)="setFechaMinimoTerminoContrato()"
                                     [max]="datosRevisionFormGroup.get('fechaFin')?.value" required
                                     formControlName="fechaInicio" matInput [matDatepicker]="pickerFechaInicio">
                                 <mat-datepicker-toggle matSuffix [for]="pickerFechaInicio">
@@ -58,7 +58,7 @@
                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                             <mat-form-field class="input-form" appearance="outline">
                                 <mat-label>Fecha Término</mat-label>
-                                <input (dateChange)="verificarRangosFechaValido();setFechaMaximoInicioContrato()"
+                                <input (dateChange)="setFechaMaximoInicioContrato()"
                                     [min]="datosRevisionFormGroup.get('fechaInicio')?.value" required
                                     formControlName="fechaFin" matInput [matDatepicker]="pickerFechaFin">
                                 <mat-datepicker-toggle matSuffix [for]="pickerFechaFin">
@@ -98,7 +98,7 @@
               </div> -->
                 </form>
             </mat-step>
-            <mat-step [stepControl]="encargadosFormGroup" errorMessage="Complete el formulario.">
+            <mat-step [stepControl]="encargadosFormGroup" errorMessage="Complete el formulario." #stepperTwo>
                 <form style="margin-top: 8px;" [formGroup]="encargadosFormGroup">
                     <ng-template matStepLabel>Datos Encargados</ng-template>
                     <div class="row">
@@ -106,7 +106,7 @@
                             <mat-form-field class="input-form" appearance="outline">
                                 <mat-label>ADC EECC</mat-label>
                                 <mat-select formControlName="adceecc" required>
-                                    <mat-option *ngFor="let adceecc of listADCEECC" value="adceecc.id">
+                                    <mat-option *ngFor="let adceecc of listADCEECC" [value]="adceecc.id">
                                         {{adceecc.nombre}}
                                         {{adceecc.apellido1}} {{adceecc.apellido2}}
                                     </mat-option>
@@ -120,7 +120,7 @@
                                 <mat-label>ADC TPC</mat-label>
                                 <mat-select formControlName="adctpc1" class="select-adctpc" required>
                                     <mat-option [id]="adctpc.rut" *ngFor="let adctpc of listADCTPCAvailable"
-                                        value="adctpc.id">
+                                        [value]="adctpc.id">
                                         {{adctpc.nombre}}
                                         {{adctpc.apellido1}} {{adctpc.apellido2}}
                                     </mat-option>
@@ -132,7 +132,7 @@
                                 <mat-label>GERENCIA</mat-label>
                                 <!-- <input matInput formControlName="gerencia" placeholder="" required> -->
                                 <mat-select formControlName="gerencia" required>
-                                    <mat-option value="gerencia.id" *ngFor="let gerencia of listGerencias">
+                                    <mat-option [value]="gerencia.id" *ngFor="let gerencia of listGerencias">
                                         {{gerencia.nombre}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -142,7 +142,7 @@
                                 <mat-label>ÁREA</mat-label>
                                 <!-- <input matInput formControlName="area" placeholder="" required> -->
                                 <mat-select formControlName="area" required>
-                                    <mat-option value="area.id" *ngFor="let area of listAreas">{{area.nombre}}
+                                    <mat-option [value]="area.id" *ngFor="let area of listAreas">{{area.nombre}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -152,9 +152,9 @@
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <mat-form-field class="input-form" appearance="outline">
                                 <mat-label>ADC TPC</mat-label>
-                                <mat-select formControlName="adctpc2" class="select-adctpc" required>
+                                <mat-select formControlName="adctpc2" class="select-adctpc">
                                     <mat-option [id]="adctpc.rut" *ngFor="let adctpc of listADCTPCAvailable"
-                                        value="adctpc.id">
+                                        [value]="adctpc.id">
                                         {{adctpc.nombre}}
                                         {{adctpc.apellido1}} {{adctpc.apellido2}}
                                     </mat-option>
@@ -165,8 +165,8 @@
                             <mat-form-field class="input-form" appearance="outline">
                                 <mat-label>GERENCIA</mat-label>
                                 <!-- <input matInput formControlName="gerencia" placeholder="" required> -->
-                                <mat-select formControlName="gerencia2" required>
-                                    <mat-option value="gerencia.id" *ngFor="let gerencia of listGerencias">
+                                <mat-select formControlName="gerencia2">
+                                    <mat-option [value]="gerencia.id" *ngFor="let gerencia of listGerencias">
                                         {{gerencia.nombre}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -175,8 +175,8 @@
                             <mat-form-field class="input-form" appearance="outline">
                                 <mat-label>ÁREA</mat-label>
                                 <!-- <input matInput formControlName="area" placeholder="" required> -->
-                                <mat-select formControlName="area2" required>
-                                    <mat-option value="area.id" *ngFor="let area of listAreas">{{area.nombre}}
+                                <mat-select formControlName="area2">
+                                    <mat-option [value]="area.id" *ngFor="let area of listAreas">{{area.nombre}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -199,7 +199,7 @@
                     </div>
                 </form>
             </mat-step>
-            <mat-step>
+            <mat-step #stepperThree>
                 <ng-template matStepLabel>Elementos Carpeta de Arranque</ng-template>
                 <div *ngFor="let item of elementosCarpetaArranque">
                     <table class="table-item">

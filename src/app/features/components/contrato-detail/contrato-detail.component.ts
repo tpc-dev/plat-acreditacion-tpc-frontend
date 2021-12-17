@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatVerticalStepper } from '@angular/material/stepper';
+import { MatStep, MatVerticalStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/core/interfaces/cuenta.interface';
 import { Empresa } from 'src/app/core/interfaces/empresa.interface';
@@ -17,8 +17,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./contrato-detail.component.scss']
 })
 export class ContratoDetailComponent implements OnInit {
-
   @ViewChild('stepper') stepper: MatVerticalStepper;
+  @ViewChild('stepperOne') stepperOne: MatStep;
+  @ViewChild('stepperTwo') stepperTwo: MatStep;
+  @ViewChild('stepperThree') stepperThree: MatStep;
   listEmpresas: Empresa[] = [];
   listAreas: any[] = [];
   listGerencias: any[] = [];
@@ -38,40 +40,97 @@ export class ContratoDetailComponent implements OnInit {
   maxFechaContrato = new Date();
   currentContrato: any;
   etapa: number;
-  constructor(private route: ActivatedRoute, private router: Router, private elRef: ElementRef, private _formBuilder: FormBuilder, public apiService: ApiService, public authService: AuthService, private _snackBar: MatSnackBar) {
+
+  listContratoUsuarios = [];
+  constructor(private route: ActivatedRoute, private router: Router, private elRef: ElementRef, private _formBuilder: FormBuilder,
+    public apiService: ApiService, public authService: AuthService, private _snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef) {
     this.cantidadADCTPC.push(0);
     if (this.router.getCurrentNavigation()?.extras.state) {
       console.log(this.router.getCurrentNavigation()?.extras.state);
       this.currentContrato = this.router.getCurrentNavigation()?.extras.state?.contrato;
       this.etapa = this.router.getCurrentNavigation()?.extras.state?.etapa;
+      if (this.etapa >= 2) {
+        this.obtenerContratoUsuarios();
+      }
     } else {
       this.router.navigate(['/contratos-admin']);
     }
   }
 
+  public ngAfterViewInit(): void {
+    //this.loadContratoDataToForm();
+  }
+
 
   loadContratoDataToForm() {
+
     // COMPLETAR DATOS ETAPA UNO
-    if (this.etapa == 1) {
+    if (this.etapa >= 1) {
       this.datosRevisionFormGroup.get('contrato')?.setValue(this.currentContrato.codigoContrato);
       this.datosRevisionFormGroup.get('empresa')?.setValue(this.currentContrato.empresaContrato.empresaId);
       this.datosRevisionFormGroup.get('areaDesempeno')?.setValue(this.currentContrato.areaId);
       this.datosRevisionFormGroup.get('fechaInicio')?.setValue(this.currentContrato.inicioContrato);
       this.datosRevisionFormGroup.get('fechaFin')?.setValue(this.currentContrato.terminoContrato);
       this.datosRevisionFormGroup.get('descripcionContrato')?.setValue(this.currentContrato.codigoContrato);
+      this.stepperOne.completed = true;
     }
 
     // COMPLETAR DATOS ETAPA DOS
-    if (this.etapa == 2) {
+    if (this.etapa >= 2) {
+      let adctpc1: any = this.listContratoUsuarios.find((contrato: any) => contrato.usuario.tipoRol.id == 4);
+      let adctpc2: any = this.listContratoUsuarios.find((contrato: any) => contrato.usuario.tipoRol.id == 4 && contrato.usuario.id != adctpc1?.usuario.id);
+      let adceecc: any = this.listContratoUsuarios.find((contrato: any) => contrato.usuario.tipoRol.id == 5);
 
+      if (adctpc2) {
+        this.encargadosFormGroup.get('adctpc2')?.setValue(adctpc2?.usuario.id);
+        this.encargadosFormGroup.get('area2')?.setValue(adctpc2.areaId);
+        this.encargadosFormGroup.get('gerencia2')?.setValue(adctpc2.gerenciaId);
+      }
+
+      this.encargadosFormGroup.get('adctpc1')?.setValue(adctpc1.usuario.id);
+      this.encargadosFormGroup.get('adceecc')?.setValue(adceecc.usuario.id);
+      this.encargadosFormGroup.get('area')?.setValue(adctpc1.areaId);
+      this.encargadosFormGroup.get('gerencia')?.setValue(adctpc1.gerenciaId);
+
+      this.stepperTwo.completed = true;
     }
 
     // COMPLETAR DATOS ETAPA TRES
-    if (this.etapa == 3) {
-
+    if (this.etapa >= 3) {
+      // this.stepperThree.completed = true;
     }
 
+    this.changeDetectorRef.detectChanges();
+    //this.setStepperEnEtapa();
   }
+
+  obtenerContratoUsuarios() {
+    this.apiService.GET(`/contratos/${this.currentContrato.id}/contrato-usuarios`)
+      .then((res: any) => {
+        console.log(res);
+        this.listContratoUsuarios = res;
+        this.loadContratoDataToForm();
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => {
+      });
+  }
+
+  setStepperEnEtapa() {
+    // this.selectedIndex = this.etapa - 1;
+    // if (this.etapa == 1) {
+    //   this.selectedIndex="2".
+    // }
+    // if (this.etapa == 2) {
+    //   this.stepper.selectedIndex = 1;
+    // }
+    // if (this.etapa == 3) {
+    //   this.stepper.selectedIndex = 2;
+    // }
+  }
+
 
 
   ngOnInit() {
@@ -103,14 +162,13 @@ export class ContratoDetailComponent implements OnInit {
     this.encargadosFormGroup = this._formBuilder.group({
       adceecc: ['', Validators.required],
       adctpc1: ['', Validators.required],
-      adctpc2: ['', Validators.required],
+      adctpc2: [''],
       gerencia: ['', Validators.required],
       area: ['', Validators.required],
-      gerencia2: ['', Validators.required],
-      area2: ['', Validators.required],
+      gerencia2: [''],
+      area2: [''],
     });
 
-    this.loadContratoDataToForm();
   }
 
   obtenerEtapaCreacionContrato() {
@@ -243,27 +301,6 @@ export class ContratoDetailComponent implements OnInit {
     });
   }
 
-  verificarRangosFechaValido() {
-    console.log("verificarRangosFechaValido");
-
-    if (!this.datosRevisionFormGroup.get('fechaInicio')?.value || !this.datosRevisionFormGroup.get('fechaFin')?.value) return;
-
-    // this.setFechaMinimoTerminoContrato();
-    // this.setFechaMaximoInicioContrato
-
-    // if (this.datosRevisionFormGroup.get('fechaInicio')?.value > this.datosRevisionFormGroup.get('fechaFin')?.value) {
-    //   this.rangoFechasInvalido = true;
-    //   Swal.fire({
-    //     title: 'Fechas inválidas',
-    //     text: 'La fecha de inicio debe ser menor a la fecha de termino',
-    //     icon: 'error',
-    //     confirmButtonText: 'Ok'
-    //   });
-    //   return;
-    // }
-
-    this.rangoFechasInvalido = false;
-  }
 
   setFechaMinimoTerminoContrato() {
     // if (!this.datosRevisionFormGroup.get('fechaInicio')?.value) return;
@@ -324,23 +361,36 @@ export class ContratoDetailComponent implements OnInit {
         });
       });
 
-
-
   }
 
   guardarContratoPaso2() {
-    const idEtapa = this.listEtapasCreacionContrato.find(x => x.orden == 2)?.id;
-    this.apiService.PUT(`/contratos/cambiar-etapa-creacion/${this.currentContrato.id}`, { idEtapa: idEtapa })
-      .then((data) => {
-        console.log(data);
-        this.currentContrato = data;
-        // this.obtenerContrato();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-      });
+    // const idEtapa = this.listEtapasCreacionContrato.find(x => x.orden == 2)?.id;
+    // // TODO crear registro en tabla contrato usuario
+    // // ACTUALIZAR ETAPA DE CONTRATO
+
+    // const pasoDosData = {
+    //     adctpc: this.,
+    // };
+
+    // this.apiService.PUT(`/contratos/${this.currentContrato.id}/actualizar-etapa/${idEtapa}`, {})
+    //   .then((data) => {
+    //     console.log(data);
+    //     return this.apiService.POST('/contratos/completar-paso-dos', pasoDosData);
+    //   })
+
+    //CREAR REGISTRO EN TABLA CONTRATO USUARIO POR CADA ADC TPC Y EL ADC EECC
+
+    // this.apiService.PUT(`/contratos/cambiar-etapa-creacion/${this.currentContrato.id}`, { idEtapa: idEtapa })
+    //   .then((data) => {
+    //     console.log(data);
+    //     this.currentContrato = data;
+    //     // this.obtenerContrato();
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   })
+    //   .finally(() => {
+    //   });
   }
 
   guardarContratoPaso3() {
@@ -356,6 +406,22 @@ export class ContratoDetailComponent implements OnInit {
       })
       .finally(() => {
       });
+  }
+
+
+  // ACTUALIZAR CAMBIOS PASO 1
+  actualizarCambiosPasoUno() {
+    console.log("actualizarCambiosPasoUno");
+  }
+
+  // ACTUZALIZAR CAMBIOS PASO 2
+  actualizarCambiosPasoDos() {
+    console.log("actualizarCambiosPasoDos");
+  }
+
+  // ACTUALIZAR CAMBIOS PASO 3
+  actualizarCambiosPasoTres() {
+    console.log("actualizarCambiosPasoTres");
   }
 
 }

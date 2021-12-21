@@ -3,12 +3,17 @@ mat-form-field {
 }
 
 .table-item {
-    margin-top: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    mat-checkbox{
+        margin-top: 16px;
+    }
     .td-accordion {
-        padding-left: 26px;
+        // padding-left: 26px;
         mat-accordion {
+            width: 100%;
             mat-expansion-panel {
-                width: 72vw;
+                width: 100%;
             }
         }
     }

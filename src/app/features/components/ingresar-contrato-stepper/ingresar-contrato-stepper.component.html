@@ -177,15 +177,15 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Elementos Carpeta de Arranque</ng-template>
-      <div *ngFor="let item of elementosCarpetaArranque">
-        <table class="table-item">
-          <tr>
-            <td>
-              <mat-checkbox [disabled]="item.obligatorio" [checked]="item.obligatorio" labelPosition="before"
-                class="example-margin">
+      <div *ngFor="let item of elementosCarpetaArranque;let i=index">
+        <div>
+          <div class="row table-item">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+              <mat-checkbox (change)="onChangeSelectionItemCarpeta($event,i)" [checked]="item.obligatorio"
+                labelPosition="before" class="example-margin">
               </mat-checkbox>
-            </td>
-            <td class="td-accordion">
+            </div>
+            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 td-accordion">
               <mat-accordion>
                 <mat-expansion-panel>
                   <mat-expansion-panel-header>
@@ -197,27 +197,59 @@
                     </mat-panel-description>
                   </mat-expansion-panel-header>
                   <mat-list role="list">
-                    <mat-list-item role="listitem">Docuemnto 1</mat-list-item>
-                    <mat-list-item role="listitem">Docuemnto 2</mat-list-item>
-                    <mat-list-item role="listitem">Docuemnto 3</mat-list-item>
+                    <mat-list-item *ngFor="let doc of item.tiposDocumentosAcreditacion" role="listitem"
+                      #listaCarpetaArranqueComponent>
+                      <mat-icon color="primary" mat-list-icon>description</mat-icon>
+                      <div class="row" style="width: 100%;">
+                        <div style="margin-top: 10px;" class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                          {{doc.nombre}}
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                          <button [disableRipple]="true" style="width: 100%;"
+                            [color]="!doc.obligatorio? 'primary':'warn'" mat-flat-button> <strong>
+                              {{(doc.obligatorio? 'Obligatorio' :
+                              'Opcional') |
+                              uppercase}}</strong></button>
+                        </div>
+                      </div>
+                      <mat-divider></mat-divider>
+                    </mat-list-item>
                   </mat-list>
                 </mat-expansion-panel>
               </mat-accordion>
-            </td>
-          </tr>
-        </table>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div class="row" style="margin-top: 12px;">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <button class="button-step2" mat-stroked-button color="primary" matStepperPrevious>Atrás</button>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <button [disabled]="!contratoGuardado" class="button-step2" mat-stroked-button color="primary"
+            matStepperNext>Siguiente</button>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <button class="button-step2" mat-raised-button (click)="guardarContratoPaso3()" color="accent">Guardar
+            Contrato</button>
+        </div>
       </div>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Listo</ng-template>
       <p>Se notificara al administrador de contrato de la empresa contratista, para que complete
         los pasos necesarios para la acreditación.</p>
-      <div>
-        <button mat-button matStepperPrevious>Atrás</button>
-        <button mat-raised-button color="primary" (click)="stepper.reset()">
-          Notificar
-          <mat-icon>bookmark</mat-icon>
-        </button>
+      <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <button class="button-step2" mat-stroked-button color="primary" matStepperPrevious>Atrás</button>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <button class="button-step2" mat-raised-button color="primary" (click)="completarCarpetaArranque()">
+            Notificar
+            <mat-icon>check</mat-icon>
+          </button>
+        </div>
       </div>
     </mat-step>
   </mat-vertical-stepper>

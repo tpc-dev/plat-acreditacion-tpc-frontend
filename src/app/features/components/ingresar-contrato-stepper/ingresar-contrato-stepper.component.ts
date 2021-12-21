@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { MatVerticalStepper } from '@angular/material/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EtapaCreacionContrato } from 'src/app/core/interfaces/etapacreacioncontrato.interface';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-ingresar-contrato-stepper',
@@ -52,6 +53,9 @@ export class IngresarContratoStepperComponent implements OnInit {
   maxFechaContrato = new Date();
 
   currentContrato: any;
+  currentCarpetaArranque: any;
+  listItemsHabilitadosCarpetaArranque: ItemCarpetaArranque[] = [];
+
 
   constructor(private elRef: ElementRef, private _formBuilder: FormBuilder, public apiService: ApiService, public authService: AuthService, private _snackBar: MatSnackBar) {
     this.cantidadADCTPC.push(0);
@@ -178,6 +182,7 @@ export class IngresarContratoStepperComponent implements OnInit {
       .then((data) => {
         // console.log(data);
         this.elementosCarpetaArranque = data;
+        this.listItemsHabilitadosCarpetaArranque = data;
       }
       ).catch((error) => {
         console.log(error);
@@ -296,9 +301,9 @@ export class IngresarContratoStepperComponent implements OnInit {
       adctpc2Id: this.encargadosFormGroup.get('adctpc2')?.value || -1,
       adceeccId: this.encargadosFormGroup.get('adceecc')?.value,
       areaId: this.encargadosFormGroup.get('area')?.value,
-      area2Id: this.encargadosFormGroup.get('area2')?.value  || -1,
+      area2Id: this.encargadosFormGroup.get('area2')?.value || -1,
       gerenciaId: this.encargadosFormGroup.get('gerencia')?.value,
-      gerencia2Id: this.encargadosFormGroup.get('gerencia2')?.value  || -1,
+      gerencia2Id: this.encargadosFormGroup.get('gerencia2')?.value || -1,
       contratoId: this.currentContrato.id,
     };
 
@@ -328,18 +333,85 @@ export class IngresarContratoStepperComponent implements OnInit {
   }
 
   guardarContratoPaso3() {
+    const listIdItemsCarpetaArranque = this.listItemsHabilitadosCarpetaArranque.map(x => x.id);
     const idEtapa = this.listEtapasCreacionContrato.find(x => x.orden == 3)?.id;
-    this.apiService.PUT(`/contratos/cambiar-etapa-creacion/${this.currentContrato.id}`, { idEtapa: idEtapa })
-      .then((data) => {
-        console.log(data);
-        this.currentContrato = data;
-        // this.obtenerContrato();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-      });
+    let reqCarpetaArranque = {
+      contratoId: 22,
+    };
+
+    Swal.fire({
+      title: 'Creando carpeta de arranque',
+      html: 'Esto puede tardar unos minutos, por favor espere...',
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        this.apiService.POST('/carpeta-arranque', reqCarpetaArranque)
+          .then((data) => {
+            console.log(data);
+            this.currentCarpetaArranque = data;
+            return this.apiService.POST('/contratos/completar-paso-tres', { listIdItemsCarpetaArranque: listIdItemsCarpetaArranque, CarpetaArranqueId: this.currentCarpetaArranque.id })
+          })
+          .then((data) => {
+            console.log(data);
+            return this.apiService.PUT(`/contratos/${22}/cambiar-etapa-creacion/${idEtapa}`, { idEtapa: idEtapa });
+          })
+          .then((data) => {
+            console.log(data);
+            this.stepper.next();
+            Swal.close();
+            // Swal.fire({
+            //   title: 'Contrato creado con éxito',
+            //   text: 'El contrato se ha creado con éxito',
+            //   icon: 'success',
+            //   confirmButtonText: 'Ok'
+            // });
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: 'Error al guardar contrato',
+              text: 'El contrato no se pudo guardar',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+          });
+      },
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
+    })
+  }
+
+  onChangeSelectionItemCarpeta(event: MatCheckboxChange, index: number) {
+    // console.log(index);
+    // console.log(event.checked);
+    this.listItemsHabilitadosCarpetaArranque[index].obligatorio = event.checked;
+    let itemsActivos = this.listItemsHabilitadosCarpetaArranque.filter(x => x.obligatorio);
+    console.log(itemsActivos.length);
+  }
+
+  completarCarpetaArranque() {
+    Swal.fire({
+      title: '¿Notificar al administrador de contrato Empresa Contratisa?',
+      text: "Se le enviará un correo electrónico con la información de la carpeta de arranque y los items que deberea completar a traves de la plataforma",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, notificar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // TODO SI LA CREACION DE CONTRATO ESTA EN EL PASO 4 , YA SE PUEDE REVISAR QUE DATOS DEBE COMPLETAR EL ADCEECC
+        Swal.fire(
+          'Completado!',
+          'Se ha creado correctamente la carpeta de arranque y el contrato.',
+          'success'
+        )
+      }
+    })
+
   }
 
 }

@@ -5,4 +5,5 @@ export interface ItemCarpetaArranque {
     evidencia: string;
     obligatorio: boolean;
     activo: boolean;
+    tiposDocumentosAcreditacion?: any[];
 }

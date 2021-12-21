@@ -26,6 +26,8 @@ import { DetalleItemCarpetaArranqueAdminComponent } from './detalle-item-carpeta
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AreasAdminComponent } from './areas-admin/areas-admin.component';
 import { GerenciasAdminComponent } from './gerencias-admin/gerencias-admin.component';
+import { TrabajadoresAdminComponent } from './trabajadores-admin/trabajadores-admin.component';
+import { VehiculosAdminComponent } from './vehiculos-admin/vehiculos-admin.component';
 
 @NgModule({
     imports: [
@@ -57,7 +59,9 @@ import { GerenciasAdminComponent } from './gerencias-admin/gerencias-admin.compo
         ItemCarpetaArranqueAdminComponent,
         DetalleItemCarpetaArranqueAdminComponent,
         AreasAdminComponent,
-        GerenciasAdminComponent],
+        GerenciasAdminComponent,
+        TrabajadoresAdminComponent,
+        VehiculosAdminComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

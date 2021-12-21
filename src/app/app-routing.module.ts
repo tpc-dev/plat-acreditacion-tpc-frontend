@@ -20,8 +20,10 @@ import { PlatformSettingsAdminComponent } from './pages/platform-settings-admin/
 import { RecuperarPasswordComponent } from './pages/recuperar-password/recuperar-password.component';
 import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 import { TipoRolesUsuariosAdminComponent } from './pages/tipo-roles-usuarios-admin/tipo-roles-usuarios-admin.component';
+import { TrabajadoresAdminComponent } from './pages/trabajadores-admin/trabajadores-admin.component';
 import { TrabajadoresGuardiaComponent } from './pages/trabajadores-guardia/trabajadores-guardia.component';
 import { UsuariosAdminComponent } from './pages/usuarios-admin/usuarios-admin.component';
+import { VehiculosAdminComponent } from './pages/vehiculos-admin/vehiculos-admin.component';
 import { VehiculosGuardiaComponent } from './pages/vehiculos-guardia/vehiculos-guardia.component';
 import { VisitasAdminComponent } from './pages/visitas-admin/visitas-admin.component';
 import { VisitasGuardiaComponent } from './pages/visitas-guardia/visitas-guardia.component';
@@ -166,6 +168,16 @@ const routes: Routes = [
     component: ContratoDetailComponent,
     canActivate: [AuthGuard],
     path: 'contrato-detail'
+  },
+  {
+    component: VehiculosAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'vehiculos-admin'
+  },
+  {
+    component: TrabajadoresAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'trabajadores-admin'
   }
 ];
 

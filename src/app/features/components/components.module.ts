@@ -28,6 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
@@ -86,6 +87,7 @@ import { RouterModule } from "@angular/router";
         MatDialogModule,
         MatMenuModule,
         MatSlideToggleModule,
+        MatProgressSpinnerModule,
         RouterModule
     ],
     declarations: [
@@ -151,7 +153,8 @@ import { RouterModule } from "@angular/router";
         MatTooltipModule,
         MatDialogModule,
         MatMenuModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatProgressSpinnerModule
     ]
 })
 export class ComponentsModule { }

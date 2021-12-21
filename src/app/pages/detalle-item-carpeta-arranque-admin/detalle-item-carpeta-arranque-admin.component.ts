@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { ItemCarpetaArranque } from 'src/app/core/interfaces/itemcarpetaarranque.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { DetailTipoDocAcreditacionComponent } from 'src/app/features/components/detail-tipo-doc-acreditacion/detail-tipo-doc-acreditacion.component';
 import { VisitaIngresosHistoricoComponent } from 'src/app/features/components/visita-ingresos-historico/visita-ingresos-historico.component';
@@ -15,13 +16,41 @@ export class DetalleItemCarpetaArranqueAdminComponent implements OnInit {
   idElemento: number;
   tiposDocumentos: any[] = [];
   isLoading: boolean = false;
+  listaClasificacionDocumento: any[] = [];
+  nombreItemCarpetaArranque :string = "";
   constructor(public activeRoute: ActivatedRoute, public apiService: ApiService, public dialog: MatDialog) {
     console.log("asdasdasd");
+    this.obtenerClasificacionDocumento();
     this.activeRoute.params.subscribe(params => {
       console.log(params);
       this.idElemento = params.id;
+      this.obtenerItemCarpetaArranque(this.idElemento);
       this.obtenerTipoDocumentosPorId(params.id);
     });
+
+  }
+
+  obtenerItemCarpetaArranque(id: number) {
+    this.isLoading = true;
+    this.apiService.GET(`/item-carpeta-arranque/${id}`)
+      .then((data:ItemCarpetaArranque) => {
+        console.log(data);
+        this.nombreItemCarpetaArranque = data.description; 
+        this.isLoading = false;
+      })
+      .catch(error => {
+        console.log(error);
+        this.isLoading = false;
+      });
+  }
+
+  obtenerClasificacionDocumento() {
+    this.apiService.GET('/documentos-acreditacion/activos')
+      .then(data => {
+        this.listaClasificacionDocumento = data;
+      }).catch(error => {
+        console.log(error);
+      });
   }
 
 
@@ -47,10 +76,12 @@ export class DetalleItemCarpetaArranqueAdminComponent implements OnInit {
   newTipoDoc() {
     const dialogRef = this.dialog.open(DetailTipoDocAcreditacionComponent, {
       width: '650px',
+      data: { listaClasificacionDocumento: this.listaClasificacionDocumento, isEdit: false, idItemCarpetaArranque: this.idElemento }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
+      this.obtenerTipoDocumentosPorId(this.idElemento);
       // if (!result) return;
       // this.api.editarVisita(result).subscribe(res => {
       //   console.log(res)
@@ -71,11 +102,12 @@ export class DetalleItemCarpetaArranqueAdminComponent implements OnInit {
       // });
     });
   }
+
   editTipoDoc(documento: any) {
     console.log(documento);
     const dialogRef = this.dialog.open(DetailTipoDocAcreditacionComponent, {
       width: '650px',
-      data: { ...documento }
+      data: { ...documento, isEdit: true }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

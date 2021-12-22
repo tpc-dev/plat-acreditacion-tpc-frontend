@@ -4,10 +4,14 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 import { ContratoDetailComponent } from './features/components/contrato-detail/contrato-detail.component';
 import { FormularioProtocoloCovidComponent } from './features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { AreasAdminComponent } from './pages/areas-admin/areas-admin.component';
+import { ContratosAdceeccComponent } from './pages/contratos-adceecc/contratos-adceecc.component';
 import { ContratosAdminComponent } from './pages/contratos-admin/contratos-admin.component';
+import { ContratosGestionEeccComponent } from './pages/contratos-gestion-eecc/contratos-gestion-eecc.component';
 import { DetalleItemCarpetaArranqueAdminComponent } from './pages/detalle-item-carpeta-arranque-admin/detalle-item-carpeta-arranque-admin.component';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
+import { EmpresasAdceeccComponent } from './pages/empresas-adceecc/empresas-adceecc.component';
 import { EmpresasAdminComponent } from './pages/empresas-admin/empresas-admin.component';
+import { EmpresasRequisitosEeccComponent } from './pages/empresas-requisitos-eecc/empresas-requisitos-eecc.component';
 import { FormularioCovidComponent } from './pages/formulario-covid/formulario-covid.component';
 import { GerenciasAdminComponent } from './pages/gerencias-admin/gerencias-admin.component';
 import { HomeGuardiaComponent } from './pages/home-guardia/home-guardia.component';
@@ -178,6 +182,29 @@ const routes: Routes = [
     component: TrabajadoresAdminComponent,
     canActivate: [AuthGuard],
     path: 'trabajadores-admin'
+  }
+  ,
+  {
+    component: ContratosAdceeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-adceecc'
+  },
+  {
+    component: ContratosGestionEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc'
+  }
+  ,
+  {
+    component: EmpresasAdceeccComponent,
+    canActivate: [AuthGuard],
+    path: 'empresas-adceecc'
+  }
+  ,
+  {
+    component: EmpresasRequisitosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'empresas-adceecc/requisitos',
   }
 ];
 

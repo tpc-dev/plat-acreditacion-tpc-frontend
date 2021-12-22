@@ -28,6 +28,11 @@ import { AreasAdminComponent } from './areas-admin/areas-admin.component';
 import { GerenciasAdminComponent } from './gerencias-admin/gerencias-admin.component';
 import { TrabajadoresAdminComponent } from './trabajadores-admin/trabajadores-admin.component';
 import { VehiculosAdminComponent } from './vehiculos-admin/vehiculos-admin.component';
+import { ContratosAdceeccComponent } from './contratos-adceecc/contratos-adceecc.component';
+import { EmpresasAdceeccComponent } from './empresas-adceecc/empresas-adceecc.component';
+import { EmpresasRequisitosEeccComponent } from './empresas-requisitos-eecc/empresas-requisitos-eecc.component';
+import { AppRoutingModule } from "../app-routing.module";
+import { ContratosGestionEeccComponent } from './contratos-gestion-eecc/contratos-gestion-eecc.component';
 
 @NgModule({
     imports: [
@@ -35,7 +40,8 @@ import { VehiculosAdminComponent } from './vehiculos-admin/vehiculos-admin.compo
         FormsModule,
         ReactiveFormsModule,
         ComponentsModule,
-        MomentModule
+        MomentModule,
+        AppRoutingModule  
     ],
     declarations: [
         LogintpcPageComponent,
@@ -61,7 +67,11 @@ import { VehiculosAdminComponent } from './vehiculos-admin/vehiculos-admin.compo
         AreasAdminComponent,
         GerenciasAdminComponent,
         TrabajadoresAdminComponent,
-        VehiculosAdminComponent],
+        VehiculosAdminComponent,
+        ContratosAdceeccComponent,
+        EmpresasAdceeccComponent,
+        EmpresasRequisitosEeccComponent,
+        ContratosGestionEeccComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

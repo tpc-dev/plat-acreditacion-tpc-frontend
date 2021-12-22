@@ -54,12 +54,11 @@ export class AppComponent {
   ]
 
   listaItemsMenuAdminContratoExterno: ItemMenu[] = [
-    { name: "Inicio", icon: "home", path: '/home-admin' },
-    { name: "Contratos", icon: "description", path: '/contratos-admin' },
-    { name: "Empresas", icon: "business", path: '/trabajadores-admin' },
-    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
-    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin' },
-    { name: "Visitas", icon: "groups", path: '/visitas-admin' },
+    { name: "Inicio", icon: "home", path: '/home-adceecc' },
+    { name: "Contratos", icon: "description", path: '/contratos-adceecc' },
+    { name: "Empresas", icon: "business", path: '/empresas-adceecc' },
+    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-adceecc' },
+    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-adceecc' },
   ]
 
   listaItemsMenuAdminSistema: ItemMenu[] = [
@@ -143,6 +142,8 @@ export class AppComponent {
           this.listaItemsMenu = this.listaItemsMenuAdminSistema;
         } else if (this.cuenta.usuario.tipoRolId == 4) {
           this.listaItemsMenu = this.listaItemsMenuAdminContratoTPC;
+        } else if (this.cuenta.usuario.tipoRolId == 5) {
+          this.listaItemsMenu = this.listaItemsMenuAdminContratoExterno;
         }
       }
     })

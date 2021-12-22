@@ -51,6 +51,8 @@ import { NuevaGerenciaFormComponent } from './nueva-gerencia-form/nueva-gerencia
 import { TablaBuscadorContratosComponent } from './tabla-buscador-contratos/tabla-buscador-contratos.component';
 import { ContratoDetailComponent } from './contrato-detail/contrato-detail.component';
 import { RouterModule } from "@angular/router";
+import { TablaBuscadorEmpresasEeccComponent } from './tabla-buscador-empresas-eecc/tabla-buscador-empresas-eecc.component';
+import { UploadTipoDocumentoComponent } from './upload-tipo-documento/upload-tipo-documento.component';
 
 @NgModule({
     imports: [
@@ -109,6 +111,8 @@ import { RouterModule } from "@angular/router";
         NuevaGerenciaFormComponent,
         TablaBuscadorContratosComponent,
         ContratoDetailComponent,
+        TablaBuscadorEmpresasEeccComponent,
+        UploadTipoDocumentoComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -125,7 +129,9 @@ import { RouterModule } from "@angular/router";
         TablaBuscadorGerenciasComponent,
         NuevaGerenciaFormComponent,
         TablaBuscadorContratosComponent,
+        TablaBuscadorEmpresasEeccComponent,
         ContratoDetailComponent,
+        UploadTipoDocumentoComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

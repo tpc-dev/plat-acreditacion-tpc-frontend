@@ -62,5 +62,8 @@ export class TablaBuscadorContratosComponent implements OnInit {
     this.router.navigateByUrl('contrato-detail', { state: { contrato: contrato, etapa: this.etapa } });
     //   this.router.navigate(['contrato-detail'], { relativeTo: this.route });
   }
-
+  
+  goToGestionarContrato() {
+    this.router.navigate(['/contratos-gestion-eecc']);
+  }
 }

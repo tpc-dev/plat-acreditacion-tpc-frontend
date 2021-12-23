@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/core/interfaces/cuenta.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -14,12 +18,40 @@ export class EmpresasAdceeccComponent implements OnInit {
   listContratos: any[] = [];
   listEmpresasParaAcreditar: any[] = [];
   isLoading = false;
-  constructor(public api: ApiService, public auth: AuthService) {
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = ['rut', 'razonsocial', 'estado', 'requisitos'];
+
+  contratoId: number;
+  constructor(public api: ApiService, public activeRoute: ActivatedRoute, public auth: AuthService, public router: Router) {
     this.usuario = this.auth.getCuentaActivaValue().usuario;
+    this.activeRoute.params.subscribe(params => {
+      console.log(params);
+      this.contratoId = params.id;
+    });
+
   }
 
   ngOnInit(): void {
-    this.obtenerContratosUsuario();
+    //  this.obtenerContratosUsuario();
+    this.obtenerEmpresasParaAcreditar();
+  }
+  obtenerEmpresasParaAcreditar() {
+    console.log("obtenerEmpresasParaAcreditar");
+    this.isLoading = true;
+    this.api.GET(`/contratos/${this.contratoId}/empresa-contratadas`)
+      .then((res: any) => {
+        console.log(res);
+        this.listEmpresasParaAcreditar = res;
+        this.dataSource = new MatTableDataSource(this.listEmpresasParaAcreditar);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   obtenerContratosUsuario() {
@@ -47,6 +79,15 @@ export class EmpresasAdceeccComponent implements OnInit {
         console.log(err);
 
       });
+  }
+
+  verRequisitos(empresaData: any) {
+    console.log(empresaData);
+    
+    // this.router.navigate(['item-carpeta-arranque-admin', 3]);
+    // this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/empresas-contratadas`]);
+
+    this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/empresas-contratadas/requisitos`], { state: { data: empresaData } });
   }
 
   // Buscar contratos asignados a este usuario, a partir del contrato traer los registro de contratoempresa y desde ahi traer

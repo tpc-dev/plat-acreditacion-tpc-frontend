@@ -9,12 +9,13 @@
     </mat-tab>
     <mat-tab label="Todas Agendadas">
         <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-        <app-tabla-buscador-visitas [candEdit]="true" [isAdministrador]="true" *ngIf="!isLoading" (actualizarListado)=obtenerMisVisitas()
-            [listaVisitas]="listTodasLasVisitas" [showDateSearch]="true">
+        <app-tabla-buscador-visitas [candEdit]="true" [isAdministrador]="true" *ngIf="!isLoading"
+            (actualizarListado)=obtenerMisVisitas() [listaVisitas]="listTodasLasVisitas" [showDateSearch]="true">
         </app-tabla-buscador-visitas>
     </mat-tab>
     <mat-tab label="Ingresar Nueva Visita">
-        <app-nueva-visita-form [isAdministrador]="isAdministrador" (onNuevaVisitaAdded)=obtenerMisVisitas() [listaEncargados]=listaEncargados>
+        <app-nueva-visita-form [isAdministrador]="isAdministrador" (onNuevaVisitaAdded)=obtenerMisVisitas()
+            [listaEncargados]=listaEncargados>
         </app-nueva-visita-form>
     </mat-tab>
     <mat-tab label="Historico">

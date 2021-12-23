@@ -6,7 +6,7 @@
 <mat-card>
     <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <button [routerLink]="['/empresas-adceecc', {}]" mat-icon-button color="primary">
+            <button routerLink=".." mat-icon-button color="primary">
                 Atrás
                 <mat-icon>arrow_back</mat-icon>
             </button>
@@ -74,10 +74,7 @@
                 </div>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                <!-- Row shown when there is no matching data. -->
             </table>
-            <!-- <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Selecciona página de gerencias">
-            </mat-paginator> -->
         </div>
     </section>
 </mat-card>

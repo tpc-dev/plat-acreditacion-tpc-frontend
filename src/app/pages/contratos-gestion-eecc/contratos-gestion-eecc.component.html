@@ -1,3 +1,4 @@
+<!-- <div *ngIf="activeRoute.children.length === 0"> -->
 <div>
     <mat-card>
         <div class="row">
@@ -11,93 +12,134 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <mat-card backgroundcolor="primary">
-                        <mat-card-title-group>
-                            <mat-card-title>Empresa</mat-card-title>
-                            <mat-card-subtitle>Small</mat-card-subtitle>
-                            <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
-                        </mat-card-title-group>
+                    <mat-card class="header-card">
+                        <mat-card-title>Empresa</mat-card-title>
+                        <!-- <mat-card-subtitle>Small</mat-card-subtitle> -->
+                        <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
                         <mat-card-content>
-                            Empresa
+
                         </mat-card-content>
                         <mat-card-actions>
-                            <button style="width: 100%;" color="primary" mat-flat-button>Detalles</button>
+                            <button (click)="verEmpresas()" style="width: 100%;" color="accent"
+                                mat-flat-button>Detalles</button>
+                            <!-- <button [routerLink]="['empresas-contratadas']" style="width: 100%;" color="accent"
+                                mat-flat-button>Detalles</button> -->
                         </mat-card-actions>
                     </mat-card>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <mat-card backgroundcolor="primary">
-                        <mat-card-title-group>
-                            <mat-card-title>Trabajadores</mat-card-title>
-                            <mat-card-subtitle>Small</mat-card-subtitle>
-                            <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
-                        </mat-card-title-group>
+                    <mat-card class="header-card">
+                        <mat-card-title>Trabajadores</mat-card-title>
+                        <!-- <mat-card-subtitle>Small</mat-card-subtitle> -->
+                        <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
                         <mat-card-content>
-                            Trabajadores
                         </mat-card-content>
                         <mat-card-actions>
-                            <button style="width: 100%;" color="primary" mat-flat-button>Detalles</button>
+                            <button (click)="verTrabajadores()" style="width: 100%;" color="accent"
+                                mat-flat-button>Detalles</button>
                         </mat-card-actions>
                     </mat-card>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <mat-card backgroundcolor="primary">
-                        <mat-card-title-group>
-                            <mat-card-title>Vehiculos</mat-card-title>
-                            <mat-card-subtitle>Small</mat-card-subtitle>
-                            <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
-                        </mat-card-title-group>
+                    <mat-card class="header-card">
+                        <mat-card-title>Vehiculos</mat-card-title>
+                        <!-- <mat-card-subtitle>Small</mat-card-subtitle> -->
+                        <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
                         <mat-card-content>
-                            Vehiculos
                         </mat-card-content>
                         <mat-card-actions>
-                            <button style="width: 100%;" color="primary" mat-flat-button>Detalles</button>
+                            <button (click)="verVehiculos()" style="width: 100%;" color="accent"
+                                mat-flat-button>Detalles</button>
                         </mat-card-actions>
                     </mat-card>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <mat-card backgroundcolor="primary">
-                        <mat-card-title-group>
-                            <mat-card-title>Cargos</mat-card-title>
-                            <mat-card-subtitle>Small</mat-card-subtitle>
-                            <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
-                        </mat-card-title-group>
+                    <mat-card class="header-card">
+                        <mat-card-title>Cargos</mat-card-title>
+                        <!-- <mat-card-subtitle>Small</mat-card-subtitle> -->
+                        <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
                         <mat-card-content>
-                            Cargos
                         </mat-card-content>
                         <mat-card-actions>
-                            <button style="width: 100%;" color="primary" mat-flat-button>Detalles</button>
+                            <button (click)="verCargos()" style="width: 100%;" color="accent"
+                                mat-flat-button>Detalles</button>
                         </mat-card-actions>
                     </mat-card>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <mat-card backgroundcolor="primary">
-                        <mat-card-title-group>
-                            <mat-card-title>Turnos</mat-card-title>
-                            <mat-card-subtitle>Small</mat-card-subtitle>
-                            <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
-                        </mat-card-title-group>
+                    <mat-card class="header-card">
+                        <mat-card-title>Turnos</mat-card-title>
+                        <!-- <mat-card-subtitle>Small</mat-card-subtitle> -->
+                        <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
                         <mat-card-content>
-                            Turnos
                         </mat-card-content>
                         <mat-card-actions>
-                            <button style="width: 100%;" color="primary" mat-flat-button>Detalles</button>
+                            <button (click)="verTurnos()" style="width: 100%;" color="accent"
+                                mat-flat-button>Detalles</button>
                         </mat-card-actions>
                     </mat-card>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <mat-card backgroundcolor="primary">
-                        <mat-card-title-group>
-                            <mat-card-title>Eventos</mat-card-title>
-                            <mat-card-subtitle>Small</mat-card-subtitle>
-                            <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
-                        </mat-card-title-group>
+                    <mat-card class="header-card">
+                        <mat-card-title>Eventos</mat-card-title>
+                        <!-- <mat-card-subtitle>Small</mat-card-subtitle> -->
+                        <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
                         <mat-card-content>
-                            Eventos
                         </mat-card-content>
                         <mat-card-actions>
-                            <button style="width: 100%;" color="primary" mat-flat-button>Detalles</button>
+                            <button (click)="verEventos()" style="width: 100%;" color="accent"
+                                mat-flat-button>Detalles</button>
                         </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="row contrato-resumen">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <h1><strong>{{ 'Detalles Contrato' | uppercase}}</strong></h1>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <mat-card class="contrato-card">
+                        <div class="row item-detail-row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasdasd
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasd
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasd
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="row item-detail-row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasdasd
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasd
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasd
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="row item-detail-row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasdasd
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasd
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                asdasd
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
                     </mat-card>
                 </div>
             </div>

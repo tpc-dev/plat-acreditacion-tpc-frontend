@@ -33,6 +33,10 @@ import { EmpresasAdceeccComponent } from './empresas-adceecc/empresas-adceecc.co
 import { EmpresasRequisitosEeccComponent } from './empresas-requisitos-eecc/empresas-requisitos-eecc.component';
 import { AppRoutingModule } from "../app-routing.module";
 import { ContratosGestionEeccComponent } from './contratos-gestion-eecc/contratos-gestion-eecc.component';
+import { CargosEeccComponent } from './cargos-eecc/cargos-eecc.component';
+import { TurnosEeccComponent } from './turnos-eecc/turnos-eecc.component';
+import { VehiculosEeccComponent } from './vehiculos-eecc/vehiculos-eecc.component';
+import { TrabajadoresEeccComponent } from './trabajadores-eecc/trabajadores-eecc.component';
 
 @NgModule({
     imports: [
@@ -71,7 +75,11 @@ import { ContratosGestionEeccComponent } from './contratos-gestion-eecc/contrato
         ContratosAdceeccComponent,
         EmpresasAdceeccComponent,
         EmpresasRequisitosEeccComponent,
-        ContratosGestionEeccComponent],
+        ContratosGestionEeccComponent,
+        CargosEeccComponent,
+        TurnosEeccComponent,
+        VehiculosEeccComponent,
+        TrabajadoresEeccComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

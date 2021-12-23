@@ -53,6 +53,9 @@ import { ContratoDetailComponent } from './contrato-detail/contrato-detail.compo
 import { RouterModule } from "@angular/router";
 import { TablaBuscadorEmpresasEeccComponent } from './tabla-buscador-empresas-eecc/tabla-buscador-empresas-eecc.component';
 import { UploadTipoDocumentoComponent } from './upload-tipo-documento/upload-tipo-documento.component';
+import { NuevoCargoFormComponent } from './nuevo-cargo-form/nuevo-cargo-form.component';
+import { NuevoTurnoFormComponent } from './nuevo-turno-form/nuevo-turno-form.component';
+import { NuevoJornadaFormComponent } from './nuevo-jornada-form/nuevo-jornada-form.component';
 
 @NgModule({
     imports: [
@@ -113,6 +116,9 @@ import { UploadTipoDocumentoComponent } from './upload-tipo-documento/upload-tip
         ContratoDetailComponent,
         TablaBuscadorEmpresasEeccComponent,
         UploadTipoDocumentoComponent,
+        NuevoCargoFormComponent,
+        NuevoTurnoFormComponent,
+        NuevoJornadaFormComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -132,6 +138,8 @@ import { UploadTipoDocumentoComponent } from './upload-tipo-documento/upload-tip
         TablaBuscadorEmpresasEeccComponent,
         ContratoDetailComponent,
         UploadTipoDocumentoComponent,
+        NuevoCargoFormComponent,
+        NuevoTurnoFormComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

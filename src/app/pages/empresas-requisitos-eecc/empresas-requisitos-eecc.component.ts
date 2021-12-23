@@ -75,7 +75,7 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
         // this.listaRequisitos = resp.map((requisito: any) => {
         this.listItemsCarpetaArranque = resp.map((requisito: any) => requisito.itemCarpetaArranque.id);
         console.log(resp);
-        
+
         // console.log(this.listItemsCarpetaArranque);
         this.listDocumentosRequeridos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.itemCarpetaArranqueId == this.listItemsCarpetaArranque.find((item: any) => item == requisito.itemCarpetaArranqueId));
         this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == 2);
@@ -87,5 +87,16 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  openDialog(requisito: any) {
+    // const dialogRef = this.dialog.open(UploadTipoDocumentoComponent, {
+    //   width: '650px',
+    //   data: { ...visita }
+    // });
+
+    // dialogRef.afterClosed().subscribe((result: any) => {
+    //   console.log(result);
+    // });
   }
 }

@@ -4,6 +4,7 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 import { ContratoDetailComponent } from './features/components/contrato-detail/contrato-detail.component';
 import { FormularioProtocoloCovidComponent } from './features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { AreasAdminComponent } from './pages/areas-admin/areas-admin.component';
+import { CargosEeccComponent } from './pages/cargos-eecc/cargos-eecc.component';
 import { ContratosAdceeccComponent } from './pages/contratos-adceecc/contratos-adceecc.component';
 import { ContratosAdminComponent } from './pages/contratos-admin/contratos-admin.component';
 import { ContratosGestionEeccComponent } from './pages/contratos-gestion-eecc/contratos-gestion-eecc.component';
@@ -25,9 +26,12 @@ import { RecuperarPasswordComponent } from './pages/recuperar-password/recuperar
 import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 import { TipoRolesUsuariosAdminComponent } from './pages/tipo-roles-usuarios-admin/tipo-roles-usuarios-admin.component';
 import { TrabajadoresAdminComponent } from './pages/trabajadores-admin/trabajadores-admin.component';
+import { TrabajadoresEeccComponent } from './pages/trabajadores-eecc/trabajadores-eecc.component';
 import { TrabajadoresGuardiaComponent } from './pages/trabajadores-guardia/trabajadores-guardia.component';
+import { TurnosEeccComponent } from './pages/turnos-eecc/turnos-eecc.component';
 import { UsuariosAdminComponent } from './pages/usuarios-admin/usuarios-admin.component';
 import { VehiculosAdminComponent } from './pages/vehiculos-admin/vehiculos-admin.component';
+import { VehiculosEeccComponent } from './pages/vehiculos-eecc/vehiculos-eecc.component';
 import { VehiculosGuardiaComponent } from './pages/vehiculos-guardia/vehiculos-guardia.component';
 import { VisitasAdminComponent } from './pages/visitas-admin/visitas-admin.component';
 import { VisitasGuardiaComponent } from './pages/visitas-guardia/visitas-guardia.component';
@@ -192,7 +196,20 @@ const routes: Routes = [
   {
     component: ContratosGestionEeccComponent,
     canActivate: [AuthGuard],
-    path: 'contratos-gestion-eecc'
+    path: 'contratos-gestion-eecc/:id',
+    children: [
+      // {
+      //   component: EmpresasAdceeccComponent,
+      //   canActivate: [AuthGuard],
+      //   path: 'empresas-contratadas'
+      // }
+    ]
+  }
+  ,
+  {
+    component: EmpresasAdceeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/empresas-contratadas'
   }
   ,
   {
@@ -204,7 +221,31 @@ const routes: Routes = [
   {
     component: EmpresasRequisitosEeccComponent,
     canActivate: [AuthGuard],
-    path: 'empresas-adceecc/requisitos',
+    path: 'contratos-gestion-eecc/:id/empresas-contratadas/requisitos',
+  }
+  ,
+  {
+    component: TrabajadoresEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/trabajadores',
+  }
+  ,
+  {
+    component: CargosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/cargos',
+  }
+  ,
+  {
+    component: TurnosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/turnos',
+  }
+  ,
+  {
+    component: VehiculosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/vehiculos',
   }
 ];
 

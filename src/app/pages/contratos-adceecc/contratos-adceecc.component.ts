@@ -29,15 +29,15 @@ export class ContratosAdceeccComponent implements OnInit {
   }
 
   loadContratos() {
-    this.obtenerContratosPasoUnoCompletado();
-    this.obtenerContratosPasoDosCompletado();
-    this.obtenerContratosPasoTresCompletado();
+    // this.obtenerContratosPasoUnoCompletado();
+    // this.obtenerContratosPasoDosCompletado();
+    // this.obtenerContratosPasoTresCompletado();
     this.obtenerContratosPendientesProcesoAcreditacion();
 
     let promiseAll = Promise.all([
-      this.obtenerContratosPasoUnoCompletado(),
-      this.obtenerContratosPasoDosCompletado(),
-      this.obtenerContratosPasoTresCompletado(),
+      // this.obtenerContratosPasoUnoCompletado(),
+      // this.obtenerContratosPasoDosCompletado(),
+      // this.obtenerContratosPasoTresCompletado(),
       this.obtenerContratosPendientesProcesoAcreditacion()
     ]);
 

@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Visita } from 'src/app/core/interfaces/visita.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UtilService } from 'src/app/core/services/util/util.service';
 
 @Component({
@@ -30,8 +31,10 @@ export class TablaBuscadorContratosComponent implements OnInit {
   estadoBuscado: boolean = false;
   isProtocoloCovidActivo = false;
   fechaHoyString = moment().format('DD/MM/YYYY');
-  constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService, public dialog: MatDialog, public router: Router, private route: ActivatedRoute,) {
-
+  tipoRolId?: number;
+  constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService, public dialog: MatDialog, public router: Router, private route: ActivatedRoute,
+    public auth: AuthService) {
+    this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
   }
 
   ngOnInit(): void {
@@ -62,8 +65,8 @@ export class TablaBuscadorContratosComponent implements OnInit {
     this.router.navigateByUrl('contrato-detail', { state: { contrato: contrato, etapa: this.etapa } });
     //   this.router.navigate(['contrato-detail'], { relativeTo: this.route });
   }
-  
-  goToGestionarContrato() {
-    this.router.navigate(['/contratos-gestion-eecc']);
+
+  goToGestionarContrato(contrato: any) {
+    this.router.navigate(['/contratos-gestion-eecc', contrato.id]);
   }
 }

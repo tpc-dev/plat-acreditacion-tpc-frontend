@@ -1,12 +1,57 @@
-<div style="text-align: center;">
+<div style="text-align: start;">
     <h1><strong>Empresas</strong></h1>
 </div>
-<mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
+
+<!-- <mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
     <mat-tab label="Activas">
-        <mat-progress-bar *ngIf="isLoading"  mode="indeterminate"></mat-progress-bar>
-        <app-tabla-buscador-empresas-eecc *ngIf="!isLoading"  [listaEmpresas]="listEmpresasParaAcreditar" ></app-tabla-buscador-empresas-eecc>
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-tabla-buscador-empresas-eecc *ngIf="!isLoading" [listaEmpresas]="listEmpresasParaAcreditar">
+        </app-tabla-buscador-empresas-eecc>
     </mat-tab>
-    <!-- <mat-tab label="Ingresar Nueva Empresa">
-        <app-tabla-buscador-empresas-eecc></app-tabla-buscador-empresas-eecc>
-    </mat-tab> -->
-</mat-tab-group>
+</mat-tab-group> -->
+<mat-card>
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <button routerLink=".." mat-icon-button color="primary">
+                Atrás
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="container-table  mat-elevation-z2">
+        <table class="table-data" mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="rut">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT </th>
+                <td mat-cell *matCellDef="let row"> {{row.empresa.rut}} </td>
+            </ng-container>
+            <ng-container matColumnDef="razonsocial">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Razon Social </th>
+                <td mat-cell *matCellDef="let row"> {{row.empresa.razonSocial}}</td>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                <td mat-cell *matCellDef="let row"> <strong>
+                        {{(row.listadoHistoricoAcreditacionEmpresaContrato.length == 0? 'Pendiente' : 'Con
+                        Acreditaciones')
+                        | uppercase}}</strong></td>
+            </ng-container>
+            <ng-container matColumnDef="requisitos">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Requisitos </th>
+                <td mat-cell *matCellDef="let row">
+                    <button (click)="verRequisitos(row)" color="primary" mat-icon-button>
+                        <mat-icon>description</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                <td mat-cell *matCellDef="let row">
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <!-- Row shown when there is no matching data. -->
+        </table>
+    </div>
+</mat-card>

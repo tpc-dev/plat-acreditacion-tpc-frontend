@@ -1,0 +1,122 @@
+<div style="width: 98%;">
+    <form class="form-new" [formGroup]="nuevoTurnoForm">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Descripcion</mat-label>
+                    <input placeholder="Ej: 7X7" type="text" formControlName="descripcion" matInput>
+                    <button *ngIf="nuevoTurnoForm.get('descripcion')?.value != null" matSuffix mat-icon-button
+                        aria-label="Clear" (click)="nuevoTurnoForm.patchValue({'descripcion':null})">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="nuevoTurnoForm.hasError('required', 'descripcion')">
+                        Descripcion es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de Inicio</mat-label>
+                    <input formControlName="fechaInicio" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <button *ngIf="nuevoTurnoForm.get('fechaInicio')?.value != null" matSuffix mat-icon-button
+                        aria-label="Clear" (click)="nuevoTurnoForm.patchValue({'fechaInicio':null})">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="nuevoTurnoForm.hasError('required', 'fechaInicio')">
+                        Fecha de inicio es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de Termino</mat-label>
+                    <input formControlName="fechaTermino" matInput [matDatepicker]="picker2">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <button *ngIf="nuevoTurnoForm.get('fechaTermino')?.value != null" matSuffix mat-icon-button
+                        aria-label="Clear" (click)="nuevoTurnoForm.patchValue({'fechaTermino':null})">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="nuevoTurnoForm.hasError('required', 'fechaTermino')">
+                        Fecha de termino es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dias Laborales</mat-label>
+                    <input type="number" formControlName="diasLaborales" matInput>
+                    <button *ngIf="nuevoTurnoForm.get('diasLaborales')?.value != null" matSuffix mat-icon-button
+                        aria-label="Clear" (click)="nuevoTurnoForm.patchValue({'diasLaborales':null})">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="nuevoTurnoForm.hasError('required', 'diasLaborales')">
+                        Dias Laborales es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dias Festivos</mat-label>
+                    <input type="number" formControlName="diasFestivos" matInput>
+                    <button *ngIf="nuevoTurnoForm.get('diasFestivos')?.value != null" matSuffix mat-icon-button
+                        aria-label="Clear" (click)="nuevoTurnoForm.patchValue({'diasFestivos':null})">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="nuevoTurnoForm.hasError('required', 'diasFestivos')">
+                        Dias Festivos es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Horas Semana</mat-label>
+                    <input type="number" formControlName="horasSemana" matInput>
+                    <button *ngIf="nuevoTurnoForm.get('horasSemana')?.value != null" matSuffix mat-icon-button
+                        aria-label="Clear" (click)="nuevoTurnoForm.patchValue({'horasSemana':null})">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="nuevoTurnoForm.hasError('required', 'horasSemana')">
+                        Horas a la semana es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div style="margin-top: 12px;" class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h2> ASIGNAR JORNADA</h2>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <mat-form-field appearance="outline">
+                    <mat-label>Buscar Jornada</mat-label>
+                    <input matInput placeholder="Ex. Jornada Diurna" #input>
+                </mat-form-field>
+            </div> -->
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <mat-form-field appearance="outline">
+                    <mat-label>Seleccionar Jornada</mat-label>
+                    <mat-select>
+                        <mat-option [value]="jornada.id" *ngFor="let jornada of listJornadas">{{jornada.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <!-- <input matInput placeholder="Ex. Jornada Diurna" #input> -->
+                </mat-form-field>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <button style="margin-top: 12px;" mat-raised-button color="primary"> Crear Nueva Jornada
+                    <mat-icon style="margin-left: 4px;">add_circle</mat-icon>
+                </button>
+            </div>
+        </div>
+        <!-- jornada nombre , horainicio, horatermino, fechainicio  -->
+    </form>
+</div>

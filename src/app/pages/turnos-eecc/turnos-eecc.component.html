@@ -1,0 +1,93 @@
+<div style="text-align: start;">
+    <h1><strong>Turnos</strong></h1>
+</div>
+<mat-card>
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <button routerLink=".." mat-icon-button color="primary">
+                Atrás
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+    </div>
+    <mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
+        <mat-tab label="Todos">
+            <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+            <div class="container-table  mat-elevation-z2">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Buscar Turno</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="text-align: end;" class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                        <h3> <strong>Exportar como:</strong></h3>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <button class="boton-exportar" mat-raised-button color="primary"
+                                    (click)="exporter.exportTable('xlsx', {fileName:'Turnos Creados - '+ fechaHoyString, sheet: 'Visitas Agendadas', Props: {Author: 'Usuario'}})">Excel</button>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <button class="boton-exportar" mat-raised-button color="primary"
+                                    (click)="exporter.exportTable('csv',{fileName:'Turnos Creados - '+ fechaHoyString})">Csv</button>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <button class="boton-exportar" mat-raised-button color="primary"
+                                    (click)="exporter.exportTable('json',{fileName:'Turnos Creados - '+ fechaHoyString})">Json</button>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <button class="boton-exportar" mat-raised-button color="primary"
+                                    (click)="exporter.exportTable('txt',{fileName:'Turnos Creados - '+ fechaHoyString})">Txt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table matTableExporter #exporter="matTableExporter" class="table-data" mat-table
+                    [dataSource]="dataSourceTurnos" matSort>
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                        <td mat-cell *matCellDef="let row">{{row.nombre}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="activo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
+                        <td mat-cell *matCellDef="let row"><strong>{{(row.activo?'Activo':'Desactivado') |
+                                uppercase}}</strong></td>
+                    </ng-container>
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                        <td mat-cell *matCellDef="let row">
+                            <button style="width: 30%;" color="primary" mat-raised-button>
+                                <mat-icon>edit</mat-icon>
+                                <span>Editar</span>
+                            </button>
+                            <!-- <button style="margin-left: 12px; width: 30%;" [color]="row.activo?'warn':'accent'"
+                                (click)="cambiarEstadoCargo(row)" mat-raised-button>
+                                <mat-icon>{{row.activo?'close':'done'}}</mat-icon>
+                                <span>{{row.activo?'Desactivar':'Activar'}}</span>
+                            </button> -->
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No hay registros "{{input.value}}"</td>
+                    </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Selecciona pagina de cargos">
+                </mat-paginator>
+            </div>
+        </mat-tab>
+        <mat-tab label="Agregar Nuevo Turno">
+            <!-- <app-nuevo-cargo-form (onNuevoCargoAdded)=obtenerTurnosContrato() [contratoId]=contratoId>
+            </app-nuevo-cargo-form> -->
+            <app-nuevo-turno-form>
+            </app-nuevo-turno-form>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>

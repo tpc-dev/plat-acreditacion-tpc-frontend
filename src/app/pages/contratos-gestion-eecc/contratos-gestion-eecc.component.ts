@@ -32,7 +32,6 @@ export class ContratosGestionEeccComponent implements OnInit {
 
   verCargos() {
     this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/cargos`]);
-
   }
 
   verTurnos() {

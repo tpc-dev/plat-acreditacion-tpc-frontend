@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
@@ -56,6 +56,7 @@ import { UploadTipoDocumentoComponent } from './upload-tipo-documento/upload-tip
 import { NuevoCargoFormComponent } from './nuevo-cargo-form/nuevo-cargo-form.component';
 import { NuevoTurnoFormComponent } from './nuevo-turno-form/nuevo-turno-form.component';
 import { NuevoJornadaFormComponent } from './nuevo-jornada-form/nuevo-jornada-form.component';
+import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
 @NgModule({
     imports: [
@@ -93,7 +94,8 @@ import { NuevoJornadaFormComponent } from './nuevo-jornada-form/nuevo-jornada-fo
         MatMenuModule,
         MatSlideToggleModule,
         MatProgressSpinnerModule,
-        RouterModule
+        RouterModule,
+        NgxMaterialTimepickerModule
     ],
     declarations: [
         InputTestRiesgoComponent,
@@ -168,7 +170,9 @@ import { NuevoJornadaFormComponent } from './nuevo-jornada-form/nuevo-jornada-fo
         MatDialogModule,
         MatMenuModule,
         MatSlideToggleModule,
-        MatProgressSpinnerModule
-    ]
+        MatProgressSpinnerModule,
+        NuevoJornadaFormComponent
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ComponentsModule { }

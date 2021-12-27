@@ -1,1 +1,73 @@
-<p>nuevo-jornada-form works!</p>
+<mat-card>
+    <div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <button routerLink=".." mat-icon-button color="primary">
+                    Atrás
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h1>
+                    <strong>
+                        Crear Nueva Jornada
+                    </strong>
+                </h1>
+            </div>
+        </div>
+        <form [formGroup]="nuevaJornadaForm">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Nombre de la Jornada" formControlName="nombre">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha de Inicio</mat-label>
+                        <input formControlName="fechaInicio" matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <button *ngIf="nuevaJornadaForm.get('fechaInicio')?.value != null" matSuffix mat-icon-button
+                            aria-label="Clear" (click)="nuevaJornadaForm.patchValue({'fechaInicio':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevaJornadaForm.hasError('required', 'fechaInicio')">
+                            Fecha de inicio es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hora Inicio</mat-label>
+                        <!-- <input matInput placeholder="Nombre de la Jornada" formControlName="horaInicio"> -->
+                        <input matInput formControlName="horaInicio" [ngxTimepicker]="pickerTime">
+                        <ngx-material-timepicker #pickerTime></ngx-material-timepicker>
+                        <mat-error *ngIf="nuevaJornadaForm.hasError('required', 'horaInicio')">
+                            Hora de inicio es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hora Término</mat-label>
+                        <input matInput formControlName="horaTermino" [ngxTimepicker]="pickerTime2">
+                        <ngx-material-timepicker #pickerTime2></ngx-material-timepicker>
+                        <mat-error *ngIf="nuevaJornadaForm.hasError('required', 'horaTermino')">
+                            Hora de Termino es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <button (click)="guardarJornada()" style="width: 100%;" mat-raised-button color="primary"
+                        [disabled]="nuevaJornadaForm.invalid">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-card>

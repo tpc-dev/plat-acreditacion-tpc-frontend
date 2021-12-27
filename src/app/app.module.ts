@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,6 +16,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { TPC_DATE_FORMATS } from './core/constants/TPC_DATE_FORMATS';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 //#endregion
 
@@ -35,7 +36,8 @@ import { MatTableExporterModule } from 'mat-table-exporter';
     MatNativeDateModule,
     MomentModule,
     MomentDateModule,
-    MatTableExporterModule
+    MatTableExporterModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [
     AuthService,

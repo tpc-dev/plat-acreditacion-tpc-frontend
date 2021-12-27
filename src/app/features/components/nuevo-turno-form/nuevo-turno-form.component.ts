@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import Swal from 'sweetalert2';
+import { NuevoJornadaFormComponent } from '../nuevo-jornada-form/nuevo-jornada-form.component';
 
 @Component({
   selector: 'app-nuevo-turno-form',
@@ -13,7 +17,8 @@ export class NuevoTurnoFormComponent implements OnInit {
   nuevoTurnoForm: FormGroup
   isLoading: boolean = false;
   listJornadas: any[] = [];
-  constructor(public formbuilder: FormBuilder, public api: ApiService) { }
+  constructor(public formbuilder: FormBuilder, public api: ApiService, public dialog: MatDialog,
+    public router: Router) { }
 
 
   ngOnInit(): void {
@@ -39,11 +44,43 @@ export class NuevoTurnoFormComponent implements OnInit {
       diasFestivos: ['', Validators.required],
       descripcion: ['', Validators.required],
       horasSemana: ['', Validators.required],
+      jornadaId: ['', Validators.required],
       activo: [true]
     });
   }
 
   crearTurno() {
+    console.log(this.nuevoTurnoForm.value)
+    this.isLoading = true;
+    let req = {
+      ...this.nuevoTurnoForm.value,
+    }
+    req.fechaInicio = new Date(req.fechaInicio).toISOString();
+    req.fechaTermino = new Date(req.fechaTermino).toISOString();
+    req.contratoId = this.contratoId;
+    this.api.POST(`/contratos/${this.contratoId}/turnos`, req)
+      .then(res => {
+        this.isLoading = false;
+        this.onNuevoTurnoAdded.emit(res);
+        this.nuevoTurnoForm.reset();
+        Swal.fire({
+          title: 'Turno creado',
+          text: 'El turno se ha creado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+      })
+      .catch(err => {
+        this.isLoading = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Algo salió mal!',
+          footer: err.message,
+        })
+        console.log(err);
+      });
+
     // this.isLoading = true;
     // let req = {
     //   Nombre: this.nuevoCargoForm.get('nombre')?.value,
@@ -75,6 +112,15 @@ export class NuevoTurnoFormComponent implements OnInit {
 
   recargarCargos() {
     this.onNuevoTurnoAdded.emit();
+  }
+
+  openDialogNuevaJornada() {
+    this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/turnos/nueva-jornada`]);
+    // this.dialog.open(NuevoJornadaFormComponent, {
+    //   height: '600px',
+    //   width: '900px',
+    //   data: {}
+    // });
   }
 
 }

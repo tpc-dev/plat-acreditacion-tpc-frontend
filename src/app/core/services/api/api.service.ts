@@ -11,8 +11,6 @@ import { Usuario } from '../../interfaces/cuenta.interface';
 })
 export class ApiService {
 
-
-
   httpOptions: any;
   token: string;
   headers:Headers = new Headers();

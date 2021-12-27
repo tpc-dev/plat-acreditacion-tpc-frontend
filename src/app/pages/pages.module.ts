@@ -37,6 +37,7 @@ import { CargosEeccComponent } from './cargos-eecc/cargos-eecc.component';
 import { TurnosEeccComponent } from './turnos-eecc/turnos-eecc.component';
 import { VehiculosEeccComponent } from './vehiculos-eecc/vehiculos-eecc.component';
 import { TrabajadoresEeccComponent } from './trabajadores-eecc/trabajadores-eecc.component';
+import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import { TrabajadoresEeccComponent } from './trabajadores-eecc/trabajadores-eecc
         ReactiveFormsModule,
         ComponentsModule,
         MomentModule,
-        AppRoutingModule  
+        AppRoutingModule,
+        NgxMaterialTimepickerModule
     ],
     declarations: [
         LogintpcPageComponent,

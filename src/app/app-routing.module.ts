@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guard';
 import { ContratoDetailComponent } from './features/components/contrato-detail/contrato-detail.component';
 import { FormularioProtocoloCovidComponent } from './features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
+import { NuevoJornadaFormComponent } from './features/components/nuevo-jornada-form/nuevo-jornada-form.component';
 import { AreasAdminComponent } from './pages/areas-admin/areas-admin.component';
 import { CargosEeccComponent } from './pages/cargos-eecc/cargos-eecc.component';
 import { ContratosAdceeccComponent } from './pages/contratos-adceecc/contratos-adceecc.component';
@@ -240,6 +241,12 @@ const routes: Routes = [
     component: TurnosEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/turnos',
+  }
+  ,
+  {
+    component: NuevoJornadaFormComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/turnos/nueva-jornada',
   }
   ,
   {

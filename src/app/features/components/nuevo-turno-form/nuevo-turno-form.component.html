@@ -35,7 +35,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Fecha de Termino</mat-label>
                     <input formControlName="fechaTermino" matInput [matDatepicker]="picker2">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                     <button *ngIf="nuevoTurnoForm.get('fechaTermino')?.value != null" matSuffix mat-icon-button
                         aria-label="Clear" (click)="nuevoTurnoForm.patchValue({'fechaTermino':null})">
@@ -104,19 +104,32 @@
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                 <mat-form-field appearance="outline">
                     <mat-label>Seleccionar Jornada</mat-label>
-                    <mat-select>
+                    <mat-select formControlName="jornadaId">
                         <mat-option [value]="jornada.id" *ngFor="let jornada of listJornadas">{{jornada.nombre}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="nuevoTurnoForm.hasError('required', 'jornadaId')">
+                        Una Jornada es <strong>necesario</strong>
+                    </mat-error>
                     <!-- <input matInput placeholder="Ex. Jornada Diurna" #input> -->
                 </mat-form-field>
+                <p *ngIf="listJornadas.length==0" style="color:red">
+                    No hay jornadas para seleccionar
+                </p>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <button style="margin-top: 12px;" mat-raised-button color="primary"> Crear Nueva Jornada
+                <button [routerLink]="'contratos-gestion-eecc/:id/nueva-jornada'" (click)="openDialogNuevaJornada()"
+                    style="margin-top: 12px;" mat-raised-button color="primary"> Crear Nueva Jornada
                     <mat-icon style="margin-left: 4px;">add_circle</mat-icon>
                 </button>
             </div>
         </div>
         <!-- jornada nombre , horainicio, horatermino, fechainicio  -->
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <button (click)="crearTurno()" [disabled]="nuevoTurnoForm.invalid" style="width: 100%;" mat-raised-button
+                    color="primary">Guardar</button>
+            </div>
+        </div>
     </form>
 </div>

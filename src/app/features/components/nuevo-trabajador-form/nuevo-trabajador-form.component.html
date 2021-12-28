@@ -1,0 +1,155 @@
+<mat-card>
+    <div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <button routerLink=".." mat-icon-button color="primary">
+                    Atrás
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h1>
+                    <strong>
+                        Crear Nuevo Trabajador
+                    </strong>
+                </h1>
+            </div>
+        </div>
+        <form [formGroup]="nuevoTrabajadorForm">
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Rut</mat-label>
+                        <input placeholder="11111111-1" formControlName="rut" matInput>
+                        <button *ngIf="nuevoTrabajadorForm.get('rut')?.value != null" matSuffix mat-icon-button
+                            aria-label="Clear" (click)="nuevoTrabajadorForm.patchValue({'rut':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'rut')">
+                            RUT es <strong>necesario</strong>
+                        </mat-error>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('rutValido', 'rut')">
+                            RUT no <strong>valido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input placeholder="11111111-1" formControlName="nombre" matInput>
+                        <button *ngIf="nuevoTrabajadorForm.get('nombre')?.value != null" matSuffix mat-icon-button
+                            aria-label="Clear" (click)="nuevoTrabajadorForm.patchValue({'nombre':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'nombre')">
+                            nombre es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido Paterno</mat-label>
+                        <input placeholder="11111111-1" formControlName="apellidoPaterno" matInput>
+                        <button *ngIf="nuevoTrabajadorForm.get('apellidoPaterno')?.value != null" matSuffix
+                            mat-icon-button aria-label="Clear"
+                            (click)="nuevoTrabajadorForm.patchValue({'apellidoPaterno':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'apellidoPaterno')">
+                            Apellido Paterno es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido Materno</mat-label>
+                        <input placeholder="11111111-1" formControlName="apellidoMaterno" matInput>
+                        <button *ngIf="nuevoTrabajadorForm.get('apellidoMaterno')?.value != null" matSuffix
+                            mat-icon-button aria-label="Clear"
+                            (click)="nuevoTrabajadorForm.patchValue({'apellidoMaterno':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'apellidoMaterno')">
+                            Apellido Materno es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Genero</mat-label>
+                        <mat-select formControlName="generoId">
+                            <mat-option *ngFor="let genero of listGeneros" [value]="genero.id">{{genero.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'generoId')">
+                            Genero es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha de Nacimiento</mat-label>
+                        <input formControlName="fechaNacimiento" matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <button *ngIf="nuevoTrabajadorForm.get('fechaNacimiento')?.value != null" matSuffix
+                            mat-icon-button aria-label="Clear"
+                            (click)="nuevoTrabajadorForm.patchValue({'fechaNacimiento':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'fechaNacimiento')">
+                            Fecha de Nacimiento es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Estado Civil</mat-label>
+                        <mat-select formControlName="estadoCivilId">
+                            <mat-option *ngFor="let estado of listEstadosCiviles" [value]="estado.id">{{estado.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'estadoCivilId')">
+                            Estado Civil es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nivel Educacional</mat-label>
+                        <mat-select formControlName="nivelEducacionalId">
+                            <mat-option *ngFor="let nivel of listNivelesEducacional" [value]="nivel.id">{{nivel.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'nivelEducacionalId')">
+                            Nivel Educacional es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Pais</mat-label>
+                        <mat-select formControlName="paisId">
+                            <mat-option *ngFor="let pais of listPaises" [value]="pais.id">{{pais.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'paisId')">
+                            Pais <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <button (click)="guardarNuevoTrabajador()" [disabled]="nuevoTrabajadorForm.invalid"
+                        style="width: 100%;" mat-raised-button color="primary">Guardar</button>
+                </div>
+            </div>
+            <mat-progress-bar *ngIf="isLoading" style="margin-top: 8px;" color="accent" mode="query"></mat-progress-bar>
+        </form>
+    </div>
+</mat-card>

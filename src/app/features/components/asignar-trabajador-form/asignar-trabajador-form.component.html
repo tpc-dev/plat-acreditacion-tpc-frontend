@@ -1,0 +1,61 @@
+<mat-card>
+    <form [formGroup]="nuevoTrabajadorContrato">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Cargo</mat-label>
+                    <mat-select formControlName="cargoId">
+                        <mat-option *ngFor="let cargo of listCargos" [value]="cargo.id">
+                            {{cargo.nombre}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="nuevoTrabajadorContrato.hasError('required', 'cargoId')">
+                        Cargo es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Turno</mat-label>
+                    <mat-select formControlName="turnoId">
+                        <mat-option *ngFor="let turno of listTurnos" [value]="turno.id">
+                            {{turno.descripcion}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="nuevoTrabajadorContrato.hasError('required', 'turnoId')">
+                        Turno es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Trabajador</mat-label>
+                    <input type="text" placeholder="Seleccionar uno" aria-label="Trabajadores" matInput
+                        formControlName="trabajadorId" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="getFormatTrabajador.bind(this)">
+                        <mat-option *ngFor="let trabajador of filteredOptions | async " [value]="trabajador.id">
+                            {{trabajador.nombres}} {{trabajador.apellidoPaterno}} {{trabajador.apellidoMaterno}}
+                            <span><strong>{{trabajador.rut}}</strong></span>
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="nuevoTrabajadorContrato.hasError('required', 'trabajadorId')">
+                        Trabajador es <strong>necesario</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <button (click)="openCrearNuevoTrabajador()" style="margin-top: 12px;" mat-raised-button
+                    color="primary"> Crear Nuevo Trabajador
+                    <mat-icon style="margin-left: 4px;">add_circle</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <button mat-raised-button color="primary" (click)="asignarTrabajadorContrato()"
+                    [disabled]="nuevoTrabajadorContrato.invalid">Asignar Trabajador</button>
+            </div>
+        </div>
+        <mat-progress-bar *ngIf="isLoading" style="margin-top: 8px;" color="accent" mode="query"></mat-progress-bar>
+    </form>
+</mat-card>

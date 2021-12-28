@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { InputTestRiesgoComponent } from './input-test-riesgo/input-test-riesgo.component';
 import { FormularioTestRiesgoComponent } from './formulario-test-riesgo/formulario-test-riesgo.component';
@@ -57,6 +58,9 @@ import { NuevoCargoFormComponent } from './nuevo-cargo-form/nuevo-cargo-form.com
 import { NuevoTurnoFormComponent } from './nuevo-turno-form/nuevo-turno-form.component';
 import { NuevoJornadaFormComponent } from './nuevo-jornada-form/nuevo-jornada-form.component';
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
+import { TablaBuscadorTrabajadoresEeccComponent } from './tabla-buscador-trabajadores-eecc/tabla-buscador-trabajadores-eecc.component';
+import { AsignarTrabajadorFormComponent } from './asignar-trabajador-form/asignar-trabajador-form.component';
+import { NuevoTrabajadorFormComponent } from './nuevo-trabajador-form/nuevo-trabajador-form.component';
 
 @NgModule({
     imports: [
@@ -94,6 +98,7 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
         MatMenuModule,
         MatSlideToggleModule,
         MatProgressSpinnerModule,
+        MatAutocompleteModule,
         RouterModule,
         NgxMaterialTimepickerModule
     ],
@@ -121,6 +126,9 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
         NuevoCargoFormComponent,
         NuevoTurnoFormComponent,
         NuevoJornadaFormComponent,
+        TablaBuscadorTrabajadoresEeccComponent,
+        AsignarTrabajadorFormComponent,
+        NuevoTrabajadorFormComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -142,6 +150,9 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
         UploadTipoDocumentoComponent,
         NuevoCargoFormComponent,
         NuevoTurnoFormComponent,
+        TablaBuscadorTrabajadoresEeccComponent,
+        AsignarTrabajadorFormComponent,
+        NuevoTrabajadorFormComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,
@@ -171,6 +182,7 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
         MatMenuModule,
         MatSlideToggleModule,
         MatProgressSpinnerModule,
+        MatAutocompleteModule,
         NuevoJornadaFormComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

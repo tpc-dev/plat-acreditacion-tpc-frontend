@@ -4,6 +4,7 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 import { ContratoDetailComponent } from './features/components/contrato-detail/contrato-detail.component';
 import { FormularioProtocoloCovidComponent } from './features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { NuevoJornadaFormComponent } from './features/components/nuevo-jornada-form/nuevo-jornada-form.component';
+import { NuevoTrabajadorFormComponent } from './features/components/nuevo-trabajador-form/nuevo-trabajador-form.component';
 import { AreasAdminComponent } from './pages/areas-admin/areas-admin.component';
 import { CargosEeccComponent } from './pages/cargos-eecc/cargos-eecc.component';
 import { ContratosAdceeccComponent } from './pages/contratos-adceecc/contratos-adceecc.component';
@@ -29,6 +30,7 @@ import { TipoRolesUsuariosAdminComponent } from './pages/tipo-roles-usuarios-adm
 import { TrabajadoresAdminComponent } from './pages/trabajadores-admin/trabajadores-admin.component';
 import { TrabajadoresEeccComponent } from './pages/trabajadores-eecc/trabajadores-eecc.component';
 import { TrabajadoresGuardiaComponent } from './pages/trabajadores-guardia/trabajadores-guardia.component';
+import { TrabajadoresRequisitosEeccComponent } from './pages/trabajadores-requisitos-eecc/trabajadores-requisitos-eecc.component';
 import { TurnosEeccComponent } from './pages/turnos-eecc/turnos-eecc.component';
 import { UsuariosAdminComponent } from './pages/usuarios-admin/usuarios-admin.component';
 import { VehiculosAdminComponent } from './pages/vehiculos-admin/vehiculos-admin.component';
@@ -229,6 +231,18 @@ const routes: Routes = [
     component: TrabajadoresEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/trabajadores',
+  }
+  ,
+  {
+    component: NuevoTrabajadorFormComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/trabajadores/nuevo-trabajador',
+  }
+  ,
+  {
+    component: TrabajadoresRequisitosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/trabajadores/requisitos',
   }
   ,
   {

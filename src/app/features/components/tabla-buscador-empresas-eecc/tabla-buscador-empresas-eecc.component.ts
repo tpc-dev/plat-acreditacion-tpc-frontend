@@ -36,6 +36,8 @@ export class TablaBuscadorEmpresasEeccComponent implements OnInit {
   }
 
   verRequisitos(empresaData: any) {
+    console.log(empresaData);
+    
     // this.router.navigate(['item-carpeta-arranque-admin', 3]);
     this.router.navigate(['empresas-adceecc/requisitos'], { state: { data: empresaData } });
   }

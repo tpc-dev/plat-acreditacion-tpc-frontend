@@ -10,5 +10,18 @@
             </button>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
+                <mat-tab label="Todos">
+                    <app-tabla-buscador-vehiculos-eecc *ngIf="!isLoading" [listaVehiculos]=listaVehiculos>
+                    </app-tabla-buscador-vehiculos-eecc>
+                </mat-tab>
+                <mat-tab label="Asignar Vehiculo">
+                    <!-- <app-asignar-trabajador-form (onNuevoTrabajadorAsignado)=obtenerTrabajadores()
+                        [contratoId]="contratoId"></app-asignar-trabajador-form> -->
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
 </mat-card>

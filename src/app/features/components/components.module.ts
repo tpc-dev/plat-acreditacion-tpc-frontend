@@ -61,6 +61,8 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { TablaBuscadorTrabajadoresEeccComponent } from './tabla-buscador-trabajadores-eecc/tabla-buscador-trabajadores-eecc.component';
 import { AsignarTrabajadorFormComponent } from './asignar-trabajador-form/asignar-trabajador-form.component';
 import { NuevoTrabajadorFormComponent } from './nuevo-trabajador-form/nuevo-trabajador-form.component';
+import { TablaBuscadorVehiculosEeccComponent } from './tabla-buscador-vehiculos-eecc/tabla-buscador-vehiculos-eecc.component';
+import { AsignarVehiculoFormComponent } from './asignar-vehiculo-form/asignar-vehiculo-form.component';
 
 @NgModule({
     imports: [
@@ -129,6 +131,8 @@ import { NuevoTrabajadorFormComponent } from './nuevo-trabajador-form/nuevo-trab
         TablaBuscadorTrabajadoresEeccComponent,
         AsignarTrabajadorFormComponent,
         NuevoTrabajadorFormComponent,
+        TablaBuscadorVehiculosEeccComponent,
+        AsignarVehiculoFormComponent
     ],
     exports: [
         MatTableExporterModule,
@@ -153,6 +157,8 @@ import { NuevoTrabajadorFormComponent } from './nuevo-trabajador-form/nuevo-trab
         TablaBuscadorTrabajadoresEeccComponent,
         AsignarTrabajadorFormComponent,
         NuevoTrabajadorFormComponent,
+        AsignarVehiculoFormComponent,
+        TablaBuscadorVehiculosEeccComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

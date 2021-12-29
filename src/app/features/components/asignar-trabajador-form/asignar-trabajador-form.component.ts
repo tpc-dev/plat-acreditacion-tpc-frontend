@@ -15,7 +15,6 @@ import { map, startWith } from 'rxjs/operators';
 export class AsignarTrabajadorFormComponent implements OnInit {
 
   @Input() contratoId: number;
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
   nuevoTurnoForm: FormGroup
   @Output() onNuevoTrabajadorAsignado = new EventEmitter();
   nuevoTrabajadorContrato: FormGroup;
@@ -113,7 +112,8 @@ export class AsignarTrabajadorFormComponent implements OnInit {
       cargoId: this.nuevoTrabajadorContrato.get('cargoId')?.value,
       turnoId: this.nuevoTrabajadorContrato.get('turnoId')?.value,
       trabajadorId: this.nuevoTrabajadorContrato.get('trabajadorId')?.value,
-      contratoId: this.contratoId
+      contratoId: this.contratoId,
+      estadoAcreditacionId  : 2 // Estado de acreditacion pendiente
     }
     console.log(req);
 

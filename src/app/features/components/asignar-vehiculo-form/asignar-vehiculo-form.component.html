@@ -1,1 +1,144 @@
-<p>asignar-vehiculo-form works!</p>
+<mat-card>
+    <div class="">
+        <form [formGroup]="nuevoVehiculoForm">
+            <div class="row">
+                <div style="margin-top: 12px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2>
+                        <strong>{{'Datos Vehiculo' | uppercase}}</strong>
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Número de Patente </mat-label>
+                        <input matInput formControlName="patente" required>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'patente')">
+                            Patente es requerido
+                        </mat-error>
+                        <!-- <mat-error *ngIf="nuevoVehiculoForm.hasError('minlength', 'patente')">
+                            Patente demasiado corto
+                        </mat-error>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('maxLength', 'patente')">
+                            Patente demasiado largo
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Marca </mat-label>
+                        <input matInput formControlName="marca" required>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'marca')">
+                            Marca es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Tipo Vehiculo </mat-label>
+                        <mat-select formControlName="tipoVehiculoId" required>
+                            <mat-option *ngFor="let tipo of listTipoVehiculos" [value]="tipo.id">
+                                {{tipo.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'tipoVehiculoId')">
+                            Tipo Vehiculo es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Modelo </mat-label>
+                        <input matInput formControlName="modelo" required>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'modelo')">
+                            Modelo es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Año </mat-label>
+                        <input type="number" matInput formControlName="year" required>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'year')">
+                            Año es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-divider>
+            </mat-divider>
+            <div class="row">
+                <div style="margin-top: 12px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2>
+                        <strong>{{'Chofer Asignado' | uppercase}}</strong>
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            RUT
+                        </mat-label>
+                        <input placeholder="11111111-1" formControlName="rut" matInput>
+                        <button *ngIf="nuevoVehiculoForm.get('rut')?.value != null" matSuffix mat-icon-button
+                            aria-label="Clear" (click)="nuevoVehiculoForm.patchValue({'rut':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'rut')">
+                            RUT es <strong>necesario</strong>
+                        </mat-error>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('rutValido', 'rut')">
+                            RUT no <strong>valido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Nombre </mat-label>
+                        <input type="text" matInput formControlName="nombre" required>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'nombre')">
+                            Nombre es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Apellido Paterno </mat-label>
+                        <input type="text" matInput formControlName="apellidoPaterno" required>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'apellidoPaterno')">
+                            Apellido Paterno es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Apellido Materno </mat-label>
+                        <input type="text" matInput formControlName="apellidoMaterno" required>
+                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'apellidoMaterno')">
+                            Apellido Materno es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <button style="width: 100%;" mat-raised-button color="primary" (click)="guardarVehiculo()">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+            <mat-progress-bar *ngIf="isLoading" style="margin-top: 8px;" color="accent" mode="query"></mat-progress-bar>
+        </form>
+    </div>
+</mat-card>

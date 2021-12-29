@@ -3,15 +3,15 @@ import { MatDatepickerInput } from '@angular/material/datepicker';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
-  selector: 'app-empresas-requisitos-eecc',
-  templateUrl: './empresas-requisitos-eecc.component.html',
-  styleUrls: ['./empresas-requisitos-eecc.component.scss']
+  selector: 'app-vehiculos-requisitos-eecc',
+  templateUrl: './vehiculos-requisitos-eecc.component.html',
+  styleUrls: ['./vehiculos-requisitos-eecc.component.scss']
 })
-export class EmpresasRequisitosEeccComponent implements OnInit {
+export class VehiculosRequisitosEeccComponent implements OnInit {
   @Input() listaRequisitos: any[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -31,6 +31,7 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
   data: any;
   listItemsCarpetaArranque: any[] = [];
   listDocumentosRequeridos: any[] = [];
+  ID_DOCUMENTO_REQUERIDO = 5;
   constructor(public api: ApiService, public router: Router, public activeRoute: ActivatedRoute) {
     this.data = this.router.getCurrentNavigation()?.extras.state?.data;
     console.log(this.router.getCurrentNavigation()?.extras.state);
@@ -42,11 +43,7 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // console.log(this.listaRequisitos);
-    this.obtenerRequisitosEmpresa();
-    // this.dataSource = new MatTableDataSource(this.listaRequisitos);
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+    this.obtenerRequisitos();
   }
 
   applyFilter(event: Event) {
@@ -57,7 +54,7 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
     }
   }
 
-  obtenerRequisitosEmpresa() {
+  obtenerRequisitos() {
     // obtener carpeta de arranque por contrato id
     let carpetaArranque: any;
     this.api.GET(`/contratos/${this.data.contratoId}/carpeta-arranque`)
@@ -72,14 +69,10 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
         return this.api.GET(`/carpeta-arranque/${carpetaArranque.id}/items`);
       })
       .then(resp => {
-        // this.listaRequisitos = resp.map((requisito: any) => {
         this.listItemsCarpetaArranque = resp.map((requisito: any) => requisito.itemCarpetaArranque.id);
-        // console.log(resp);
-
-        // console.log(this.listItemsCarpetaArranque);
+        console.log(resp);
         this.listDocumentosRequeridos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.itemCarpetaArranqueId == this.listItemsCarpetaArranque.find((item: any) => item == requisito.itemCarpetaArranqueId));
-        this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == 2);
-        console.log(this.listaRequisitos);
+        this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == this.ID_DOCUMENTO_REQUERIDO);
         this.dataSource = new MatTableDataSource(this.listaRequisitos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

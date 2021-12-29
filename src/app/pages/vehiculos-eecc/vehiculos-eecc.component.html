@@ -18,8 +18,8 @@
                     </app-tabla-buscador-vehiculos-eecc>
                 </mat-tab>
                 <mat-tab label="Asignar Vehiculo">
-                    <!-- <app-asignar-trabajador-form (onNuevoTrabajadorAsignado)=obtenerTrabajadores()
-                        [contratoId]="contratoId"></app-asignar-trabajador-form> -->
+                    <app-asignar-vehiculo-form (onNewAdded)=obtenerListadoVehiculos()
+                        [contratoId]="contratoId"></app-asignar-vehiculo-form>
                 </mat-tab>
             </mat-tab-group>
         </div>

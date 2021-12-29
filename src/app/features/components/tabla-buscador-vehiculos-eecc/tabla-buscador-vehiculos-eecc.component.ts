@@ -17,7 +17,7 @@ export class TablaBuscadorVehiculosEeccComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['rut', 'nombre', 'apellidos', 'estado', 'requisitos', 'acciones'];
+  displayedColumns: string[] = ['patente', 'marca', 'tipoVehiculo', 'requisitos', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
   contratoId: any;
   constructor(public router: Router, public activeRoute: ActivatedRoute) {

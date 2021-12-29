@@ -36,6 +36,7 @@ import { UsuariosAdminComponent } from './pages/usuarios-admin/usuarios-admin.co
 import { VehiculosAdminComponent } from './pages/vehiculos-admin/vehiculos-admin.component';
 import { VehiculosEeccComponent } from './pages/vehiculos-eecc/vehiculos-eecc.component';
 import { VehiculosGuardiaComponent } from './pages/vehiculos-guardia/vehiculos-guardia.component';
+import { VehiculosRequisitosEeccComponent } from './pages/vehiculos-requisitos-eecc/vehiculos-requisitos-eecc.component';
 import { VisitasAdminComponent } from './pages/visitas-admin/visitas-admin.component';
 import { VisitasGuardiaComponent } from './pages/visitas-guardia/visitas-guardia.component';
 
@@ -225,6 +226,12 @@ const routes: Routes = [
     component: EmpresasRequisitosEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/empresas-contratadas/requisitos',
+  }
+  ,
+  {
+    component: VehiculosRequisitosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/vehiculos/requisitos',
   }
   ,
   {

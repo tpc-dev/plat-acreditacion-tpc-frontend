@@ -15,18 +15,18 @@
 
         <div class="container-table  mat-elevation-z2">
             <table class="table-data" mat-table [dataSource]="dataSource" matSort>
-                <ng-container matColumnDef="rut">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT </th>
-                    <td mat-cell *matCellDef="let row"> {{row.trabajador.rut}} </td>
+                <ng-container matColumnDef="patente">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Patente </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vehiculo.patente}} </td>
                 </ng-container>
-                <ng-container matColumnDef="nombre">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-                    <td mat-cell *matCellDef="let row"> {{row.trabajador.nombres}} </td>
+                <ng-container matColumnDef="marca">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Marca </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vehiculo.marca}} </td>
                 </ng-container>
-                <ng-container matColumnDef="apellidos">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
-                    <td mat-cell *matCellDef="let row"> {{row.trabajador.apellidoPaterno}}
-                        {{row.trabajador.apellidoPaterno}} </td>
+                <ng-container matColumnDef="tipoVehiculo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Vehiculo</th>
+                    <td mat-cell *matCellDef="let row"> {{row.vehiculo.tipoVehiculo.nombre}}
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="estado">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>

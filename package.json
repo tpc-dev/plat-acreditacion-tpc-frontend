@@ -24,6 +24,7 @@
     "@angular/router": "~11.2.9",
     "mat-table-exporter": "^10.2.4",
     "moment": "^2.29.1",
+    "ngx-file-drop": "^13.0.0",
     "ngx-material-timepicker": "^5.5.3",
     "ngx-moment": "^5.0.0",
     "rxjs": "~6.6.0",

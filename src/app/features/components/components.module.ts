@@ -63,6 +63,9 @@ import { AsignarTrabajadorFormComponent } from './asignar-trabajador-form/asigna
 import { NuevoTrabajadorFormComponent } from './nuevo-trabajador-form/nuevo-trabajador-form.component';
 import { TablaBuscadorVehiculosEeccComponent } from './tabla-buscador-vehiculos-eecc/tabla-buscador-vehiculos-eecc.component';
 import { AsignarVehiculoFormComponent } from './asignar-vehiculo-form/asignar-vehiculo-form.component';
+import { TablaBuscadorTiposRolesComponent } from './tabla-buscador-tipos-roles/tabla-buscador-tipos-roles.component';
+import { DocumentoAcreditacionDetailComponent } from './documento-acreditacion-detail/documento-acreditacion-detail.component';
+import { NuevoTrabajadorTpcFormComponent } from './nuevo-trabajador-tpc-form/nuevo-trabajador-tpc-form.component';
 
 @NgModule({
     imports: [
@@ -132,7 +135,10 @@ import { AsignarVehiculoFormComponent } from './asignar-vehiculo-form/asignar-ve
         AsignarTrabajadorFormComponent,
         NuevoTrabajadorFormComponent,
         TablaBuscadorVehiculosEeccComponent,
-        AsignarVehiculoFormComponent
+        AsignarVehiculoFormComponent,
+        TablaBuscadorTiposRolesComponent,
+        DocumentoAcreditacionDetailComponent,
+        NuevoTrabajadorTpcFormComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -159,6 +165,8 @@ import { AsignarVehiculoFormComponent } from './asignar-vehiculo-form/asignar-ve
         NuevoTrabajadorFormComponent,
         AsignarVehiculoFormComponent,
         TablaBuscadorVehiculosEeccComponent,
+        TablaBuscadorTiposRolesComponent,
+        NuevoTrabajadorTpcFormComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

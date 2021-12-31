@@ -64,6 +64,7 @@ export class AppComponent {
   listaItemsMenuAdminSistema: ItemMenu[] = [
     { name: "Inicio", icon: "home", path: '/home-guardia' },
     { name: "Usuarios", icon: "engineering", path: '/usuarios-admin' },
+    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-tpc-admin' },
     { name: "Tipo Roles", icon: "perm_identity", path: '/tipos-roles-admin' },
     { name: "Empresas", icon: "business", path: '/empresas-admin' },
     { name: "Areas", icon: "home_work", path: '/areas-admin' },

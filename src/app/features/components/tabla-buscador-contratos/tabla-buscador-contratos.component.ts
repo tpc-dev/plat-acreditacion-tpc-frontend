@@ -67,6 +67,14 @@ export class TablaBuscadorContratosComponent implements OnInit {
   }
 
   goToGestionarContrato(contrato: any) {
-    this.router.navigate(['/contratos-gestion-eecc', contrato.id]);
+    if (this.tipoRolId == 5) {
+      this.router.navigate(['/contratos-gestion-eecc', contrato.id]);
+      return
+    }
+
+    if (this.tipoRolId == 4) {
+      this.router.navigate(['/contratos-gestion-tpc', contrato.id]);
+      return
+    }
   }
 }

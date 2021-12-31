@@ -10,6 +10,8 @@ import { CargosEeccComponent } from './pages/cargos-eecc/cargos-eecc.component';
 import { ContratosAdceeccComponent } from './pages/contratos-adceecc/contratos-adceecc.component';
 import { ContratosAdminComponent } from './pages/contratos-admin/contratos-admin.component';
 import { ContratosGestionEeccComponent } from './pages/contratos-gestion-eecc/contratos-gestion-eecc.component';
+import { ContratosGestionTpcComponent } from './pages/contratos-gestion-tpc/contratos-gestion-tpc.component';
+import { ContratosRequisitosEeccComponent } from './pages/contratos-requisitos-eecc/contratos-requisitos-eecc.component';
 import { DetalleItemCarpetaArranqueAdminComponent } from './pages/detalle-item-carpeta-arranque-admin/detalle-item-carpeta-arranque-admin.component';
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { EmpresasAdceeccComponent } from './pages/empresas-adceecc/empresas-adceecc.component';
@@ -31,6 +33,7 @@ import { TrabajadoresAdminComponent } from './pages/trabajadores-admin/trabajado
 import { TrabajadoresEeccComponent } from './pages/trabajadores-eecc/trabajadores-eecc.component';
 import { TrabajadoresGuardiaComponent } from './pages/trabajadores-guardia/trabajadores-guardia.component';
 import { TrabajadoresRequisitosEeccComponent } from './pages/trabajadores-requisitos-eecc/trabajadores-requisitos-eecc.component';
+import { TrabajadoresTpcAdminComponent } from './pages/trabajadores-tpc-admin/trabajadores-tpc-admin.component';
 import { TurnosEeccComponent } from './pages/turnos-eecc/turnos-eecc.component';
 import { UsuariosAdminComponent } from './pages/usuarios-admin/usuarios-admin.component';
 import { VehiculosAdminComponent } from './pages/vehiculos-admin/vehiculos-admin.component';
@@ -190,6 +193,11 @@ const routes: Routes = [
     component: TrabajadoresAdminComponent,
     canActivate: [AuthGuard],
     path: 'trabajadores-admin'
+  },
+  {
+    component: TrabajadoresTpcAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'trabajadores-tpc-admin'
   }
   ,
   {
@@ -201,13 +209,12 @@ const routes: Routes = [
     component: ContratosGestionEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id',
-    children: [
-      // {
-      //   component: EmpresasAdceeccComponent,
-      //   canActivate: [AuthGuard],
-      //   path: 'empresas-contratadas'
-      // }
-    ]
+  }
+  ,
+  {
+    component: ContratosGestionTpcComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id',
   }
   ,
   {
@@ -250,6 +257,18 @@ const routes: Routes = [
     component: TrabajadoresRequisitosEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/trabajadores/requisitos',
+  }
+  ,
+  {
+    component: ContratosRequisitosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/contrato/requisitos',
+  }
+  ,
+  {
+    component: ContratosRequisitosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id/contrato/requisitos',
   }
   ,
   {

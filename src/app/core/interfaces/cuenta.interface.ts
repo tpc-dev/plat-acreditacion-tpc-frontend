@@ -14,7 +14,7 @@ export interface Usuario {
     apellido2: string;
     email: string;
     telefono: string;
-    tipoRolId?: number;
+    tipoRolId: number;
     empresaId?: number;
     empresa?: Empresa;
     rut: string;

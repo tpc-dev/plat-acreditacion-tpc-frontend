@@ -40,6 +40,9 @@ import { TrabajadoresEeccComponent } from './trabajadores-eecc/trabajadores-eecc
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { TrabajadoresRequisitosEeccComponent } from './trabajadores-requisitos-eecc/trabajadores-requisitos-eecc.component';
 import { VehiculosRequisitosEeccComponent } from './vehiculos-requisitos-eecc/vehiculos-requisitos-eecc.component';
+import { ContratosGestionTpcComponent } from './contratos-gestion-tpc/contratos-gestion-tpc.component';
+import { ContratosRequisitosEeccComponent } from './contratos-requisitos-eecc/contratos-requisitos-eecc.component';
+import { TrabajadoresTpcAdminComponent } from './trabajadores-tpc-admin/trabajadores-tpc-admin.component';
 
 @NgModule({
     imports: [
@@ -85,7 +88,10 @@ import { VehiculosRequisitosEeccComponent } from './vehiculos-requisitos-eecc/ve
         VehiculosEeccComponent,
         TrabajadoresEeccComponent,
         TrabajadoresRequisitosEeccComponent,
-        VehiculosRequisitosEeccComponent],
+        VehiculosRequisitosEeccComponent,
+        ContratosGestionTpcComponent,
+        ContratosRequisitosEeccComponent,
+        TrabajadoresTpcAdminComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

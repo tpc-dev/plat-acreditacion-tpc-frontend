@@ -8,7 +8,7 @@
         <!-- <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
         <app-tabla-buscador-empresas *ngIf="!isLoading" (actualizarListado)=obtenerEmpresas()
             [listaEmpresas]="listAcreditadas" ></app-tabla-buscador-empresas> -->
-        <app-tabla-buscador-contratos *ngIf="!isLoading"></app-tabla-buscador-contratos>
+        <app-tabla-buscador-contratos [etapa]="4" [listContratos]="listContratosPasoEnAcreditacion" *ngIf="!isLoading"></app-tabla-buscador-contratos>
     </mat-tab>
     <mat-tab label="En Paso 1">
         <app-tabla-buscador-contratos [etapa]="1" *ngIf="!isLoading" [listContratos]="listContratosPasoUno">

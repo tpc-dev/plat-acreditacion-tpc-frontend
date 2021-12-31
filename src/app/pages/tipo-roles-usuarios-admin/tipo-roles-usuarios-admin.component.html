@@ -1,1 +1,13 @@
-<p>tipo-roles-usuarios-admin works!</p>
+<div style="text-align: center;">
+    <h1><strong>Tipos de Roles</strong></h1>
+</div>
+<mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
+    <mat-tab label="Listado">
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-tabla-buscador-tipos-roles *ngIf="!isLoading"></app-tabla-buscador-tipos-roles>
+    </mat-tab>
+    <!-- <mat-tab label="Ingresar Nueva Gerencia">
+        <app-nueva-gerencia-form (onNuevaGerenciaAgregada)=obtenerGerencias()>
+        </app-nueva-gerencia-form>
+    </mat-tab> -->
+</mat-tab-group>

@@ -97,7 +97,7 @@
                                 <mat-icon>description</mat-icon>
                                 <span>Ver Detalles</span>
                             </button>
-                            <button *ngIf="tipoRolId == 5" (click)="goToGestionarContrato(row)" mat-menu-item>
+                            <button *ngIf="tipoRolId == 5 || tipoRolId == 4" (click)="goToGestionarContrato(row)" mat-menu-item>
                                 <mat-icon>description</mat-icon>
                                 <span>Gestionar</span>
                             </button>

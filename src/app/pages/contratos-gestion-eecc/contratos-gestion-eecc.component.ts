@@ -41,7 +41,10 @@ export class ContratosGestionEeccComponent implements OnInit {
 
   verVehiculos() {
     this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/vehiculos`]);
+  }
 
+  verContrato() {
+    this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/contrato/requisitos`]);
   }
 
   verEventos(){

@@ -4,16 +4,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { DocumentoAcreditacionDetailComponent } from 'src/app/features/components/documento-acreditacion-detail/documento-acreditacion-detail.component';
 import { UploadTipoDocumentoComponent } from 'src/app/features/components/upload-tipo-documento/upload-tipo-documento.component';
 
 @Component({
-  selector: 'app-empresas-requisitos-eecc',
-  templateUrl: './empresas-requisitos-eecc.component.html',
-  styleUrls: ['./empresas-requisitos-eecc.component.scss']
+  selector: 'app-contratos-requisitos-eecc',
+  templateUrl: './contratos-requisitos-eecc.component.html',
+  styleUrls: ['./contratos-requisitos-eecc.component.scss']
 })
-export class EmpresasRequisitosEeccComponent implements OnInit {
+export class ContratosRequisitosEeccComponent implements OnInit {
   @Input() listaRequisitos: any[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -34,12 +35,18 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
   listItemsCarpetaArranque: any[] = [];
   listDocumentosRequeridos: any[] = [];
   listaDocumentosCreados: any[] = [];
+  contratoId: number;
+  isLoading = false;
   constructor(public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
-    this.data = this.router.getCurrentNavigation()?.extras.state?.data;
-    console.log(this.router.getCurrentNavigation()?.extras.state);
-    if (!this.data) {
-      this.router.navigate(['../'], { relativeTo: this.activeRoute });
-    }
+    // this.data = this.router.getCurrentNavigation()?.extras.state?.data;
+    // console.log(this.router.getCurrentNavigation()?.extras.state);
+    this.activeRoute.params.subscribe(params => {
+      console.log(params);
+      this.contratoId = params.id;
+    });
+    // if (!this.data) {
+    //   this.router.navigate(['../'], { relativeTo: this.activeRoute });
+    // }
   }
 
 
@@ -53,8 +60,9 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
   }
 
   loadData() {
-    this.obtenerRequisitosEmpresa();
-    this.obtenerEmpresaContratoTipoDocumento();
+    this.isLoading = true;
+    this.obtenerRequisitosContrato();
+    this.obtenerContratoTipoDocumentoEnProcesos();
   }
 
   applyFilter(event: Event) {
@@ -65,17 +73,17 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
     }
   }
 
-  obtenerRequisitosEmpresa() {
+  obtenerRequisitosContrato() {
     // obtener carpeta de arranque por contrato id
     let carpetaArranque: any;
-    this.api.GET(`/contratos/${this.data.contratoId}/carpeta-arranque`)
+    this.api.GET(`/contratos/${this.contratoId}/carpeta-arranque`)
       .then(resp => {
         console.log(resp);
         carpetaArranque = resp;
         return this.api.GET(`/tipo-documento-acreditacion`);
       })
       .then((resp: any) => {
-        console.log(resp);
+        // console.log(resp);
         this.listDocumentosRequeridos = resp;
         return this.api.GET(`/carpeta-arranque/${carpetaArranque.id}/items`);
       })
@@ -86,13 +94,15 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
 
         // console.log(this.listItemsCarpetaArranque);
         this.listDocumentosRequeridos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.itemCarpetaArranqueId == this.listItemsCarpetaArranque.find((item: any) => item == requisito.itemCarpetaArranqueId));
-        this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == 2);
+        this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == 1);
         console.log(this.listaRequisitos);
         this.listaRequisitos = this.listaRequisitos.map((requisito: any) => {
           let aux = requisito;
           aux.hasDocument = this.hasDocument(requisito);
+          aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
           return aux;
         });
+        this.isLoading = false;
         this.dataSource = new MatTableDataSource(this.listaRequisitos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -109,8 +119,8 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
     return existe != null;
   }
 
-  obtenerEmpresaContratoTipoDocumento() {
-    this.api.GET(`/contratos/${this.data.contratoId}/empresas/${this.data.empresaId}/documentos-requeridos`)
+  obtenerContratoTipoDocumentoEnProcesos() {
+    this.api.GET(`/contratos/${this.contratoId}/documentos-requeridos`)
       .then(resp => {
         console.log(resp);
         this.listaDocumentosCreados = resp;
@@ -124,7 +134,7 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
     const dialogRef = this.dialog.open(UploadTipoDocumentoComponent, {
       width: '850px',
       height: '380px',
-      data: { ...requisito, contratoId: this.data.contratoId }
+      data: { ...requisito, contratoId: this.contratoId }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -132,4 +142,48 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
       this.loadData();
     });
   }
+
+  verArchivoCreado(documento: any) {
+    let documentoCreado = this.listaDocumentosCreados.find((documento: any) => {
+      return documento.tipoDocumentoAcreditacionId == documento.tipoDocumentoAcreditacionId;
+    });
+    console.log(documentoCreado);
+    const dialogRef = this.dialog.open(DocumentoAcreditacionDetailComponent, {
+      width: '850px',
+      height: '480px',
+      data: { ...documentoCreado, contratoId: this.contratoId }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(result);
+      this.loadData();
+    });
+  }
+
+  obtenerUltimoHistorico(requisito: any) {
+    // console.log(requisito.id);
+
+    let documentoCreado = this.listaDocumentosCreados.find((documento: any) => {
+      return documento.tipoDocumentoAcreditacionId == requisito.id;
+    });
+
+    if (!documentoCreado) return null;
+
+    console.log(documentoCreado);
+    let lastHistorico = documentoCreado.listHistoricosAcreditacionContratoTipoDocumentoAcreditacion.sort((a: any, b: any) => {
+      return b.id - a.id;
+    })[0];
+    console.log(lastHistorico);
+
+    return this.getNameEstadoAcreditacion(lastHistorico.estadoAcreditacionId);
+  }
+
+  getNameEstadoAcreditacion(estado: any) {
+    if (estado == 1) return 'Acreditado';
+    if (estado == 2) return 'Pendiente';
+    if (estado == 3) return 'Rechazado';
+
+    return 'No definido';
+  }
+
 }

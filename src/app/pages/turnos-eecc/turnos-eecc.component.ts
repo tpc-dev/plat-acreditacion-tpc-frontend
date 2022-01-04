@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { EditTurnoComponent } from 'src/app/features/components/edit-turno/edit-turno.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,12 +23,12 @@ export class TurnosEeccComponent implements OnInit {
   fechaHoyString = moment().format('DD/MM/YYYY');
   contratoId: number;
   isLoading: boolean = false;
-  constructor(public api: ApiService,public activeRoute: ActivatedRoute) {
+  constructor(public api: ApiService, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.activeRoute.params.subscribe((params: any) => {
       console.log(params);
       this.contratoId = params.id;
     });
-   }
+  }
 
   ngOnInit(): void {
     this.obtenerTurnosContrato();
@@ -64,6 +66,24 @@ export class TurnosEeccComponent implements OnInit {
     if (this.dataSourceTurnos.paginator) {
       this.dataSourceTurnos.paginator.firstPage();
     }
+  }
+
+  editarTurno(turno: any) {
+    console.log(turno);
+    const dialogRef = this.dialog.open(EditTurnoComponent, {
+      width: '800px',
+      height: 'auto',
+      data: {
+        turno: turno
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.obtenerTurnosContrato();
+      }
+    });
   }
 
 }

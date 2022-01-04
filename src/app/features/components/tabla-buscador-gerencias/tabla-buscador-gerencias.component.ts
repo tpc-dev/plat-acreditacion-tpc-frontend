@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDatepickerInput } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Empresa } from 'src/app/core/interfaces/empresa.interface';
+import { EditGerenciaAdminComponent } from '../edit-gerencia-admin/edit-gerencia-admin.component';
 
 @Component({
   selector: 'app-tabla-buscador-gerencias',
@@ -16,14 +18,14 @@ export class TablaBuscadorGerenciasComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
-  dataSource!: MatTableDataSource<Empresa>;
-  displayedColumns: string[] = ['nombre', 'activo','acciones'];
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = ['nombre', 'activo', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     console.log(this.listaGerencias);
-    
+
     this.dataSource = new MatTableDataSource(this.listaGerencias);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -40,6 +42,21 @@ export class TablaBuscadorGerenciasComponent implements OnInit {
   recargarGerencias(): void {
     // this.obtenerVisitasActivas();
     this.actualizarListado.emit();
+  }
+
+  editarGerencia(gerencia: any): void {
+    let dialogRef = this.dialog.open(EditGerenciaAdminComponent, {
+      width: '500px',
+      data: {
+        gerencia: gerencia
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recargarGerencias();
+      }
+    });
   }
 
 }

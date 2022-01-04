@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDatepickerInput } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Empresa } from 'src/app/core/interfaces/empresa.interface';
+import { EditAreasAdminComponent } from '../edit-areas-admin/edit-areas-admin.component';
 
 @Component({
   selector: 'app-tabla-buscador-areas',
@@ -17,9 +19,9 @@ export class TablaBuscadorAreasComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   dataSource!: MatTableDataSource<Empresa>;
-  displayedColumns: string[] = ['nombre', 'activo','acciones'];
+  displayedColumns: string[] = ['nombre', 'activo', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.listaAreas);
@@ -38,6 +40,21 @@ export class TablaBuscadorAreasComponent implements OnInit {
   recargarAreas(): void {
     // this.obtenerVisitasActivas();
     this.actualizarListado.emit();
+  }
+
+  editarArea(area: any): void {
+    let dialogRef = this.dialog.open(EditAreasAdminComponent, {
+      width: '600px',
+      data: {
+        area: area
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recargarAreas();
+      }
+    });
   }
 
 }

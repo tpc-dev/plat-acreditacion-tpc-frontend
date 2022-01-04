@@ -1,0 +1,10 @@
+<div style="text-align: center;">
+    <h1><strong>Empresas</strong></h1>
+</div>
+<mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
+    <mat-tab label="Activas">
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-tabla-buscador-empresas *ngIf="!isLoading" 
+            [listaEmpresas]="listaEmpresas" ></app-tabla-buscador-empresas>
+    </mat-tab>
+</mat-tab-group>

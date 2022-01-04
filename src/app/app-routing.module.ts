@@ -16,7 +16,9 @@ import { DetalleItemCarpetaArranqueAdminComponent } from './pages/detalle-item-c
 import { EdittestriesgosPageComponent } from './pages/edittestriesgos-page/edittestriesgos-page.component';
 import { EmpresasAdceeccComponent } from './pages/empresas-adceecc/empresas-adceecc.component';
 import { EmpresasAdminComponent } from './pages/empresas-admin/empresas-admin.component';
+import { EmpresasGuardiaComponent } from './pages/empresas-guardia/empresas-guardia.component';
 import { EmpresasRequisitosEeccComponent } from './pages/empresas-requisitos-eecc/empresas-requisitos-eecc.component';
+import { EventosContratoEeccComponent } from './pages/eventos-contrato-eecc/eventos-contrato-eecc.component';
 import { FormularioCovidComponent } from './pages/formulario-covid/formulario-covid.component';
 import { GerenciasAdminComponent } from './pages/gerencias-admin/gerencias-admin.component';
 import { HomeGuardiaComponent } from './pages/home-guardia/home-guardia.component';
@@ -25,10 +27,12 @@ import { ItemCarpetaArranqueAdminComponent } from './pages/item-carpeta-arranque
 import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.component';
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
 import { MicuentaPageComponent } from './pages/micuenta-page/micuenta-page.component';
+import { PaisesAdminComponent } from './pages/paises-admin/paises-admin.component';
 import { PlatformSettingsAdminComponent } from './pages/platform-settings-admin/platform-settings-admin.component';
 import { RecuperarPasswordComponent } from './pages/recuperar-password/recuperar-password.component';
 import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 import { TipoRolesUsuariosAdminComponent } from './pages/tipo-roles-usuarios-admin/tipo-roles-usuarios-admin.component';
+import { TrabajadoresAdminEeccComponent } from './pages/trabajadores-admin-eecc/trabajadores-admin-eecc.component';
 import { TrabajadoresAdminComponent } from './pages/trabajadores-admin/trabajadores-admin.component';
 import { TrabajadoresEeccComponent } from './pages/trabajadores-eecc/trabajadores-eecc.component';
 import { TrabajadoresGuardiaComponent } from './pages/trabajadores-guardia/trabajadores-guardia.component';
@@ -36,6 +40,8 @@ import { TrabajadoresRequisitosEeccComponent } from './pages/trabajadores-requis
 import { TrabajadoresTpcAdminComponent } from './pages/trabajadores-tpc-admin/trabajadores-tpc-admin.component';
 import { TurnosEeccComponent } from './pages/turnos-eecc/turnos-eecc.component';
 import { UsuariosAdminComponent } from './pages/usuarios-admin/usuarios-admin.component';
+import { VehiculosAdminEeccComponent } from './pages/vehiculos-admin-eecc/vehiculos-admin-eecc.component';
+import { VehiculosAdminTpcComponent } from './pages/vehiculos-admin-tpc/vehiculos-admin-tpc.component';
 import { VehiculosAdminComponent } from './pages/vehiculos-admin/vehiculos-admin.component';
 import { VehiculosEeccComponent } from './pages/vehiculos-eecc/vehiculos-eecc.component';
 import { VehiculosGuardiaComponent } from './pages/vehiculos-guardia/vehiculos-guardia.component';
@@ -82,6 +88,12 @@ const routes: Routes = [
   }
   ,
   {
+    component: EmpresasGuardiaComponent,
+    canActivate: [AuthGuard],
+    path: 'empresas-guardia'
+  }
+  ,
+  {
     component: HomeGuardiaComponent,
     canActivate: [AuthGuard],
     path: 'home-guardia'
@@ -118,9 +130,33 @@ const routes: Routes = [
   }
   ,
   {
+    component: VehiculosAdminTpcComponent,
+    canActivate: [AuthGuard],
+    path: 'vehiculos-admin-tpc'
+  }
+  ,
+  {
+    component: PaisesAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'paises-admin'
+  }
+  ,
+  {
     component: TipoRolesUsuariosAdminComponent,
     canActivate: [AuthGuard],
     path: 'tipos-roles-admin'
+  }
+  ,
+  {
+    component: TrabajadoresAdminEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'trabajadores-adceecc'
+  }
+  ,
+  {
+    component: VehiculosAdminEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'vehiculos-adceecc'
   }
   ,
   {
@@ -239,6 +275,12 @@ const routes: Routes = [
     component: VehiculosRequisitosEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/vehiculos/requisitos',
+  }
+  ,
+  {
+    component: EventosContratoEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-eecc/:id/eventos',
   }
   ,
   {

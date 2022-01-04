@@ -29,14 +29,14 @@ export class AppComponent {
   listaItemsMenu: ItemMenu[] = [];
   listaItemsMenuGuardia: ItemMenu[] = [
     { name: "Inicio", icon: "home", path: '/home-guardia' },
-    { name: "Empresas", icon: "business", path: '/trabajadores-guardia' },
+    { name: "Empresas", icon: "business", path: '/empresas-guardia' },
     { name: "Trabajadores", icon: "engineering", path: '/trabajadores-guardia' },
     { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },
     { name: "Visitas", icon: "groups", path: '/visitas-guardia' },
   ]
 
   listaItemsMenuAdminTPC: ItemMenu[] = [
-    { name: "Inicio", icon: "home", path: '/home-admin' },
+    { name: "Inicio", icon: "home", path: '/home' },
     // { name: "Contratos", icon: "description", path: '/contratos-admin' },
     // { name: "Empresas", icon: "business", path: '/trabajadores-admin' },
     { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
@@ -45,33 +45,33 @@ export class AppComponent {
   ]
 
   listaItemsMenuAdminContratoTPC: ItemMenu[] = [
-    { name: "Inicio", icon: "home", path: '/home-admin' },
+    { name: "Inicio", icon: "home", path: '/home' },
     { name: "Contratos", icon: "description", path: '/contratos-admin' },
     { name: "Empresas", icon: "business", path: '/empresas-admin' },
     { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
-    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin' },
+    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin-tpc' },
     { name: "Visitas", icon: "groups", path: '/visitas-admin' },
   ]
 
   listaItemsMenuAdminContratoExterno: ItemMenu[] = [
-    { name: "Inicio", icon: "home", path: '/home-adceecc' },
+    { name: "Inicio", icon: "home", path: '/home' },
     { name: "Contratos", icon: "description", path: '/contratos-adceecc' },
-    { name: "Empresas", icon: "business", path: '/empresas-adceecc' },
+    // { name: "Empresas", icon: "business", path: '/empresas-adceecc' },
     { name: "Trabajadores", icon: "engineering", path: '/trabajadores-adceecc' },
     { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-adceecc' },
   ]
 
   listaItemsMenuAdminSistema: ItemMenu[] = [
-    { name: "Inicio", icon: "home", path: '/home-guardia' },
+    { name: "Inicio", icon: "home", path: '/home' },
     { name: "Usuarios", icon: "engineering", path: '/usuarios-admin' },
     { name: "Trabajadores", icon: "engineering", path: '/trabajadores-tpc-admin' },
     { name: "Tipo Roles", icon: "perm_identity", path: '/tipos-roles-admin' },
     { name: "Empresas", icon: "business", path: '/empresas-admin' },
     { name: "Areas", icon: "home_work", path: '/areas-admin' },
     { name: "Gerencias", icon: "groups", path: '/gerencias-admin' },
-    { name: "Generos", icon: "groups", path: '/gerencias-admin' },
-    { name: "Estado Civil", icon: "groups", path: '/gerencias-admin' },
-    { name: "Paises", icon: "groups", path: '/gerencias-admin' },
+    // { name: "Generos", icon: "groups", path: '/gerencias-admin' },
+    // { name: "Estado Civil", icon: "groups", path: '/gerencias-admin' },
+    { name: "Paises", icon: "groups", path: '/paises-admin' },
     { name: "Elementos CA", icon: "settings", path: '/item-carpeta-arranque-admin' },
     { name: "Protocolos", icon: "settings", path: '/platform-settings-admin' },
     // { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-guardia' },

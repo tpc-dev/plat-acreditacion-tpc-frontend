@@ -14,7 +14,7 @@
     <mat-sidenav *ngIf="isLoggedIn" #sidenav="matSidenav"
         [ngClass]="{'mat-sidenav-admin':cuenta?.usuario?.tipoRol?.id==1 ,'mat-sidenav-adc-eecc':cuenta?.usuario?.tipoRol?.id==5,'mat-sidenav-admin-tpc':cuenta?.usuario?.tipoRol?.id==2 || cuenta?.usuario?.tipoRol?.id==4 ,'mat-sidenav-normal':cuenta?.usuario?.tipoRol?.id==3} "
         class="mat-elevation-z8">
-        <h4 class="name">{{cuenta?.usuario?.nombre || ''}} {{cuenta?.usuario?.apellido1 || ''}}</h4>
+        <h3 class="name">{{cuenta?.usuario?.nombre || ''}} {{cuenta?.usuario?.apellido1 || ''}}</h3>
         <p class="designation">{{cuenta?.usuario?.tipoRol?.nombre || ''}}</p>
         <mat-divider></mat-divider>
         <button (click)="changePageMenu(item)" mat-button *ngFor="let item of listaItemsMenu" class="menu-button">

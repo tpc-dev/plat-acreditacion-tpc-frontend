@@ -43,6 +43,12 @@ import { VehiculosRequisitosEeccComponent } from './vehiculos-requisitos-eecc/ve
 import { ContratosGestionTpcComponent } from './contratos-gestion-tpc/contratos-gestion-tpc.component';
 import { ContratosRequisitosEeccComponent } from './contratos-requisitos-eecc/contratos-requisitos-eecc.component';
 import { TrabajadoresTpcAdminComponent } from './trabajadores-tpc-admin/trabajadores-tpc-admin.component';
+import { EventosContratoEeccComponent } from './eventos-contrato-eecc/eventos-contrato-eecc.component';
+import { EmpresasGuardiaComponent } from './empresas-guardia/empresas-guardia.component';
+import { TrabajadoresAdminEeccComponent } from './trabajadores-admin-eecc/trabajadores-admin-eecc.component';
+import { VehiculosAdminEeccComponent } from './vehiculos-admin-eecc/vehiculos-admin-eecc.component';
+import { PaisesAdminComponent } from './paises-admin/paises-admin.component';
+import { VehiculosAdminTpcComponent } from './vehiculos-admin-tpc/vehiculos-admin-tpc.component';
 
 @NgModule({
     imports: [
@@ -91,7 +97,13 @@ import { TrabajadoresTpcAdminComponent } from './trabajadores-tpc-admin/trabajad
         VehiculosRequisitosEeccComponent,
         ContratosGestionTpcComponent,
         ContratosRequisitosEeccComponent,
-        TrabajadoresTpcAdminComponent],
+        TrabajadoresTpcAdminComponent,
+        EventosContratoEeccComponent,
+        EmpresasGuardiaComponent,
+        TrabajadoresAdminEeccComponent,
+        VehiculosAdminEeccComponent,
+        PaisesAdminComponent,
+        VehiculosAdminTpcComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

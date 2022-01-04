@@ -44,50 +44,6 @@ export class EmpresasAdminComponent implements OnInit {
         console.log('finally')
         this.isLoading = false;
       });
-    // this.api.GET("/empresas/en-acreditacion")
-    //   .then((empresas: Empresa[]) => {
-    //     console.log(empresas);
-    //     this.listEnAcreditacion = empresas;
-    //     return this.api.GET("/empresas/acreditadas")
-    //   })
-    //   .then((empresas: Empresa[]) => {
-    //     console.log(empresas);
-    //     this.listAcreditadas = empresas;
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //   }).finally(() => {
-    //     console.log('finally')
-    //     this.isLoading = false;
-    //   });
   }
-
-  // obtenerEmpresasEnAcreditacion(): void {
-  //   this.isLoading = true;
-  //   this.api.GET("/empresas/en-acreditacion")
-  //     .then((empresas: Empresa[]) => {
-  //       console.log(empresas);
-  //       this.listEnAcreditación = empresas;
-  //     }
-  //     ).catch(error => {
-  //       console.log(error)
-  //     }).finally(() => {
-  //       console.log('finally')
-  //     });
-  // }
-
-  // obtenerEmpresasAcreditadas(): void {
-  //   this.isLoading = true;
-  //   this.api.GET("/empresas/acreditadas")
-  //     .then((empresas: Empresa[]) => {
-  //       console.log(empresas);
-  //       this.listAcreditadas = empresas;
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //     }).finally(() => {
-  //       console.log('finally')
-  //     });
-  // }
 
 }

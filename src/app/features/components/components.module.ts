@@ -66,6 +66,12 @@ import { AsignarVehiculoFormComponent } from './asignar-vehiculo-form/asignar-ve
 import { TablaBuscadorTiposRolesComponent } from './tabla-buscador-tipos-roles/tabla-buscador-tipos-roles.component';
 import { DocumentoAcreditacionDetailComponent } from './documento-acreditacion-detail/documento-acreditacion-detail.component';
 import { NuevoTrabajadorTpcFormComponent } from './nuevo-trabajador-tpc-form/nuevo-trabajador-tpc-form.component';
+import { EditTurnoComponent } from './edit-turno/edit-turno.component';
+import { EditVehiculoComponent } from './edit-vehiculo/edit-vehiculo.component';
+import { EditAreasAdminComponent } from './edit-areas-admin/edit-areas-admin.component';
+import { EditGerenciaAdminComponent } from './edit-gerencia-admin/edit-gerencia-admin.component';
+import { TablaBuscadorPaisesComponent } from './tabla-buscador-paises/tabla-buscador-paises.component';
+import { NuevoPaisFormComponent } from './nuevo-pais-form/nuevo-pais-form.component';
 
 @NgModule({
     imports: [
@@ -139,6 +145,12 @@ import { NuevoTrabajadorTpcFormComponent } from './nuevo-trabajador-tpc-form/nue
         TablaBuscadorTiposRolesComponent,
         DocumentoAcreditacionDetailComponent,
         NuevoTrabajadorTpcFormComponent,
+        EditTurnoComponent,
+        EditVehiculoComponent,
+        EditAreasAdminComponent,
+        EditGerenciaAdminComponent,
+        TablaBuscadorPaisesComponent,
+        NuevoPaisFormComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -160,7 +172,13 @@ import { NuevoTrabajadorTpcFormComponent } from './nuevo-trabajador-tpc-form/nue
         UploadTipoDocumentoComponent,
         NuevoCargoFormComponent,
         NuevoTurnoFormComponent,
+        EditTurnoComponent,
+        EditVehiculoComponent,
+        EditAreasAdminComponent,
+        EditGerenciaAdminComponent,
         TablaBuscadorTrabajadoresEeccComponent,
+        TablaBuscadorPaisesComponent,
+        NuevoPaisFormComponent,
         AsignarTrabajadorFormComponent,
         NuevoTrabajadorFormComponent,
         AsignarVehiculoFormComponent,

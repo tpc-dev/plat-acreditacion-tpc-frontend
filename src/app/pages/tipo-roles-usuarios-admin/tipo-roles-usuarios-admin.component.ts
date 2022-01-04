@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
   selector: 'app-tipo-roles-usuarios-admin',
@@ -7,10 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TipoRolesUsuariosAdminComponent implements OnInit {
 
+  listaTiposRoles = [];
   isLoading = false;
-  constructor() { }
+  constructor(public api: ApiService) { }
 
   ngOnInit(): void {
+    this.obtenerTiposRoles();
+  }
+
+  obtenerTiposRoles() {
+    this.isLoading = true;
+    this.api.GET('/tipo-roles')
+      .then(res => {
+        this.isLoading = false;
+        this.listaTiposRoles = res;
+      })
+      .catch(err => {
+        this.isLoading = false;
+        console.log(err);
+      });
   }
 
 }

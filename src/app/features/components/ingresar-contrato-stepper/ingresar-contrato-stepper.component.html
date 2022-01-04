@@ -108,25 +108,6 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <mat-form-field class="input-form" appearance="outline">
-              <mat-label>GERENCIA</mat-label>
-              <!-- <input matInput formControlName="gerencia" placeholder="" required> -->
-              <mat-select formControlName="gerencia" required>
-                <mat-option [value]="gerencia.id" *ngFor="let gerencia of listGerencias">{{gerencia.nombre}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <mat-form-field class="input-form" appearance="outline">
-              <mat-label>ÁREA</mat-label>
-              <!-- <input matInput formControlName="area" placeholder="" required> -->
-              <mat-select formControlName="area" required>
-                <mat-option [value]="area.id" *ngFor="let area of listAreas">{{area.nombre}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
         </div>
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -137,25 +118,6 @@
                   {{adctpc.nombre}}
                   {{adctpc.apellido1}} {{adctpc.apellido2}}
                 </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <mat-form-field class="input-form" appearance="outline">
-              <mat-label>GERENCIA</mat-label>
-              <!-- <input matInput formControlName="gerencia" placeholder="" required> -->
-              <mat-select formControlName="gerencia2" required>
-                <mat-option [value]="gerencia.id" *ngFor="let gerencia of listGerencias">{{gerencia.nombre}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <mat-form-field class="input-form" appearance="outline">
-              <mat-label>ÁREA</mat-label>
-              <!-- <input matInput formControlName="area" placeholder="" required> -->
-              <mat-select formControlName="area2" required>
-                <mat-option [value]="area.id" *ngFor="let area of listAreas">{{area.nombre}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

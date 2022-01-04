@@ -16,7 +16,8 @@ export class TablaBuscadorTiposRolesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['nombre', 'activo','acciones'];
+  // displayedColumns: string[] = ['nombre', 'activo','acciones'];
+  displayedColumns: string[] = ['nombre', 'activo'];
   @Output() actualizarListado = new EventEmitter();
   constructor() { }
 

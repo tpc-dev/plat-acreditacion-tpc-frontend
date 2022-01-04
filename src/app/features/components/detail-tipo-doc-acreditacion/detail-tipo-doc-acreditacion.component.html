@@ -1,6 +1,6 @@
 <mat-card>
     <div>
-        <h1><strong>Crear Nuevo Documento</strong></h1>
+        <h1><strong> {{isEdit? 'Editar Documento':'Crear Nuevo Documento'}}  </strong></h1>
     </div>
     <div>
         <div *ngIf="isLoading">

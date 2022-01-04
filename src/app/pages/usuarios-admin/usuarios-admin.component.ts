@@ -22,7 +22,7 @@ export class UsuariosAdminComponent implements OnInit {
   listaTipoRol: TipoRol[] = [];
   listaEmpresas: Empresa[] = [];
   dataSource!: MatTableDataSource<Usuario>;
-  displayedColumns: string[] = ['rut', 'nombre', 'apellido1', 'apellido2', 'email', 'telefono', 'activo', 'tiporol',];
+  displayedColumns: string[] = ['rut', 'nombre', 'apellido1', 'apellido2', 'email', 'telefono', 'activo', 'tiporol', 'acciones'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isLoadingNew: boolean = false;
@@ -158,6 +158,40 @@ export class UsuariosAdminComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  cambiarEstadoUsuario(usuario: Usuario) {
+    const text = usuario.activo ? "¿Esta seguro de desactivar este usuario?" : "¿Esta seguro de activar este usuario?";
+    let auxUser = { ...usuario };
+    auxUser.activo = !usuario.activo;
+    Swal.fire({
+      title: '¿Esta seguro?',
+      text: text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, cambiar estado!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.PUT("/usuarios/" + usuario.id, auxUser)
+          .then((usuario: Usuario) => {
+            Swal.fire(
+              'Cambiado!',
+              'El estado del usuario ha sido cambiado.',
+              'success'
+            );
+            this.obtenerUsuarios();
+          })
+          .catch(error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Ha ocurrido un error',
+            });
+          });
+      }
+    });
   }
 
 }

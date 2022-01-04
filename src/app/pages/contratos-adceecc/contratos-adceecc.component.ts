@@ -132,6 +132,7 @@ export class ContratosAdceeccComponent implements OnInit {
   obtenerContratosPendientesProcesoAcreditacion(): Promise<any> {
     return new Promise((resolve, reject) => {
       const idEtapaCreacionContrato = this.listEtapasCreacionContrato.find(etapa => etapa.orden == 4)?.id;
+      console.log(idEtapaCreacionContrato);
       this.api.GET(`/contratos/etapa-creacion/${idEtapaCreacionContrato}`)
         .then(res => {
           console.log(res);

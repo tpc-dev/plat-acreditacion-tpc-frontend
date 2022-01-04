@@ -36,7 +36,6 @@ export class ContratosGestionEeccComponent implements OnInit {
 
   verTurnos() {
     this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/turnos`]);
-
   }
 
   verVehiculos() {
@@ -46,9 +45,9 @@ export class ContratosGestionEeccComponent implements OnInit {
   verContrato() {
     this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/contrato/requisitos`]);
   }
-
+  
   verEventos(){
-    
+    this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/eventos`]);
   }
 
 }

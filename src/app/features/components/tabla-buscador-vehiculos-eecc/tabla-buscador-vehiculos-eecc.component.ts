@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDatepickerInput } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
+import { EditVehiculoComponent } from '../edit-vehiculo/edit-vehiculo.component';
 
 @Component({
   selector: 'app-tabla-buscador-vehiculos-eecc',
@@ -17,10 +19,10 @@ export class TablaBuscadorVehiculosEeccComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['patente', 'marca', 'tipoVehiculo', 'requisitos', 'acciones'];
+  displayedColumns: string[] = ['patente', 'marca', 'chofer', 'requisitos', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
   contratoId: any;
-  constructor(public router: Router, public activeRoute: ActivatedRoute) {
+  constructor(public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.activeRoute.params.subscribe(params => {
       console.log(params);
       this.contratoId = params.id;
@@ -49,5 +51,23 @@ export class TablaBuscadorVehiculosEeccComponent implements OnInit {
   verRequisitos(vehiculo: any): void {
     console.log(vehiculo);
     this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/vehiculos/requisitos`], { state: { data: vehiculo } });
+  }
+
+  editarVehiculo(vehiculo: any) {
+    console.log(vehiculo);
+    const dialogRef = this.dialog.open(EditVehiculoComponent, {
+      width: '1000px',
+      height: 'auto',
+      data: {
+        vehiculo: vehiculo
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(result);
+      if (result) {
+        this.recargar();
+      }
+    });
   }
 }

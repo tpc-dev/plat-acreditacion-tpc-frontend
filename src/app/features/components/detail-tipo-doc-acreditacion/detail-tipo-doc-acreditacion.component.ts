@@ -16,8 +16,13 @@ export class DetailTipoDocAcreditacionComponent implements OnInit {
   tipoDocAcreditacion = { nombre: '', clasificacionDocumento: '', obligatorio: false };
   listaClasificacionDocumento: any[] = [];
   nuevoTipoDocAcreditacionForm: FormGroup;
+  documentoEdit: any;
   constructor(public dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public apiService: ApiService, public formBuilder: FormBuilder) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, public apiService: ApiService, public formBuilder: FormBuilder) {
+    if (this.isEdit) {
+      this.documentoEdit = this.data;
+    }
+  }
 
   ngOnInit(): void {
     this.isEdit = this.data.isEdit;

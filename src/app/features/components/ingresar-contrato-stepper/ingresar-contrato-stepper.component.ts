@@ -69,7 +69,7 @@ export class IngresarContratoStepperComponent implements OnInit {
     this.obtenerItemsCarpetaArranque();
     this.obtenerEmpresas();
     this.obtenerAreas();
-    this.obtenerGerencias();
+    // this.obtenerGerencias();
     this.obtenerADCEECC();
     this.obtenerADCTPC();
     this.datosRevisionFormGroup = this._formBuilder.group(
@@ -92,10 +92,6 @@ export class IngresarContratoStepperComponent implements OnInit {
       adceecc: ['', Validators.required],
       adctpc1: ['', Validators.required],
       adctpc2: ['', Validators.required],
-      gerencia: ['', Validators.required],
-      area: ['', Validators.required],
-      gerencia2: ['', Validators.required],
-      area2: ['', Validators.required],
     });
   }
 
@@ -288,22 +284,14 @@ export class IngresarContratoStepperComponent implements OnInit {
           confirmButtonText: 'Ok'
         });
       });
-
-
-
   }
 
   guardarContratoPaso2() {
     const idEtapa = this.listEtapasCreacionContrato.find(x => x.orden == 2)?.id;
-
     const pasoDosData = {
       adctpc1Id: this.encargadosFormGroup.get('adctpc1')?.value,
       adctpc2Id: this.encargadosFormGroup.get('adctpc2')?.value || -1,
       adceeccId: this.encargadosFormGroup.get('adceecc')?.value,
-      areaId: this.encargadosFormGroup.get('area')?.value,
-      area2Id: this.encargadosFormGroup.get('area2')?.value || -1,
-      gerenciaId: this.encargadosFormGroup.get('gerencia')?.value,
-      gerencia2Id: this.encargadosFormGroup.get('gerencia2')?.value || -1,
       contratoId: this.currentContrato.id,
     };
 
@@ -336,7 +324,7 @@ export class IngresarContratoStepperComponent implements OnInit {
     const listIdItemsCarpetaArranque = this.listItemsHabilitadosCarpetaArranque.map(x => x.id);
     const idEtapa = this.listEtapasCreacionContrato.find(x => x.orden == 3)?.id;
     let reqCarpetaArranque = {
-      contratoId: 22,
+      contratoId: this.currentContrato.id,
     };
 
     Swal.fire({

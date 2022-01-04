@@ -4,7 +4,7 @@
 <mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
     <mat-tab label="Listado">
         <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-        <app-tabla-buscador-tipos-roles *ngIf="!isLoading"></app-tabla-buscador-tipos-roles>
+        <app-tabla-buscador-tipos-roles [listaTiposRoles]=listaTiposRoles *ngIf="!isLoading"></app-tabla-buscador-tipos-roles>
     </mat-tab>
     <!-- <mat-tab label="Ingresar Nueva Gerencia">
         <app-nueva-gerencia-form (onNuevaGerenciaAgregada)=obtenerGerencias()>

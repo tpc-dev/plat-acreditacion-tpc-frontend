@@ -30,10 +30,30 @@ export class UploadTipoDocumentoComponent implements OnInit {
     });
   }
 
-  fileInputChange(fileInputEvent: any) {
+  async fileInputChange(fileInputEvent: any) {
     console.log(fileInputEvent.target.files[0]);
     this.newFile = fileInputEvent.target.files[0];
+    var getFile = this.getFileBuffer(this.newFile);
+    const data: ArrayBuffer = await getFile;
+    console.log(data);
+    this.addFileToFolder(data);
   }
+
+  // getFileBuffer() {
+  //   // var deferred = jQuery.Deferred();
+  //   var reader = new FileReader();
+  //   reader.onloadend = function (e) {
+  //     console.log(e.target?.result);
+  //     // deferred.resolve(e.target.result);
+  //   }
+  //   reader.onerror = function (e) {
+  //     console.log(e.target?.error);
+  //     // deferred.reject(e.target.error);
+  //   }
+
+  //   reader.readAsArrayBuffer(this.newFile);
+  //   // return deferred.promise();
+  // }
 
   deleteFile() {
     this.newFile = null;
@@ -107,5 +127,59 @@ export class UploadTipoDocumentoComponent implements OnInit {
         return `/contratos/${this.data.contratoId}/vehiculo/documento`;
     }
     return '';
+  }
+
+  async getFileBuffer(file: any): Promise<any> {
+    // var deferred = jQuery.Deferred();
+    let promise = new Promise((resolve, reject) => {
+      var reader = new FileReader();
+      reader.onloadend = function (e) {
+        resolve(e.target?.result);
+      }
+      reader.onerror = function (e) {
+        reject(e.target?.error);
+      }
+      // reader.readAsArrayBuffer(fileInput[0].files[0]);
+      reader.readAsArrayBuffer(file);
+      // return deferred.promise();
+    });
+
+    return await promise;
+  }
+
+  addFileToFolder(arrayBuffer: ArrayBuffer) {
+    // Get the file name from the file input control on the page.
+    // var parts = fileInput[0].value.split('\\');
+    // var fileName = parts[parts.length - 1];
+
+    // Construct the endpoint.
+    // var fileCollectionEndpoint = String.format(
+    //   "{0}/_api/sp.appcontextsite(@target)/web/getfolderbyserverrelativeurl('{1}')/files" +
+    //   "/add(overwrite=true, url='{2}')?@target='{3}'",
+    //   appWebUrl, serverRelativeUrlToFolder, fileName, hostWebUrl);
+
+    // let fileCollectionEndpoint = `"https://terminalpuertocoquimbo.sharepoint.com/sites/CapstonePruebas/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/CapstonePruebas/Documentos%20compartidos/AcreditacionDocumentos')/Files`;
+    let fileCollectionEndpoint = `"https://terminalpuertocoquimbo.sharepoint.com/sites/CapstonePruebas/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/CapstonePruebas/Documentos%20compartidos/AcreditacionDocumentos')/Files/add(url='a.txt',overwrite=true)`;
+    // GetFolderByServerRelativeUrl('/Folder Name')/Files/add(url='a.txt',overwrite=true)
+    // Send the request and return the response.
+    // This call returns the SharePoint file.
+    this.api.POSTFile(fileCollectionEndpoint, arrayBuffer)
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // return jQuery.ajax({
+    //   url: fileCollectionEndpoint,
+    //   type: "POST",
+    //   data: arrayBuffer,
+    //   processData: false,
+    //   headers: {
+    //     "accept": "application/json;odata=verbose",
+    //     "X-RequestDigest": jQuery("#__REQUESTDIGEST").val(),
+    //     "content-length": arrayBuffer.byteLength
+    //   }
+    // });
   }
 }

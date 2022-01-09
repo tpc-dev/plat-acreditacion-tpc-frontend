@@ -49,6 +49,7 @@ import { TrabajadoresAdminEeccComponent } from './trabajadores-admin-eecc/trabaj
 import { VehiculosAdminEeccComponent } from './vehiculos-admin-eecc/vehiculos-admin-eecc.component';
 import { PaisesAdminComponent } from './paises-admin/paises-admin.component';
 import { VehiculosAdminTpcComponent } from './vehiculos-admin-tpc/vehiculos-admin-tpc.component';
+import { NombradaAdminComponent } from './nombrada-admin/nombrada-admin.component';
 
 @NgModule({
     imports: [
@@ -103,7 +104,8 @@ import { VehiculosAdminTpcComponent } from './vehiculos-admin-tpc/vehiculos-admi
         TrabajadoresAdminEeccComponent,
         VehiculosAdminEeccComponent,
         PaisesAdminComponent,
-        VehiculosAdminTpcComponent],
+        VehiculosAdminTpcComponent,
+        NombradaAdminComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

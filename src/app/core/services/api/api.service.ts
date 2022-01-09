@@ -13,7 +13,7 @@ export class ApiService {
 
   httpOptions: any;
   token: string;
-  headers:Headers = new Headers();
+  headers: Headers = new Headers();
   constructor(private http: HttpClient) {
     // this.headers.set('Access-Control-Allow-Origin', '*');
     // this.headers.set('Content-Type', 'application/json');
@@ -85,7 +85,7 @@ export class ApiService {
     return this.http.get<any>(`${API_URL}/tipo-roles`, this.httpOptions)
   }
 
-  crearUsuario(usuario: Usuario): Observable<any> {
+  crearUsuario(usuario: any): Observable<any> {
     return this.http.post<any>(`${API_URL}/cuentas/crear-cuenta`, usuario, this.httpOptions)
   }
   //#endregion
@@ -155,6 +155,24 @@ export class ApiService {
   POST(URL: string, params: {}): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post<any>(`${API_URL}${URL}`, params, this.httpOptions).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      })
+    })
+  }
+
+  POSTFile(URL: string, bufferFile: any): Promise<any> {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "content-length": bufferFile.byteLength,
+        Authorization: "Bearer " + `eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCIsImtpZCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvdGVybWluYWxwdWVydG9jb3F1aW1iby5zaGFyZXBvaW50LmNvbUBiYjRlNzdjMi04OTZiLTQ4NzYtYmE4NS0wNzNhMmJiOTkxZTYiLCJpc3MiOiIwMDAwMDAwMS0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDBAYmI0ZTc3YzItODk2Yi00ODc2LWJhODUtMDczYTJiYjk5MWU2IiwiaWF0IjoxNjQxMzQxMTE2LCJuYmYiOjE2NDEzNDExMTYsImV4cCI6MTY0MTQyNzgxNiwiaWRlbnRpdHlwcm92aWRlciI6IjAwMDAwMDAxLTAwMDAtMDAwMC1jMDAwLTAwMDAwMDAwMDAwMEBiYjRlNzdjMi04OTZiLTQ4NzYtYmE4NS0wNzNhMmJiOTkxZTYiLCJuYW1laWQiOiI2ODRiMGU2MC03NmVmLTQ3YjYtOWIwNS0wYTRmZTkxNmFkMWRAYmI0ZTc3YzItODk2Yi00ODc2LWJhODUtMDczYTJiYjk5MWU2Iiwib2lkIjoiMjJhN2IxNzctY2Y5ZS00ZjM1LThlMzYtYTdhOWUwZTc5MmI4Iiwic3ViIjoiMjJhN2IxNzctY2Y5ZS00ZjM1LThlMzYtYTdhOWUwZTc5MmI4IiwidHJ1c3RlZGZvcmRlbGVnYXRpb24iOiJmYWxzZSJ9.IaPyy83oCBTJd04b-tRUqIsbfqyEo_j2BJ5fi8muv-nAZfO-VNoVpq9Xfz2lDcpvkZNvUpKC9c_Og_clqphSGzC9SEANU2ol7DkOL1HYXRa5t7HGVu1chAOds_eJtxUWrP9Aj89kxAIsMOffnMmLkLMPsTRhb_lPVMT7RZjI2v0TDxo3noxaZ-UKaDQQ8HZUsLjPKy5QnuRyhIW94bk44acfljbPXenbck43jEZKgxBrR6GZCDV9x9E7adpl9TcCBXO7XKonlnkkLh-UU-XVmLhlxXj-upAnai78evILFWVzjqp8LLxoEtMgXQUq7OudktyxtfEVlJ95bYeS8ZVe-g`,
+      }),
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post<any>(URL, bufferFile, this.httpOptions).subscribe(res => {
         resolve(res);
       }, err => {
         reject(err);

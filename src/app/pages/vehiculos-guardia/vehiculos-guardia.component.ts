@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { VehiculoDetailGuardiaComponent } from 'src/app/features/components/vehiculo-detail-guardia/vehiculo-detail-guardia.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,7 +23,7 @@ export class VehiculosGuardiaComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   contratoId: number;
   listaVehiculos: any[] = [];
-  constructor(public api: ApiService, public activeRoute: ActivatedRoute) {
+  constructor(public api: ApiService, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.activeRoute.params.subscribe((params: any) => {
       console.log(params);
       this.contratoId = params.id;
@@ -30,10 +32,10 @@ export class VehiculosGuardiaComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-    this.obtenerTrabajadores();
+    this.obtenerVehiculos();
   }
 
-  obtenerTrabajadores() {
+  obtenerVehiculos() {
     this.isLoading = true;
     this.api.GET(`/vehiculos`)
       .then(res => {
@@ -57,8 +59,7 @@ export class VehiculosGuardiaComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
   }
 
   applyFilter(event: Event) {
@@ -68,5 +69,59 @@ export class VehiculosGuardiaComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  marcarIngreso(vehiculo: any) {
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: '¿Desea marcar el ingreso del vehiculo?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar'
+    }).then((result) => {
+      if (result.value) {
+        this.isLoading = true;
+        this.api.POST(`/vehiculos/${vehiculo.id}/marcar-ingreso`, {
+          fecha_ingreso: this.fechaHoyString
+        })
+          .then(res => {
+            this.isLoading = false;
+            Swal.fire({
+              title: 'Exito',
+              text: 'Se marco el ingreso del vehiculo',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            });
+            this.obtenerVehiculos();
+          })
+          .catch(err => {
+            this.isLoading = false;
+            Swal.fire({
+              title: 'Error',
+              text: 'No se pudo marcar el ingreso del vehiculo',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+            });
+            console.log(err);
+          });
+      }
+    });
+  }
+
+  verDetalles(vehiculo: any) {
+    console.log(vehiculo);
+    
+    let dialog = this.dialog.open(VehiculoDetailGuardiaComponent, {
+      width: '800px',
+      height: 'auto',
+      data: {
+        vehiculo: vehiculo
+      }
+    });
+    dialog.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

@@ -32,13 +32,13 @@
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <ng-container matColumnDef="fechaInicio">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicio </th>
-                            <td mat-cell style="width: 8%;" *matCellDef="let row"> 21/11/2022</td>
+                            <td mat-cell style="width: 8%;" *matCellDef="let row"> Sin Registro</td>
                         </ng-container>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <ng-container matColumnDef="fechaTermino">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Término </th>
-                            <td mat-cell style="width: 8%;" *matCellDef="let row"> 21/11/2022</td>
+                            <td mat-cell style="width: 8%;" *matCellDef="let row"> Sin Registro</td>
                         </ng-container>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -53,8 +53,12 @@
                         <ng-container matColumnDef="archivo">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Archivo </th>
                             <td mat-cell style="width: 5%;" *matCellDef="let row">
-                                <button mat-icon-button color="primary">
-                                    <mat-icon>file_download</mat-icon>
+                                <button *ngIf="row.hasDocument" (click)="verArchivoCreado(row)" mat-icon-button
+                                    color="primary">
+                                    <mat-icon>file_present</mat-icon>
+                                </button>
+                                <button *ngIf="!row.hasDocument" mat-icon-button color="primary">
+                                    <mat-icon>highlight_off</mat-icon>
                                 </button>
                             </td>
                         </ng-container>
@@ -63,9 +67,8 @@
                         <ng-container matColumnDef="acciones">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                             <td mat-cell style="width: 5%;" *matCellDef="let row">
-                                <!-- <button mat-flat-button color="primary">{{row.activo? 'Desactivar':'Activar'}} </button> -->
-                                <!-- <button mat-flat-button color="primary">Editar </button> -->
-                                <button mat-icon-button color="primary">
+                                <button [disabled]="row.hasDocument" (click)="openUploadDialog(row)" mat-icon-button
+                                    color="primary">
                                     <mat-icon>edit</mat-icon>
                                 </button>
                             </td>

@@ -1,0 +1,74 @@
+<mat-card>
+    <div>
+        <form [formGroup]="nuevoTrabajadorForm">
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Rut</mat-label>
+                        <input placeholder="11111111-1" formControlName="rut" matInput>
+                        <button *ngIf="nuevoTrabajadorForm.get('rut')?.value != null" matSuffix mat-icon-button
+                            aria-label="Clear" (click)="nuevoTrabajadorForm.patchValue({'rut':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'rut')">
+                            RUT es <strong>necesario</strong>
+                        </mat-error>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('rutValido', 'rut')">
+                            RUT no <strong>valido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input placeholder="Ingrese Nombre" formControlName="nombre" matInput>
+                        <button *ngIf="nuevoTrabajadorForm.get('nombre')?.value != null" matSuffix mat-icon-button
+                            aria-label="Clear" (click)="nuevoTrabajadorForm.patchValue({'nombre':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'nombre')">
+                            nombre es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido Paterno</mat-label>
+                        <input placeholder="Ingrese Apellido" formControlName="apellidoPaterno" matInput>
+                        <button *ngIf="nuevoTrabajadorForm.get('apellidoPaterno')?.value != null" matSuffix
+                            mat-icon-button aria-label="Clear"
+                            (click)="nuevoTrabajadorForm.patchValue({'apellidoPaterno':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'apellidoPaterno')">
+                            Apellido Paterno es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido Materno</mat-label>
+                        <input placeholder="Ingrese Apellido" formControlName="apellidoMaterno" matInput>
+                        <button *ngIf="nuevoTrabajadorForm.get('apellidoMaterno')?.value != null" matSuffix
+                            mat-icon-button aria-label="Clear"
+                            (click)="nuevoTrabajadorForm.patchValue({'apellidoMaterno':null})">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'apellidoMaterno')">
+                            Apellido Materno es <strong>necesario</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <button (click)="guardarNuevoTrabajador()" [disabled]="nuevoTrabajadorForm.invalid"
+                        style="width: 100%;" mat-raised-button color="primary">Guardar</button>
+                </div>
+            </div>
+            <mat-progress-bar *ngIf="isLoading" style="margin-top: 8px;" color="accent" mode="query"></mat-progress-bar>
+        </form>
+    </div>
+</mat-card>

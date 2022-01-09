@@ -30,7 +30,11 @@ export class TrabajadoresEeccComponent implements OnInit {
       .then(res => {
         this.isLoading = false;
         this.listaTrabajadores = res;
-        console.log(res);
+        this.listaTrabajadores = this.listaTrabajadores.map(x => {
+          x.estado = this.setEstado(x.listTrabajadorTiposDocumentoAcreditacion);
+          return x;
+        });
+        console.log(this.listaTrabajadores);
       })
       .catch(err => {
         this.isLoading = false;
@@ -43,5 +47,15 @@ export class TrabajadoresEeccComponent implements OnInit {
         console.log(err);
       });
   }
+
+  setEstado(listDocumentosTrabajadorContrato: any[]) {
+    let estado = listDocumentosTrabajadorContrato.filter(x => x.estado == 'PENDIENTE');
+    if (estado.length > 0) {
+      return 'PENDIENTE';
+    } else {
+      return 'COMPLETADO';
+    }
+  }
+
 
 }

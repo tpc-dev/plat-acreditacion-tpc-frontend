@@ -18,107 +18,20 @@ import Swal from 'sweetalert2';
   styleUrls: ['./usuarios-admin.component.scss']
 })
 export class UsuariosAdminComponent implements OnInit {
-  nuevoUsuarioForm: FormGroup;
-  listaTipoRol: TipoRol[] = [];
-  listaEmpresas: Empresa[] = [];
+  
   dataSource!: MatTableDataSource<Usuario>;
   displayedColumns: string[] = ['rut', 'nombre', 'apellido1', 'apellido2', 'email', 'telefono', 'activo', 'tiporol', 'acciones'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isLoadingNew: boolean = false;
   constructor(public utilService: UtilService, public formBuilder: FormBuilder, public _snackBar: MatSnackBar, public api: ApiService, public authService: AuthService) {
-    this.nuevoUsuarioForm = this.createNuevoUsuarioForm();
   }
 
-  createNuevoUsuarioForm(): FormGroup {
-    return this.formBuilder.group({
-      nombre: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(20),
-        ])
-      ),
-      apellido1: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(20),
-        ])
-      ),
-      apellido2: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(20),
-        ])
-      ),
-      rut: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-          TPCValidations.isRutInvalido,
-        ])
-      ),
-      email: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.email,
-        ])
-      ),
-      telefono: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-        ])
-      ),
-      // usuarioid: new FormControl(
-      //   null,
-      //   Validators.compose([
-      //     Validators.required,
-      //   ])
-      // ),
-      tiporolid: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-        ])
-      ),
-      empresaId: new FormControl(
-        null,
-        Validators.compose([
-          Validators.required,
-        ])
-      ),
-      activo: new FormControl(
-        true,
-        Validators.compose([
-          Validators.nullValidator,
-        ])
-      ),
-    });
-  }
+  
 
   ngOnInit(): void {
     this.obtenerUsuarios();
-    this.obtenerListaRoles();
-    this.obtenerListaEmpresas();
-  }
-
-  obtenerListaEmpresas() {
-    this.api.GET("/empresas").then((empresas: Empresa[]) => {
-      this.listaEmpresas = empresas;
-    }).catch(error => {
-      console.log(error);
-    });
-  }
-
-  obtenerListaRoles() {
-    this.api.getRoles().toPromise().then((roles: TipoRol[]) => {
-      console.log(roles);
-      this.listaTipoRol = roles;
-    });
+   
   }
 
   obtenerUsuarios() {
@@ -130,27 +43,6 @@ export class UsuariosAdminComponent implements OnInit {
     });
   }
 
-  crearUsuario() {
-
-    console.log(this.nuevoUsuarioForm.value)
-    this.isLoadingNew = true;
-    this.api.crearUsuario(this.nuevoUsuarioForm.value).toPromise().then((usuario: Usuario) => {
-      this.isLoadingNew = false;
-      this.obtenerUsuarios();
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario Creado!',
-        text: "Se le enviara un correo con usuario y contraseña al nuevo usuario",
-      });
-      this.nuevoUsuarioForm.reset();
-    }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.error,
-      });
-    });
-  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -193,5 +85,7 @@ export class UsuariosAdminComponent implements OnInit {
       }
     });
   }
+
+
 
 }

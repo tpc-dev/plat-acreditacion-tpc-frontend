@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDatepickerInput } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { DocumentoAcreditacionDetailComponent } from 'src/app/features/components/documento-acreditacion-detail/documento-acreditacion-detail.component';
+import { UploadTipoDocumentoComponent } from 'src/app/features/components/upload-tipo-documento/upload-tipo-documento.component';
 
 @Component({
   selector: 'app-trabajadores-requisitos-eecc',
@@ -31,12 +34,19 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
   data: any;
   listItemsCarpetaArranque: any[] = [];
   listDocumentosRequeridos: any[] = [];
-  constructor(public api: ApiService, public router: Router, public activeRoute: ActivatedRoute) {
+  listaDocumentosCreados: any[] = [];
+  contratoId: number;
+  constructor(public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.data = this.router.getCurrentNavigation()?.extras.state?.data;
     console.log(this.router.getCurrentNavigation()?.extras.state);
     if (!this.data) {
       this.router.navigate(['../'], { relativeTo: this.activeRoute });
     }
+
+    this.activeRoute.params.subscribe(params => {
+      console.log(params);
+      this.contratoId = params.id;
+    });
   }
 
 
@@ -90,6 +100,36 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
     // dialogRef.afterClosed().subscribe((result: any) => {
     //   console.log(result);
     // });
+  }
+
+  openUploadDialog(requisito: any) {
+    const dialogRef = this.dialog.open(UploadTipoDocumentoComponent, {
+      width: '850px',
+      height: '380px',
+      data: { ...requisito, contratoId: this.contratoId }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(result);
+      // this.loadData();
+    });
+  }
+
+  verArchivoCreado(documento: any) {
+    let documentoCreado = this.listaDocumentosCreados.find((documento: any) => {
+      return documento.tipoDocumentoAcreditacionId == documento.tipoDocumentoAcreditacionId;
+    });
+    console.log(documentoCreado);
+    const dialogRef = this.dialog.open(DocumentoAcreditacionDetailComponent, {
+      width: '850px',
+      height: '480px',
+      data: { ...documentoCreado, contratoId: this.contratoId }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(result);
+      // this.loadData();
+    });
   }
 
 }

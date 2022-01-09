@@ -11,8 +11,6 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./tabla-buscador-paises.component.scss']
 })
 export class TablaBuscadorPaisesComponent implements OnInit {
-
-
   @Input() listaPaises: any[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -44,18 +42,7 @@ export class TablaBuscadorPaisesComponent implements OnInit {
   }
 
   editarGerencia(gerencia: any): void {
-    // let dialogRef = this.dialog.open(EditGerenciaAdminComponent, {
-    //   width: '500px',
-    //   data: {
-    //     gerencia: gerencia
-    //   }
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.recargarGerencias();
-    //   }
-    // });
+    
   }
 
 }

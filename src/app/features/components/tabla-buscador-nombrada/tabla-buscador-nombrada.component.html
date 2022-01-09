@@ -1,0 +1,50 @@
+<section>
+    <div>
+        <div class="search-input mat-elevation-z2">
+            <table class="table-search">
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Buscar Por Fecha</mat-label>
+                            <input (ngModelChange)="onFechaChange()" [(ngModel)]="fechaBuscada" matInput
+                                [matDatepicker]="pickerSearch">
+                            <mat-datepicker-toggle matSuffix [for]="pickerSearch"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerSearch></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container-table  mat-elevation-z2">
+            <table class="table-data" mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="Fecha">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                    <td mat-cell *matCellDef="let row"> {{row.fecha | date: 'dd/MM/yyyy' }} </td>
+                </ng-container>
+                <ng-container matColumnDef="HoraInicio">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Inicio </th>
+                    <td mat-cell *matCellDef="let row"> {{row.horaInicio}}</td>
+                </ng-container>
+                <ng-container matColumnDef="HoraFin">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Fin </th>
+                    <td mat-cell *matCellDef="let row"> {{row.horaTermino}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <ng-container matColumnDef="Acciones">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button (click)="verTrabajadores(row)" mat-flat-button color="primary"
+                            aria-label="Example icon-button with a heart icon">
+                            Detalles
+                            <mat-icon>info</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Selecciona página de gerencias">
+            </mat-paginator>
+        </div>
+    </div>
+</section>

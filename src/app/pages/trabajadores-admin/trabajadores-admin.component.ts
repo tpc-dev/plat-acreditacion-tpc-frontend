@@ -7,10 +7,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { Usuario } from 'src/app/core/interfaces/cuenta.interface';
 import { Visita } from 'src/app/core/interfaces/visita.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UtilService } from 'src/app/core/services/util/util.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-trabajadores-admin',
@@ -18,7 +20,6 @@ import { UtilService } from 'src/app/core/services/util/util.service';
   styleUrls: ['./trabajadores-admin.component.scss']
 })
 export class TrabajadoresAdminComponent implements OnInit {
-
   listTrabajadores: any[] = [];
   @Input() etapa: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,16 +34,15 @@ export class TrabajadoresAdminComponent implements OnInit {
   isProtocoloCovidActivo = false;
   fechaHoyString = moment().format('DD/MM/YYYY');
   tipoRolId?: number;
+  usuario: Usuario;
+  isLoading = false;
   constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService, public dialog: MatDialog, public router: Router, private route: ActivatedRoute,
     public auth: AuthService) {
     this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
+    this.usuario = this.auth.getCuentaActivaValue().usuario;
   }
 
   ngOnInit(): void {
-
-    // this.dataSource = new MatTableDataSource(this.listTrabajadores);
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
     this.obtenerTrabajadores();
   }
 
@@ -51,17 +51,26 @@ export class TrabajadoresAdminComponent implements OnInit {
   }
 
   obtenerTrabajadores() {
-
-    this.api.GET('/trabajadores')
+    this.isLoading = true;
+    // this.api.GET('/trabajadores-frecuentes')
+    this.api.GET(`/usuarios/${this.usuario.id}/trabajadores-frecuentes`)
       .then(data => {
         this.listTrabajadores = data;
         this.dataSource = new MatTableDataSource(this.listTrabajadores);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log(this.listTrabajadores);
+        this.isLoading = false;
       })
       .catch(err => {
         console.log(err);
+        this.isLoading = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Algo salió mal!',
+          footer: 'Inténtalo de nuevo'
+        });
       });
   }
 
@@ -75,23 +84,4 @@ export class TrabajadoresAdminComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  verDetallesContrato(contrato: any) {
-    console.log(contrato);
-    this.router.navigateByUrl('contrato-detail', { state: { contrato: contrato, etapa: this.etapa } });
-    //   this.router.navigate(['contrato-detail'], { relativeTo: this.route });
-  }
-
-  goToGestionarContrato(contrato: any) {
-    if (this.tipoRolId == 5) {
-      this.router.navigate(['/contratos-gestion-eecc', contrato.id]);
-      return
-    }
-
-    if (this.tipoRolId == 4) {
-      this.router.navigate(['/contratos-gestion-tpc', contrato.id]);
-      return
-    }
-  }
-
 }

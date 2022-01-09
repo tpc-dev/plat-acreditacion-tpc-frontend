@@ -27,6 +27,7 @@ import { ItemCarpetaArranqueAdminComponent } from './pages/item-carpeta-arranque
 import { LogintpcPageComponent } from './pages/logintpc-page/logintpc-page.component';
 import { MaintpcPageComponent } from './pages/maintpc-page/maintpc-page.component';
 import { MicuentaPageComponent } from './pages/micuenta-page/micuenta-page.component';
+import { NombradaAdminComponent } from './pages/nombrada-admin/nombrada-admin.component';
 import { PaisesAdminComponent } from './pages/paises-admin/paises-admin.component';
 import { PlatformSettingsAdminComponent } from './pages/platform-settings-admin/platform-settings-admin.component';
 import { RecuperarPasswordComponent } from './pages/recuperar-password/recuperar-password.component';
@@ -127,6 +128,12 @@ const routes: Routes = [
     component: EmpresasAdminComponent,
     canActivate: [AuthGuard],
     path: 'empresas-admin'
+  }
+  ,
+  {
+    component: NombradaAdminComponent,
+    canActivate: [AuthGuard],
+    path: 'nombrada-admin'
   }
   ,
   {

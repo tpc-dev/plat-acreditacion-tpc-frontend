@@ -72,6 +72,16 @@ import { EditAreasAdminComponent } from './edit-areas-admin/edit-areas-admin.com
 import { EditGerenciaAdminComponent } from './edit-gerencia-admin/edit-gerencia-admin.component';
 import { TablaBuscadorPaisesComponent } from './tabla-buscador-paises/tabla-buscador-paises.component';
 import { NuevoPaisFormComponent } from './nuevo-pais-form/nuevo-pais-form.component';
+import { TrabajadorDetailGuardiaComponent } from './trabajador-detail-guardia/trabajador-detail-guardia.component';
+import { VehiculoDetailGuardiaComponent } from './vehiculo-detail-guardia/vehiculo-detail-guardia.component';
+import { RegistroAccesoTrabajadoresContratoComponent } from './registro-acceso-trabajadores-contrato/registro-acceso-trabajadores-contrato.component';
+import { TablaBuscadorTrabajadoresAdminComponent } from './tabla-buscador-trabajadores-admin/tabla-buscador-trabajadores-admin.component';
+import { NuevoUsuarioFormComponent } from './nuevo-usuario-form/nuevo-usuario-form.component';
+import { NuevoTrabajadorFrecuenteFormComponent } from './nuevo-trabajador-frecuente-form/nuevo-trabajador-frecuente-form.component';
+import { TablaBuscadorTrabajadorFrecuenteComponent } from './tabla-buscador-trabajador-frecuente/tabla-buscador-trabajador-frecuente.component';
+import { NuevaNombradaFormComponent } from './nueva-nombrada-form/nueva-nombrada-form.component';
+import { TablaBuscadorNombradaComponent } from './tabla-buscador-nombrada/tabla-buscador-nombrada.component';
+import { ListaTrabajadoresNombradaComponent } from './lista-trabajadores-nombrada/lista-trabajadores-nombrada.component';
 
 @NgModule({
     imports: [
@@ -151,6 +161,16 @@ import { NuevoPaisFormComponent } from './nuevo-pais-form/nuevo-pais-form.compon
         EditGerenciaAdminComponent,
         TablaBuscadorPaisesComponent,
         NuevoPaisFormComponent,
+        TrabajadorDetailGuardiaComponent,
+        VehiculoDetailGuardiaComponent,
+        RegistroAccesoTrabajadoresContratoComponent,
+        TablaBuscadorTrabajadoresAdminComponent,
+        NuevoUsuarioFormComponent,
+        NuevoTrabajadorFrecuenteFormComponent,
+        TablaBuscadorTrabajadorFrecuenteComponent,
+        NuevaNombradaFormComponent,
+        TablaBuscadorNombradaComponent,
+        ListaTrabajadoresNombradaComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -185,6 +205,16 @@ import { NuevoPaisFormComponent } from './nuevo-pais-form/nuevo-pais-form.compon
         TablaBuscadorVehiculosEeccComponent,
         TablaBuscadorTiposRolesComponent,
         NuevoTrabajadorTpcFormComponent,
+        TrabajadorDetailGuardiaComponent,
+        VehiculoDetailGuardiaComponent,
+        RegistroAccesoTrabajadoresContratoComponent,
+        TablaBuscadorTrabajadoresAdminComponent,
+        NuevoUsuarioFormComponent,
+        NuevoTrabajadorFrecuenteFormComponent,
+        TablaBuscadorTrabajadorFrecuenteComponent,
+        NuevaNombradaFormComponent,
+        TablaBuscadorNombradaComponent,
+        ListaTrabajadoresNombradaComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

@@ -63,13 +63,13 @@
                                     <mat-icon>more_vert</mat-icon>
                                 </button>
                                 <mat-menu #menu="matMenu">
-                                    <button mat-menu-item>
+                                    <button (click)="marcarIngreso(row)" mat-menu-item>
+                                        <mat-icon>check</mat-icon>
+                                        <span>Marcar Ingreso</span>
+                                    </button>
+                                    <button (click)="verDetalles(row)" mat-menu-item>
                                         <mat-icon>description</mat-icon>
                                         <span>Ver Detalles</span>
-                                    </button>
-                                    <button mat-menu-item>
-                                        <mat-icon>event_busy</mat-icon>
-                                        <span>Cancelar</span>
                                     </button>
                                 </mat-menu>
                             </td>

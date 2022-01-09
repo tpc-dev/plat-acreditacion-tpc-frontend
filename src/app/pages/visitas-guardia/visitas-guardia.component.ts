@@ -59,7 +59,7 @@ export class VisitasGuardiaComponent implements AfterViewInit {
   }
 
   obtenerEncargados(): void {
-    this.api.getUsuarioPorRol(2).subscribe(res => {
+    this.api.GET('/usuarios').then((res: any) => {
       console.log(res)
       this.listaEncargados = res;
     }, error => {

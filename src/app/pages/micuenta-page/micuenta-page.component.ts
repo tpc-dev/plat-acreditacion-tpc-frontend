@@ -29,6 +29,24 @@ export class MicuentaPageComponent implements OnInit {
 
   }
 
+  public changeListener(event:any) {
+    let files = event.target['files'];
+    if (files && files.length > 0) {
+      let file: any = files.item(0);
+      console.log(file?.name);
+      console.log(file?.size);
+      console.log(file?.type);
+      let reader: FileReader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = (e) => {
+        console.log(reader.result);
+        
+        let csv: string = reader.result as string;
+        console.log(csv);
+      }
+    }
+  }
+
   ngOnInit(): void {
     this.usuarioForm = this.createNuevoUsuarioForm(this.authService.getCuentaActivaValue().usuario);
     this.obtenerListaEmpresas();

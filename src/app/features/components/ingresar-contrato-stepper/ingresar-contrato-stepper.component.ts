@@ -1,5 +1,5 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ItemCarpetaArranque } from 'src/app/core/interfaces/itemcarpetaarranque.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
@@ -28,6 +28,7 @@ export class IngresarContratoStepperComponent implements OnInit {
 
   // @ViewChild('stepper', { static: true }) stepper: MatVerticalStepper;
   @ViewChild('stepper') stepper: MatVerticalStepper;
+  @Output() reloadContratos = new EventEmitter();
 
   listEmpresas: Empresa[] = [];
   listAreas: any[] = [];
@@ -253,7 +254,10 @@ export class IngresarContratoStepperComponent implements OnInit {
       TerminoContrato: this.datosRevisionFormGroup.get('fechaFin')?.value.toDate(),
       Activo: true,
       EtapaCreacionContratoId: this.listEtapasCreacionContrato.find(x => x.orden == 1)?.id,
+      EstadoAcreditacionId: 2, // PENDIENTE
     }
+
+    console.log(contrato);
 
     let empresaContrato = {
       EmpresaId: this.datosRevisionFormGroup.get('empresa')?.value,
@@ -341,7 +345,7 @@ export class IngresarContratoStepperComponent implements OnInit {
           })
           .then((data) => {
             console.log(data);
-            return this.apiService.PUT(`/contratos/${22}/cambiar-etapa-creacion/${idEtapa}`, { idEtapa: idEtapa });
+            return this.apiService.PUT(`/contratos/${this.currentContrato.id}/cambiar-etapa-creacion/${idEtapa}`, { idEtapa: idEtapa });
           })
           .then((data) => {
             console.log(data);
@@ -391,12 +395,29 @@ export class IngresarContratoStepperComponent implements OnInit {
       confirmButtonText: 'Si, notificar',
     }).then((result) => {
       if (result.isConfirmed) {
+        const idEtapa = this.listEtapasCreacionContrato.find(x => x.orden == 4)?.id;
+        this.apiService.PUT(`/contratos/${this.currentContrato.id}/cambiar-etapa-creacion/${idEtapa}`, { idEtapa: idEtapa })
+          .then((data) => {
+            console.log(data);
+            Swal.fire(
+              'Completado!',
+              'Se ha creado correctamente la carpeta de arranque y el contrato.',
+              'success'
+            )
+            this.stepper.next();
+            this.reloadContratos.emit();
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: 'Error al guardar contrato',
+              text: 'El contrato no se pudo guardar',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+          })
         // TODO SI LA CREACION DE CONTRATO ESTA EN EL PASO 4 , YA SE PUEDE REVISAR QUE DATOS DEBE COMPLETAR EL ADCEECC
-        Swal.fire(
-          'Completado!',
-          'Se ha creado correctamente la carpeta de arranque y el contrato.',
-          'success'
-        )
+
       }
     })
 

@@ -33,20 +33,21 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
   contratoId: number;
   listaTrabajadoresContrato: any[] = [];
   listTrabajadoresTPC: any[] = [];
+  listaTrabajadoresFrecuentes: any[] = [];
   //
 
   dataSourceTPC: MatTableDataSource<any>;
-  displayedColumnsTPC: string[] = ['nombres', 'apellidoPaterno', 'apellidoMaterno', 'gerencia', 'acciones'];
+  displayedColumnsTPC: string[] = ['rut', 'nombres', 'apellidoPaterno', 'apellidoMaterno', 'gerencia', 'acciones'];
   @ViewChild('TableTPCPaginator', { static: true }) tableTPCPaginator: MatPaginator;
   @ViewChild('TableTPCSort', { static: true }) tableTPCSort: MatSort;
 
   dataSourceContrato: MatTableDataSource<any>;
-  displayedColumnsContrato: string[] = ['nombres', 'apellidoPaterno', 'apellidoMaterno', 'acciones'];
+  displayedColumnsContrato: string[] = ['rut', 'nombres', 'apellidoPaterno', 'apellidoMaterno', 'acciones'];
   @ViewChild('TableContratoPaginator', { static: true }) tableContratoPaginator: MatPaginator;
   @ViewChild('TableContratoSort', { static: true }) tableContratoSort: MatSort;
 
   dataSourceFrecuente: MatTableDataSource<any>;
-  displayedColumnsFrecuente: string[] = ['nombres', 'apellidoPaterno', 'apellidoMaterno', 'acciones'];
+  displayedColumnsFrecuente: string[] = ['rut', 'nombres', 'apellidoPaterno', 'apellidoMaterno', 'acciones'];
   @ViewChild('TableFrecuentePaginator', { static: true }) tableFrecuentePaginator: MatPaginator;
   @ViewChild('TableFrecuenteSort', { static: true }) tableFrecuenteSort: MatSort;
 
@@ -59,32 +60,13 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-    this.obtenerTrabajadores();
+    // this.obtenerTrabajadores();
     this.cargarTrabajadores()
   }
 
-  obtenerTrabajadores() {
-    this.isLoading = true;
-    this.api.GET(`/contrato-trabajador`)
-      .then(res => {
-        this.isLoading = false;
-        this.listaTrabajadoresContrato = res;
-        this.dataSourceContrato = new MatTableDataSource(this.listaTrabajadoresContrato);
-        this.dataSourceContrato.paginator = this.tableContratoPaginator;
-        this.dataSourceContrato.sort = this.tableContratoSort;
-        console.log(res);
-      })
-      .catch(err => {
-        this.isLoading = false;
-        Swal.fire({
-          title: 'Error',
-          text: 'No se pudo obtener los trabajadores del contrato',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-        console.log(err);
-      });
-  }
+  // obtenerTrabajadoresContrato() {
+
+  // }
 
   ngAfterViewInit() {
     // this.dataSourceContrato.paginator = this.tableContratoPaginator;
@@ -119,7 +101,6 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
   }
 
   marcarIngreso(contratoTrabajador: any, tipo: string) {
-    
     let dialog = this.dialog.open(RegistroAccesoTrabajadoresContratoComponent, {
       width: '1000px',
       height: 'auto',
@@ -131,19 +112,32 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
     dialog.afterClosed().subscribe(result => {
       console.log(result);
       if (result) {
-        this.obtenerTrabajadores();
+        this.cargarTrabajadores();
       }
     });
   }
 
-  verDetalles(trabajador: any) {
+  verDetalles(trabajador: any, tipo: string) {
     console.log(trabajador);
+
+    if (tipo === 'TPC') {
+      // trabajador = trabajador.trabajador;
+    }
+
+    if (tipo === 'CONTRATO') {
+      trabajador = trabajador;
+    }
+
+    if (tipo === 'FRECUENTE') {
+      trabajador = trabajador.trabajadorFrecuente;
+    }
 
     let dialog = this.dialog.open(TrabajadorDetailGuardiaComponent, {
       width: '1000px',
       height: 'auto',
       data: {
-        trabajador: trabajador
+        trabajador: trabajador,
+        tipo: tipo
       }
     });
 
@@ -154,13 +148,26 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
 
   cargarTrabajadores() {
     this.isLoading = true;
-    let promises = [this.cargarTrabajadoresTPC()];
+    let promises = [this.cargarTrabajadoresTPC(), this.cargarTrabajadoresContratos(), this.cargarTrabajadoresFrecuentes()];
     Promise.all(promises)
       .then((res: any[]) => {
         console.log(res);
-        let [resTPC] = res;
+        let [resTPC, restContratos, resFrecuente] = res;
         this.listTrabajadoresTPC = resTPC;
         this.dataSourceTPC = new MatTableDataSource(this.listTrabajadoresTPC);
+        this.dataSourceTPC.paginator = this.tableTPCPaginator;
+        this.dataSourceTPC.sort = this.tableTPCSort;
+
+        this.listaTrabajadoresContrato = restContratos;
+        this.dataSourceContrato = new MatTableDataSource(this.listaTrabajadoresContrato);
+        this.dataSourceContrato.paginator = this.tableContratoPaginator;
+        this.dataSourceContrato.sort = this.tableContratoSort;
+
+        this.listaTrabajadoresFrecuentes = resFrecuente;
+        this.dataSourceFrecuente = new MatTableDataSource(this.listaTrabajadoresFrecuentes);
+        this.dataSourceFrecuente.paginator = this.tableFrecuentePaginator;
+        this.dataSourceFrecuente.sort = this.tableFrecuenteSort;
+
         this.isLoading = false;
       })
       .catch(err => {
@@ -178,7 +185,17 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
   }
 
   cargarTrabajadoresFrecuentes() {
-    // TipoTrabajador
+    // nombrada-diaria
+    return new Promise((resolve, reject) => {
+      this.api.GET('/nombrada-diaria/hoy')
+        .then(res => {
+          console.log(res);
+          resolve(res);
+        })
+        .catch((err: any) => {
+          reject(err);
+        })
+    })
   }
 
   cargarTrabajadoresTPC(): Promise<any> {
@@ -194,8 +211,18 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
     })
   }
 
-  cargarTrabajadoresContratos() {
-
+  cargarTrabajadoresContratos(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.api.GET(`/contrato-trabajador`)
+        .then(res => {
+          console.log(res);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+          console.log(err);
+        });
+    });
   }
 }
 

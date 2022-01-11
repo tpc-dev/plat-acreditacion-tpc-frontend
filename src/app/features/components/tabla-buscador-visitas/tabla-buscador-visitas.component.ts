@@ -32,7 +32,7 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   minDate: Date;
   dataSourceVisitas!: MatTableDataSource<Visita>;
-  displayedColumns: string[] = ['rut', 'nombre', 'area', 'encargado', 'fechavisita', 'comentario', 'haIngresado', 'acciones'];
+  displayedColumns: string[] = ['rut', 'nombre', 'area', 'encargado', 'fechavisita', 'hora', 'comentario', 'haIngresado', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
   fechaBuscada!: Date;
   estadoBuscado: boolean = false;

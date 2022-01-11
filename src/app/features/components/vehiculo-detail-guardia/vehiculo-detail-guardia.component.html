@@ -13,50 +13,32 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Número de Patente </mat-label>
-                        <input matInput formControlName="patente" required>
-                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'patente')">
-                            Patente es requerido
-                        </mat-error>
-                        <!-- <mat-error *ngIf="nuevoVehiculoForm.hasError('minlength', 'patente')">
-                            Patente demasiado corto
-                        </mat-error>
-                        <mat-error *ngIf="nuevoVehiculoForm.hasError('maxLength', 'patente')">
-                            Patente demasiado largo
-                        </mat-error> -->
+                        <input [readonly]="true" matInput formControlName="patente">
                     </mat-form-field>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Marca </mat-label>
-                        <input matInput formControlName="marca" required>
-                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'marca')">
-                            Marca es requerido
-                        </mat-error>
+                        <input [readonly]="true" matInput formControlName="marca">
                     </mat-form-field>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Tipo Vehiculo </mat-label>
-                        <mat-select formControlName="tipoVehiculoId" required>
+                        <mat-select [readonly]="true" formControlName="tipoVehiculoId">
                             <mat-option *ngFor="let tipo of listTipoVehiculos" [value]="tipo.id">
                                 {{tipo.nombre}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'tipoVehiculoId')">
-                            Tipo Vehiculo es requerido
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Modelo </mat-label>
-                        <input matInput formControlName="modelo" required>
-                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'modelo')">
-                            Modelo es requerido
-                        </mat-error>
+                        <input [readonly]="true" matInput formControlName="modelo">
                     </mat-form-field>
                 </div>
             </div>
@@ -65,16 +47,84 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Año </mat-label>
-                        <input type="number" matInput formControlName="year" required>
-                        <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'year')">
-                            Año es requerido
-                        </mat-error>
+                        <input [readonly]="true" type="number" matInput formControlName="year">
                     </mat-form-field>
                 </div>
             </div>
             <mat-divider>
             </mat-divider>
-            <mat-progress-bar *ngIf="isLoading" style="margin-top: 8px;" color="accent" mode="query"></mat-progress-bar>
+            <div class="row">
+                <div style="margin-top: 12px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2>
+                        <strong>{{'Datos Chofer' | uppercase}}</strong>
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Rut </mat-label>
+                        <input [readonly]="true" matInput formControlName="choferRut">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Nombre </mat-label>
+                        <input [readonly]="true" matInput formControlName="choferName">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Apellido Paterno </mat-label>
+                        <input [readonly]="true" matInput formControlName="choferApellidoPaterno">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Apellido Materno </mat-label>
+                        <input [readonly]="true" matInput formControlName="choferApellidoMaterno">
+                    </mat-form-field>
+                </div>
+            </div>
         </form>
     </div>
+    <mat-divider></mat-divider>
+    <div style="margin-top: 12px;">
+        <div class="row">
+            <div style="margin-top: 12px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>
+                    <strong>{{'Documentos' | uppercase}}</strong>
+                </h2>
+            </div>
+        </div>
+        <div *ngFor="let doc of listDocumentosVehiculo">
+            <mat-divider></mat-divider>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h3><strong>{{doc.tipoDocumentoAcreditacion.nombre}}</strong></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    {{doc.urlFile}}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{doc.fechaInicio | date: 'dd/MM/yyyy'}}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{doc.fechaTermino | date: 'dd/MM/yyyy'}}
+                </div>
+            </div>
+        </div>
+        <div *ngIf="listDocumentosVehiculo.length==0" class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2> No hay documentos asociados a este vehiculo </h2>
+            </div>
+        </div>
+    </div>
+    <mat-progress-bar *ngIf="isLoading" style="margin-top: 8px;" color="accent" mode="query"></mat-progress-bar>
 </mat-card>

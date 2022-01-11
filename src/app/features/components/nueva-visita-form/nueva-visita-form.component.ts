@@ -85,6 +85,12 @@ export class NuevaVisitaFormComponent implements OnInit {
           Validators.required,
         ])
       ),
+      hora: new FormControl(
+        null,
+        Validators.compose([
+          Validators.required,
+        ])
+      ),
       comentario: new FormControl(
         null,
         Validators.compose([
@@ -104,7 +110,7 @@ export class NuevaVisitaFormComponent implements OnInit {
       return;
     }
     let nuevaVisita = this.nuevaVisitaForm.value;
-    nuevaVisita.areaId = nuevaVisita.area;  
+    nuevaVisita.areaId = nuevaVisita.area;
     delete nuevaVisita.area;
     // nuevaVisita.fechavisita = nuevaVisita.fechavisita.toDate();
     console.log(nuevaVisita);

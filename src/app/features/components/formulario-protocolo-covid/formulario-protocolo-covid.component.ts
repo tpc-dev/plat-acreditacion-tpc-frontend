@@ -15,6 +15,7 @@ export class FormularioProtocoloCovidComponent implements OnInit {
   encuestaCovidRespondida: boolean = false;
   consulting: boolean = false;
   registroCovidFormularioResp!: RegistroCovidFormulario;
+  timeOutFormulario: any;
   constructor(public dialogRef: MatDialogRef<Visita>,
     @Inject(MAT_DIALOG_DATA) public visita: Visita, public api: ApiService) { }
 
@@ -60,15 +61,16 @@ export class FormularioProtocoloCovidComponent implements OnInit {
       }).finally(() => {
         this.consulting = false;
         if (!this.encuestaCovidRespondida) {
-          setTimeout(() => {
+          this.timeOutFormulario = setTimeout(() => {
             this.obtenerEncuestaCovid()
           }, 2000);
         }
       });
   }
 
-
-
+  ngOnDestroy() {
+    clearTimeout(this.timeOutFormulario);
+  }
   guardarIngresoProtocoloCOVID() {
     let req = {
       temperatura: this.temperatura,
@@ -76,7 +78,7 @@ export class FormularioProtocoloCovidComponent implements OnInit {
     }
 
     console.log(req);
-    
+
 
     this.api.POST('/registro-covid-accesos', req)
       .then(data => {

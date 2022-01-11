@@ -7,4 +7,5 @@ export interface Visita {
     comentario: string;
     haIngresado?: boolean;
     fechaVisita: Date;
+    hora: string;
 }

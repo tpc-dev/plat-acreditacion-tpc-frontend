@@ -24,6 +24,13 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Hora</mat-label>
+                    <input [(ngModel)]="data.hora" matInput [ngxTimepicker]="pickerTime">
+                    <ngx-material-timepicker #pickerTime></ngx-material-timepicker>
+                </mat-form-field>
+            </td>
         </tr>
     </table>
 </div>

@@ -2,3 +2,7 @@
     width: 240px;
     margin-right: 8px;
 }
+
+timepicker-overlay {
+    z-index: 9999 !important;
+}

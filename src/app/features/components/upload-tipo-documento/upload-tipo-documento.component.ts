@@ -64,14 +64,8 @@ export class UploadTipoDocumentoComponent implements OnInit {
     this.isLoading = true;
     // CREAR ITEM TIPO DOCUMENTO EMPRESA ACREDITACION
     console.log(this.data);
-    // let req = {
-    //   fechaInicio: this.fileForm.get('fechaInicio')?.value,
-    //   fechaTermino: this.fileForm.get('fechaTermino')?.value,
-    //   EstadoAcreditacionId: 2,
-    //   TipoDocumentoAcreditacionId: this.data.id,
-    //   urlfile: this.newFile.name,
-    // }
     let req = this.getRequestStructure(this.data.documentoClasificacionId);
+    console.log(req);
     // this.api.POST(`/contratos/${this.data.contratoId}/empresas/documento`, req)
     this.api.POST(this.getUrlAPI(this.data.documentoClasificacionId), req)
       .then(data => {
@@ -109,7 +103,14 @@ export class UploadTipoDocumentoComponent implements OnInit {
       case 4:
         break;
       case 5:
-        return `/contratos/${this.data.contratoId}/vehiculo/documento`;
+        return {
+          fechaInicio: this.fileForm.get('fechaInicio')?.value,
+          fechaTermino: this.fileForm.get('fechaTermino')?.value,
+          EstadoAcreditacionId: 2,
+          TipoDocumentoAcreditacionId: this.data.id,
+          urlfile: this.newFile.name,
+          contratoId: this.data.contratoId
+        };;
     }
   }
 

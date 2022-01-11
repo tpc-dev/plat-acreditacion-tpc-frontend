@@ -34,9 +34,6 @@ export class VisitasGuardiaComponent implements AfterViewInit {
 
   obtenerVisitas() {
     this.isLoading = true;
-    // this.obtenerVisitasAgendadasHoy();
-    // this.obtenerVisitasAgendadas();
-    // this.obtenerVisitasHistorico();
     this.api.GET('/visitas/hoy')
       .then((res: any) => {
         this.listVisitasHoy = res;

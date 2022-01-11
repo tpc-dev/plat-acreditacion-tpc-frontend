@@ -19,14 +19,18 @@ export class VehiculoDetailGuardiaComponent implements OnInit {
   isLoading = false;
   listTipoVehiculos: any[] = [];
   vehiculo: any;
+  contrato: any;
+  listDocumentosVehiculo: any[] = [];
   constructor(public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any, public api: ApiService, public router: Router, public formBuilder: FormBuilder) {
-    this.vehiculo = data.vehiculo;
+    this.vehiculo = data.vehiculo.vehiculo;
+    this.contrato = data.vehiculo.contrato;
   }
 
   ngOnInit(): void {
     this.nuevoVehiculoForm = this.createFormGroup();
     this.obtenerTipoVehiculos();
+    this.obtenerDocumentosVehiculo();
   }
 
   obtenerTipoVehiculos() {
@@ -47,15 +51,36 @@ export class VehiculoDetailGuardiaComponent implements OnInit {
 
   createFormGroup() {
     return this.formBuilder.group({
-      patente: [this.vehiculo.patente, [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-      marca: [this.vehiculo.marca, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      modelo: [this.vehiculo.modelo, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      year: [this.vehiculo.year, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-      tipoVehiculoId: [this.vehiculo.tipoVehiculoId, [Validators.required]],
+      patente: [this.vehiculo.patente,],
+      marca: [this.vehiculo.marca,],
+      modelo: [this.vehiculo.modelo,],
+      year: [this.vehiculo.year,],
+      tipoVehiculoId: [this.vehiculo.tipoVehiculoId,],
+      //
+      choferName: [this.vehiculo.chofer.nombre],
+      choferApellidoPaterno: [this.vehiculo.chofer.apellidoPaterno],
+      choferApellidoMaterno: [this.vehiculo.chofer.apellidoMaterno],
+      choferRut: [this.vehiculo.chofer.rut],
+
     });
   }
 
-  guardarVehiculo() {
-
+  obtenerDocumentosVehiculo() {
+    this.api.GET(`/contrato-vehiculo/${this.contrato.id}/${this.vehiculo.id}/documentos-creados`)
+      .then(res => {
+        console.log(res);
+        this.listDocumentosVehiculo = res;
+      })
+      .catch(err => {
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo obtener los documentos del vehiculo',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
+        console.log(err);
+      });
   }
+
+
 }

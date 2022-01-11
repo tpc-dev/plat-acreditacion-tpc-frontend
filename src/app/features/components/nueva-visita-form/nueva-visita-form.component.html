@@ -2,133 +2,131 @@
     <mat-card class="container-table  mat-elevation-z2">
         <section>
             <form [formGroup]="nuevaVisitaForm">
-                <table class="table-nueva-visita" cellspacing="2">
-                    <tr>
-                        <td>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Nombre</mat-label>
-                                <input formControlName="nombre" matInput>
-                                <button *ngIf="nuevaVisitaForm.get('nombre')?.value != null" matSuffix mat-icon-button
-                                    aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'nombre':null})">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                                <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'nombre')">
-                                    Nombre es <strong>necesario</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Apellido</mat-label>
-                                <input formControlName="apellido" matInput>
-                                <button *ngIf="nuevaVisitaForm.get('apellido')?.value != null" matSuffix mat-icon-button
-                                    aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'apellido':null})">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                                <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'apellido')">
-                                    Apellido es <strong>necesario</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field appearance="outline">
-                                <mat-label>RUT</mat-label>
-                                <input placeholder="11111111-1" formControlName="rut" matInput>
-                                <button *ngIf="nuevaVisitaForm.get('rut')?.value != null" matSuffix mat-icon-button
-                                    aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'rut':null})">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                                <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'rut')">
-                                    RUT es <strong>necesario</strong>
-                                </mat-error>
-                                <mat-error *ngIf="nuevaVisitaForm.hasError('rutValido', 'rut')">
-                                    RUT no <strong>valido</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Area</mat-label>
-                                <!-- <input formControlName="area" matInput>
-                                <button *ngIf="nuevaVisitaForm.get('area')?.value != null" matSuffix mat-icon-button
-                                    aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'area':null})">
-                                    <mat-icon>close</mat-icon>
-                                </button> -->
-                                <mat-select formControlName="area" placeholder="Seleccione una opción">
-                                    <mat-option *ngFor="let area of listAreas" [value]="area.id">
-                                        {{area.nombre}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'area')">
-                                    Area es <strong>necesario</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
-                        <td *ngIf="!isAdministrador">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Encargado</mat-label>
-                                <mat-select formControlName="usuarioid" name="usuarioid">
-                                    <mat-option *ngFor="let encargado of listaEncargados" [value]="encargado.id">
-                                        {{encargado.nombre}} {{encargado.apellido1}} {{encargado.apellido2}}
-                                    </mat-option>
-                                </mat-select>
-                                <button *ngIf="nuevaVisitaForm.get('usuarioid')?.value != null" matSuffix
-                                    mat-icon-button aria-label="Clear"
-                                    (click)="nuevaVisitaForm.patchValue({'usuarioid':null})">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                                <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'usuarioid')">
-                                    Encargado es <strong>necesario</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="example-full-width" appearance="outline">
-                                <mat-label>Fecha de visita</mat-label>
-                                <input formControlName="fechavisita" matInput [min]="minDate" [matDatepicker]="picker">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                                <button *ngIf="nuevaVisitaForm.get('fechavisita')?.value != null" matSuffix
-                                    mat-icon-button aria-label="Clear"
-                                    (click)="nuevaVisitaForm.patchValue({'fechavisita':null})">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                                <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'fechavisita')">
-                                    Fecha de visita es <strong>necesario</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td style="width: 648px;">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Comentario</mat-label>
-                                <textarea style="height: 10px;" formControlName="comentario" matInput
-                                    placeholder="Visita con motivo de negocios"></textarea>
-                                <button *ngIf="nuevaVisitaForm.get('comentario')?.value != null" matSuffix
-                                    mat-icon-button aria-label="Clear"
-                                    (click)="nuevaVisitaForm.patchValue({'comentario':null})">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                                <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'comentario')">
-                                    Comentario es <strong>necesario</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
+                <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input formControlName="nombre" matInput>
+                            <button *ngIf="nuevaVisitaForm.get('nombre')?.value != null" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'nombre':null})">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'nombre')">
+                                Nombre es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Apellido</mat-label>
+                            <input formControlName="apellido" matInput>
+                            <button *ngIf="nuevaVisitaForm.get('apellido')?.value != null" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'apellido':null})">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'apellido')">
+                                Apellido es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>RUT</mat-label>
+                            <input placeholder="11111111-1" formControlName="rut" matInput>
+                            <button *ngIf="nuevaVisitaForm.get('rut')?.value != null" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'rut':null})">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'rut')">
+                                RUT es <strong>necesario</strong>
+                            </mat-error>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('rutValido', 'rut')">
+                                RUT no <strong>valido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Area</mat-label>
+                            <mat-select formControlName="area" placeholder="Seleccione una opción">
+                                <mat-option *ngFor="let area of listAreas" [value]="area.id">
+                                    {{area.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'area')">
+                                Area es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" *ngIf="!isAdministrador">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Encargado</mat-label>
+                            <mat-select formControlName="usuarioid" name="usuarioid">
+                                <mat-option *ngFor="let encargado of listaEncargados" [value]="encargado.id">
+                                    {{encargado.nombre}} {{encargado.apellido1}} {{encargado.apellido2}}
+                                </mat-option>
+                            </mat-select>
+                            <button *ngIf="nuevaVisitaForm.get('usuarioid')?.value != null" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'usuarioid':null})">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'usuarioid')">
+                                Encargado es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Fecha de visita</mat-label>
+                            <input formControlName="fechavisita" matInput [min]="minDate" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <button *ngIf="nuevaVisitaForm.get('fechavisita')?.value != null" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'fechavisita':null})">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'fechavisita')">
+                                Fecha de visita es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Hora</mat-label>
+                            <input matInput formControlName="hora" [ngxTimepicker]="pickerTime">
+                            <ngx-material-timepicker #pickerTime></ngx-material-timepicker>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'hora')">
+                                Hora es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 648px;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Comentario</mat-label>
+                            <textarea style="height: 10px;" formControlName="comentario" matInput
+                                placeholder="Visita con motivo de negocios"></textarea>
+                            <button *ngIf="nuevaVisitaForm.get('comentario')?.value != null" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nuevaVisitaForm.patchValue({'comentario':null})">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="nuevaVisitaForm.hasError('required', 'comentario')">
+                                Comentario es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <div>
                         <mat-card-actions>
                             <button (click)="agendarVisita()" [disabled]="nuevaVisitaForm.invalid"
                                 class=" button-form button-add-form" mat-raised-button color="primary">Agregar</button>
                         </mat-card-actions>
-                    </tr>
-                </table>
+                    </div>
+                </div>
             </form>
             <mat-progress-bar *ngIf="isLoadingNew" style="margin-top: 8px;" color="accent" mode="query">
             </mat-progress-bar>

@@ -14,14 +14,41 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
   contratoTrabajador: any;
   listaRegistrosAccesos: any[] = [];
   ultimoRegistro: string;
+  registroInduccion: any;
+  induccionVencida = true;
   constructor(public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any, public api: ApiService) {
     this.contratoTrabajador = data;
+    console.log(data);
   }
 
   ngOnInit(): void {
 
     this.obtenerAccesos();
+    this.obtenerRegistroInduccion();
+  }
+
+  obtenerRegistroInduccion() {
+    this.api.GET(`/registro-induccion/${this.contratoTrabajador.contratoTrabajador.trabajador.rut}/last`)
+      .then(res => {
+        console.log(res);
+        this.registroInduccion = res;
+        if (!this.registroInduccion) return;
+        let today = new Date();
+        let fechaVencimiento = new Date(this.registroInduccion.fechaVencimiento);
+        console.log(today);
+        console.log(fechaVencimiento);
+        console.log(today > fechaVencimiento);
+
+        // fecha termino induccion es menor a la actual
+        if (today < fechaVencimiento) {
+          this.induccionVencida = false;
+          console.log("asdasd");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   obtenerAccesos() {
@@ -48,7 +75,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
       this.marcarSalida();
     }
 
-    if (ultimoRegistro == 'SALIDA') {
+    if (ultimoRegistro == 'SALIDA' || !ultimoRegistro) {
       this.marcarIngreso();
     }
   }
@@ -65,8 +92,9 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
+        console.log(this.contratoTrabajador);
         this.isLoading = true;
-        this.api.POST(`/contrato-trabajador/registro-acceso/${'ENTRADA'}`, this.contratoTrabajador)
+        this.api.POST(`/contrato-trabajador/registro-acceso/${'ENTRADA'}`, this.contratoTrabajador.contratoTrabajador)
           .then(res => {
             this.isLoading = false;
             Swal.fire({
@@ -105,7 +133,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.isLoading = true;
-        this.api.POST(`/contrato-trabajador/registro-acceso/${'SALIDA'}`, this.contratoTrabajador)
+        this.api.POST(`/contrato-trabajador/registro-acceso/${'SALIDA'}`, this.contratoTrabajador.contratoTrabajador)
           .then(res => {
             this.isLoading = false;
             Swal.fire({

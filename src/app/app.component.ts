@@ -37,11 +37,9 @@ export class AppComponent {
 
   listaItemsMenuAdminTPC: ItemMenu[] = [
     { name: "Inicio", icon: "home", path: '/home' },
-    // { name: "Contratos", icon: "description", path: '/contratos-admin' },
-    // { name: "Empresas", icon: "business", path: '/trabajadores-admin' },
     { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
     { name: "Nombradas", icon: "ballot", path: '/nombrada-admin' },
-    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin' },
+    // { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin' },
     { name: "Visitas", icon: "groups", path: '/visitas-admin' },
   ]
 

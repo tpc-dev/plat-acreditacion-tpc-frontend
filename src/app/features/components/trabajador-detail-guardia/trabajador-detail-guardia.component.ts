@@ -14,16 +14,28 @@ import Swal from 'sweetalert2';
 })
 export class TrabajadorDetailGuardiaComponent implements OnInit {
   nuevoTrabajadorForm: FormGroup;
+  nuevoTurnoForm: FormGroup;
+  nuevaJornadaForm: FormGroup;
   listGeneros: any[] = [];
   listEstadosCiviles: any[] = [];
   listPaises: any[] = [];
   listNivelesEducacional: any[] = [];
   contratoId: number;
   isLoading = false;
-  trabjadorData: any;
+  trabajadorData: any;
+  tipoTrabajador: string;
+  turno: any;
+  jornada: any;
   constructor(public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any, public router: Router, public activeRoute: ActivatedRoute, public formBuilder: FormBuilder, public api: ApiService) {
-    this.trabjadorData = data.trabajador.trabajador;
+    this.trabajadorData = data.trabajador.trabajador;
+    console.log(data);
+    this.tipoTrabajador = data.tipo;
+    this.turno = data.trabajador.turno;
+    this.jornada = data.trabajador.turno.jornada;
+    console.log(this.turno);
+    console.log(this.jornada);
+
     this.activeRoute.params.subscribe((params: any) => {
       console.log(params);
       this.contratoId = params.id;
@@ -35,68 +47,59 @@ export class TrabajadorDetailGuardiaComponent implements OnInit {
     this.obtenerEstadosCiviles();
     this.obtenerPaises();
     this.obtenerNivelesEducacional();
-    this.nuevoTrabajadorForm = this.createFormGroup();
+    this.nuevoTrabajadorForm = this.data.tipo == 'FRECUENTE' ? this.createFormGroupFrecuente() : this.createFormGroup();
+    this.nuevoTurnoForm = this.createFormGroupTurno();
+    this.nuevaJornadaForm = this.createFormJornada();
   }
 
-  createFormGroup() {
+  createFormJornada(): FormGroup {
+    return this.formBuilder.group({
+      nombre: [this.jornada.nombre],
+      fechaInicio: [this.jornada.fechaInicio],
+      horaInicio: [this.jornada.horaInicio],
+      horaTermino: [this.jornada.horaTermino],
+    });
+  }
+  createFormGroupTurno() {
+    return this.formBuilder.group({
+      fechaInicio: [this.turno.fechaInicio],
+      fechaTermino: [this.turno.fechaTermino],
+      diasLaborales: [this.turno.diasLaborales],
+      diasFestivos: [this.turno.diasFestivos],
+      descripcion: [this.turno.descripcion],
+      horasSemana: [this.turno.horasSemana],
+    });
+  }
+
+  createFormGroupFrecuente() {
     return this.formBuilder.group({
       rut: new FormControl(
-        this.trabjadorData.rut,
+        this.trabajadorData.rut,
         Validators.compose([
           Validators.required,
           TPCValidations.isRutInvalido,
         ])
       ),
-      nombre: [this.trabjadorData.nombres, Validators.required],
-      apellidoPaterno: [this.trabjadorData.apellidoPaterno, Validators.required],
-      apellidoMaterno: [this.trabjadorData.apellidoMaterno, Validators.required],
-      fechaNacimiento: [this.trabjadorData.fechaNacimiento, Validators.required],
-      generoId: [{ value: this.trabjadorData.generoId, disabled: true }, Validators.required],
-      estadoCivilId: [this.trabjadorData.estadoCivilId, Validators.required],
-      nivelEducacionalId: [this.trabjadorData.nivelEducacionalId, Validators.required],
-      paisId: [this.trabjadorData.paisId, Validators.required],
+      nombre: [this.trabajadorData.nombres],
+      apellidoPaterno: [this.trabajadorData.apellidoPaterno],
+      apellidoMaterno: [this.trabajadorData.apellidoMaterno],
     });
   }
 
-  guardarNuevoTrabajador() {
-    this.isLoading = true;
-    let req = {
-      rut: this.nuevoTrabajadorForm.value.rut,
-      nombres: this.nuevoTrabajadorForm.value.nombre,
-      apellidoPaterno: this.nuevoTrabajadorForm.value.apellidoPaterno,
-      apellidoMaterno: this.nuevoTrabajadorForm.value.apellidoMaterno,
-      fechaNacimiento: this.nuevoTrabajadorForm.value.fechaNacimiento.toISOString(),
-      generoId: this.nuevoTrabajadorForm.value.generoId,
-      estadoCivilId: this.nuevoTrabajadorForm.value.estadoCivilId,
-      nivelEducacionalId: this.nuevoTrabajadorForm.value.nivelEducacionalId,
-      paisId: this.nuevoTrabajadorForm.value.paisId,
-      contratoId: this.contratoId
-    }
-
-    console.log(req);
-
-    this.api.POST(`/contratos/${this.contratoId}/trabajadores`, req)
-      .then(res => {
-        this.isLoading = false;
-        Swal.fire({
-          title: 'Exito',
-          text: 'Trabajador creado con exito',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-        console.log(res);
-        this.router.navigate(['../'], { relativeTo: this.activeRoute });
-      })
-      .catch(err => {
-        this.isLoading = false;
-        Swal.fire({
-          title: 'Error',
-          text: `No se pudo crear el trabajador ${err.error}`,
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-        console.log(err);
-      });
+  createFormGroup() {
+    return this.formBuilder.group({
+      rut: new FormControl(
+        this.trabajadorData.rut
+      ),
+      nombre: [this.trabajadorData.nombres],
+      apellidoPaterno: [this.trabajadorData.apellidoPaterno],
+      apellidoMaterno: [this.trabajadorData.apellidoMaterno],
+      fechaNacimiento: [this.trabajadorData.fechaNacimiento],
+      generoId: [{ value: this.trabajadorData.generoId, disabled: true }],
+      estadoCivilId: [{ value: this.trabajadorData.estadoCivilId, disabled: true }],
+      nivelEducacionalId: [{ value: this.trabajadorData.nivelEducacionalId, disabled: true }],
+      paisId: [{ value: this.trabajadorData.paisId, disabled: true }],
+    });
   }
 
   obtenerGeneros() {

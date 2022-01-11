@@ -15,30 +15,18 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Rut</mat-label>
                         <input [readonly]="true" placeholder="11111111-1" formControlName="rut" matInput>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'rut')">
-                            RUT es <strong>necesario</strong>
-                        </mat-error>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('rutValido', 'rut')">
-                            RUT no <strong>valido</strong>
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <mat-form-field appearance="outline">
                         <mat-label>Nombre</mat-label>
                         <input [readonly]="true" placeholder="11111111-1" formControlName="nombre" matInput>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'nombre')">
-                            nombre es <strong>necesario</strong>
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido Paterno</mat-label>
                         <input [readonly]="true" placeholder="11111111-1" formControlName="apellidoPaterno" matInput>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'apellidoPaterno')">
-                            Apellido Paterno es <strong>necesario</strong>
-                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -47,36 +35,27 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido Materno</mat-label>
                         <input [readonly]="true" placeholder="11111111-1" formControlName="apellidoMaterno" matInput>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'apellidoMaterno')">
-                            Apellido Materno es <strong>necesario</strong>
-                        </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div *ngIf="tipoTrabajador!='FRECUENTE'" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <mat-form-field appearance="outline">
                         <mat-label>Genero</mat-label>
                         <mat-select formControlName="generoId">
                             <mat-option *ngFor="let genero of listGeneros" [value]="genero.id">{{genero.nombre}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'generoId')">
-                            Genero es <strong>necesario</strong>
-                        </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div *ngIf="tipoTrabajador!='FRECUENTE'" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <mat-form-field appearance="outline">
                         <mat-label>Fecha de Nacimiento</mat-label>
                         <input [readonly]="true" formControlName="fechaNacimiento" matInput [matDatepicker]="picker">
                         <!-- <mat-datepicker-toggle matSuffix [readonly]="true" [for]="picker"></mat-datepicker-toggle> -->
                         <mat-datepicker [readonly]="true" #picker></mat-datepicker>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'fechaNacimiento')">
-                            Fecha de Nacimiento es <strong>necesario</strong>
-                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
-            <div class="row">
+            <div *ngIf="tipoTrabajador!='FRECUENTE'" class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <mat-form-field appearance="outline">
                         <mat-label>Estado Civil</mat-label>
@@ -84,9 +63,6 @@
                             <mat-option *ngFor="let estado of listEstadosCiviles" [value]="estado.id">{{estado.nombre}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'estadoCivilId')">
-                            Estado Civil es <strong>necesario</strong>
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -96,9 +72,6 @@
                             <mat-option *ngFor="let nivel of listNivelesEducacional" [value]="nivel.id">{{nivel.nombre}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'nivelEducacionalId')">
-                            Nivel Educacional es <strong>necesario</strong>
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -108,19 +81,106 @@
                             <mat-option *ngFor="let pais of listPaises" [value]="pais.id">{{pais.nombre}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="nuevoTrabajadorForm.hasError('required', 'paisId')">
-                            Pais <strong>necesario</strong>
-                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+        <mat-divider></mat-divider>
+        <div style="margin-top: 12px;" class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>
+                    <strong>
+                        Jornada
+                    </strong>
+                </h2>
+            </div>
+        </div>
+        <form [formGroup]="nuevaJornadaForm">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input [readonly]="true" matInput placeholder="Nombre de la Jornada" formControlName="nombre">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha de Inicio</mat-label>
+                        <input [readonly]="true" formControlName="fechaInicio" matInput [matDatepicker]="pickerJornada">
+                        <mat-datepicker #pickerJornada></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hora Inicio</mat-label>
+                        <!-- <input matInput placeholder="Nombre de la Jornada" formControlName="horaInicio"> -->
+                        <input [readonly]="true" matInput formControlName="horaInicio" [ngxTimepicker]="pickerTime">
+                        <ngx-material-timepicker #pickerTime></ngx-material-timepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hora Término</mat-label>
+                        <input [readonly]="true" matInput formControlName="horaTermino" [ngxTimepicker]="pickerTime2">
+                        <ngx-material-timepicker #pickerTime2></ngx-material-timepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+        <mat-divider></mat-divider>
+        <div style="margin-top: 12px;" class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>
+                    <strong>
+                        Turno
+                    </strong>
+                </h2>
+            </div>
+        </div>
+        <form class="form-new" [formGroup]="nuevoTurnoForm">
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Descripcion</mat-label>
+                        <input [readonly]="true" placeholder="Ej: 7X7" type="text" formControlName="descripcion"
+                            matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha de Inicio</mat-label>
+                        <input [readonly]="true" formControlName="fechaInicio" matInput [matDatepicker]="picker">
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha de Termino</mat-label>
+                        <input [readonly]="true" formControlName="fechaTermino" matInput [matDatepicker]="picker2">
+                        <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <button (click)="guardarNuevoTrabajador()" [disabled]="nuevoTrabajadorForm.invalid"
-                        style="width: 100%;" mat-raised-button color="primary">Guardar</button>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Dias Laborales</mat-label>
+                        <input [readonly]="true" type="number" formControlName="diasLaborales" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Dias Festivos</mat-label>
+                        <input [readonly]="true" type="number" formControlName="diasFestivos" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Horas Semana</mat-label>
+                        <input [readonly]="true" type="number" formControlName="horasSemana" matInput>
+                    </mat-form-field>
                 </div>
             </div>
-            <mat-progress-bar *ngIf="isLoading" style="margin-top: 8px;" color="accent" mode="query"></mat-progress-bar>
         </form>
     </div>
 </mat-card>

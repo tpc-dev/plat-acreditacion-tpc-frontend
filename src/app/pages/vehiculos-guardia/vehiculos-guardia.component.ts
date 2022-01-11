@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 export class VehiculosGuardiaComponent implements AfterViewInit {
   fechaHoyString = moment().format('DD/MM/YYYY');
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['patente', 'marca', 'año', 'acciones'];
+  displayedColumns: string[] = ['patente', 'marca', 'modelo', 'chofer', 'acciones'];
   isLoading = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -37,7 +37,8 @@ export class VehiculosGuardiaComponent implements AfterViewInit {
 
   obtenerVehiculos() {
     this.isLoading = true;
-    this.api.GET(`/vehiculos`)
+    // this.api.GET(`/vehiculos`)
+    this.api.GET(`/contrato-vehiculo/acreditados`)
       .then(res => {
         this.isLoading = false;
         this.listaVehiculos = res;

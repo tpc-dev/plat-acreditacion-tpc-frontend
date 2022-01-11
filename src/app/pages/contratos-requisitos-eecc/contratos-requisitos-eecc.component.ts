@@ -49,14 +49,8 @@ export class ContratosRequisitosEeccComponent implements OnInit {
     // }
   }
 
-
-
   ngOnInit(): void {
-    // console.log(this.listaRequisitos);
     this.loadData();
-    // this.dataSource = new MatTableDataSource(this.listaRequisitos);
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
   }
 
   loadData() {

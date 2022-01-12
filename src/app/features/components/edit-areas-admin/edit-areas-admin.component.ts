@@ -21,6 +21,7 @@ export class EditAreasAdminComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService,
     public authService: AuthService) {
     this.area = data.area;
+    console.log(this.area);
   }
 
   ngOnInit(): void {
@@ -48,28 +49,32 @@ export class EditAreasAdminComponent implements OnInit {
     });
   }
 
-  crearArea() {
+  editarArea() {
     this.isLoadingNew = true;
     let req = {
       nombre: this.nuevaAreaForm.value.nombre,
-      activo: this.nuevaAreaForm.value.activo == "true" ? true : false,
+      activo: this.nuevaAreaForm.value.activo ,
+      id: this.area.id
     }
-    this.api.POST('/areas', req)
+
+    console.log(req);
+
+    this.api.PUT(`/areas/${this.area.id}`, req)
       .then(res => {
         this.onNuevaAreaAgregada.emit(res);
         Swal.fire({
-          title: 'Area creada',
-          text: 'La área ha sido creada con éxito',
+          title: 'Area editada',
+          text: 'La área ha sido editada con éxito',
           icon: 'success',
           confirmButtonText: 'Ok'
         });
-        this.nuevaAreaForm.reset();
+        this.dialogRef.close();
       })
       .catch(err => {
         console.log(err);
         Swal.fire({
           title: 'Error',
-          text: `No se pudo crear la área. ${err.error}`,
+          text: `No se pudo editar la área. ${err.error}`,
           icon: 'error',
           confirmButtonText: 'Ok'
         })

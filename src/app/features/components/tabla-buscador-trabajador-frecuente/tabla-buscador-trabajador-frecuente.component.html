@@ -6,13 +6,12 @@
                     <td>
                         <mat-form-field appearance="outline">
                             <mat-label>Buscar Trabajador</mat-label>
-                            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Area 1" #input>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Area 1" #input>
                         </mat-form-field>
                     </td>
                 </tr>
             </table>
         </div>
-
         <div class="container-table  mat-elevation-z2">
             <table class="table-data" mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="rut">

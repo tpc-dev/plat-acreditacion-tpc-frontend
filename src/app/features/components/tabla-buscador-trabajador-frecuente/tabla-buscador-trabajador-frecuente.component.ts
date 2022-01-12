@@ -13,10 +13,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class TablaBuscadorTrabajadorFrecuenteComponent implements OnInit {
 
   @Input() listaTrabajadores: any[] = [];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
-  dataSource!: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['rut', 'nombre', 'apellidos'];
   @Output() actualizarListado = new EventEmitter();
   constructor(public router: Router, public activeRoute: ActivatedRoute) {
@@ -25,8 +25,10 @@ export class TablaBuscadorTrabajadorFrecuenteComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.listaTrabajadores);
-    this.dataSource.paginator = this.paginator;
+    console.log(this.sort);
+    console.log(this.paginator);
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   applyFilter(event: Event) {

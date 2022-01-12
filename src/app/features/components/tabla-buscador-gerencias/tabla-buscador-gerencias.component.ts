@@ -53,9 +53,7 @@ export class TablaBuscadorGerenciasComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.recargarGerencias();
-      }
+      this.recargarGerencias();
     });
   }
 

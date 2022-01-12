@@ -49,11 +49,9 @@ export class TablaBuscadorAreasComponent implements OnInit {
         area: area
       }
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.recargarAreas();
-      }
+      console.log(result);
+      this.recargarAreas();
     });
   }
 

@@ -100,42 +100,7 @@ export class TablaBuscadorVisitasComponent implements OnInit {
         // this.actualizarListado.emit();
       }
     });
-    // Swal.fire({
-    //   title: 'Ingrese la temperatura',
-    //   input: 'text',
-    //   inputAttributes: {
-    //     autocapitalize: 'off'
-    //   },
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Guardar',
-    //   cancelButtonText: 'Cancelar',
-    //   showLoaderOnConfirm: true,
-    //   preConfirm: (login) => {
-    //     console.log(login)
-    //     // return fetch(`//api.github.com/users/${login}`)
-    //     //   .then(response => {
-    //     //     if (!response.ok) {
-    //     //       throw new Error(response.statusText)
-    //     //     }
-    //     //     return response.json()
-    //     //   })
-    //     //   .catch(error => {
-    //     //     Swal.showValidationMessage(
-    //     //       `Request failed: ${error}`
-    //     //     )
-    //     //   })
-    //   },
-    //   allowOutsideClick: () => !Swal.isLoading()
-    // }).then((result) => {
-    //   console.log(result);
-
-    //   // if (result.isConfirmed) {
-    //   //   Swal.fire({
-    //   //     title: `${result.value.login}'s avatar`,
-    //   //     imageUrl: result.value.avatar_url
-    //   //   })
-    //   // }
-    // })
+    
   }
 
   ingresarVisita(visita: Visita): void {

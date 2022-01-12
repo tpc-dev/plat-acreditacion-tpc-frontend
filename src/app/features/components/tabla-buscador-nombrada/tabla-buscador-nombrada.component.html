@@ -16,7 +16,7 @@
             </table>
         </div>
 
-        <div class="container-table  mat-elevation-z2">
+        <div *ngIf="!isLoading" class="container-table  mat-elevation-z2">
             <table class="table-data" mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="Fecha">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>

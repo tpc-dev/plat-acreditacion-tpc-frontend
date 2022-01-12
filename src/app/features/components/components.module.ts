@@ -82,6 +82,7 @@ import { TablaBuscadorTrabajadorFrecuenteComponent } from './tabla-buscador-trab
 import { NuevaNombradaFormComponent } from './nueva-nombrada-form/nueva-nombrada-form.component';
 import { TablaBuscadorNombradaComponent } from './tabla-buscador-nombrada/tabla-buscador-nombrada.component';
 import { ListaTrabajadoresNombradaComponent } from './lista-trabajadores-nombrada/lista-trabajadores-nombrada.component';
+import { EditTrabajadorFrecuenteComponent } from './edit-trabajador-frecuente/edit-trabajador-frecuente.component';
 
 @NgModule({
     imports: [
@@ -171,6 +172,7 @@ import { ListaTrabajadoresNombradaComponent } from './lista-trabajadores-nombrad
         NuevaNombradaFormComponent,
         TablaBuscadorNombradaComponent,
         ListaTrabajadoresNombradaComponent,
+        EditTrabajadorFrecuenteComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -215,6 +217,7 @@ import { ListaTrabajadoresNombradaComponent } from './lista-trabajadores-nombrad
         NuevaNombradaFormComponent,
         TablaBuscadorNombradaComponent,
         ListaTrabajadoresNombradaComponent,
+        EditTrabajadorFrecuenteComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

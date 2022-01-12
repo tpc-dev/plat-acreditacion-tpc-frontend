@@ -37,12 +37,14 @@ export class TrabajadoresTpcAdminComponent implements OnInit {
 
   cargarTrabajadores() {
     this.isLoading = true;
-    let promises = [this.cargarTrabajadoresTPC()];
+    let promises = [this.cargarTrabajadoresTPC(), this.cargarTrabajadoresFrecuentes(), this.cargarTrabajadoresContratos()];
     Promise.all(promises)
       .then((res: any[]) => {
         console.log(res);
-        let [resTPC] = res;
+        let [resTPC, resFrecuentes, resContrato] = res;
         this.listTrabajadoresTPC = resTPC;
+        this.listTrabajadoresFrecuentes = resFrecuentes;
+        this.listTrabajadoresContrato = resContrato;
         this.isLoading = false;
       })
       .catch(err => {
@@ -60,7 +62,16 @@ export class TrabajadoresTpcAdminComponent implements OnInit {
   }
 
   cargarTrabajadoresFrecuentes() {
-    // TipoTrabajador
+    return new Promise((resolve, reject) => {
+      this.api.GET(`/trabajadores-frecuentes`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          console.log(err);
+          reject(err);
+        })
+    })
   }
 
   cargarTrabajadoresTPC(): Promise<any> {
@@ -77,7 +88,21 @@ export class TrabajadoresTpcAdminComponent implements OnInit {
   }
 
   cargarTrabajadoresContratos() {
-
+    return new Promise((resolve, reject) => {
+      this.api.GET(`/contrato-trabajador`)
+        .then(res => {
+          console.log(res);
+          res = res.map((item: any) => {
+            let trabajador = item.trabajador;
+            return trabajador;
+          })
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+          console.log(err);
+        });
+    });
   }
 
 }

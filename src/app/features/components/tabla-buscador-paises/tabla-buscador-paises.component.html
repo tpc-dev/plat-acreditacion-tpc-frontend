@@ -5,8 +5,8 @@
                 <tr>
                     <td>
                         <mat-form-field appearance="outline">
-                            <mat-label>Buscar Gerencia</mat-label>
-                            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Area 1" #input>
+                            <mat-label>Buscar Pais</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Chile" #input>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -23,16 +23,21 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
                     <td mat-cell *matCellDef="let row"> {{row.activo? 'Si':'No'}}</td>
                 </ng-container>
-                <!-- <ng-container matColumnDef="acciones">
+                <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                     <td mat-cell *matCellDef="let row">
-                        <button (click)="editarGerencia(row)" mat-flat-button color="primary" aria-label="Example icon-button with a heart icon">
+                        <button color="accent" (click)="editar(row)" mat-flat-button
+                            aria-label="Example icon-button with a heart icon">
                             Editar
-                            <mat-icon>edit</mat-icon>
+                            <!-- <mat-icon>edit</mat-icon> -->
+                        </button>
+                        <button style="margin-left: 8px;" (click)="cambiarEstado(row)" mat-flat-button color="primary"
+                            aria-label="Example icon-button with a heart icon">
+                            {{row.activo? 'Desactivar':'Activar'}}
+                            <!-- <mat-icon>{{row.activo?'cancel':'check'}}</mat-icon> -->
                         </button>
                     </td>
-                </ng-container> -->
-
+                </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 <!-- Row shown when there is no matching data. -->

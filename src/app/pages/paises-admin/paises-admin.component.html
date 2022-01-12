@@ -4,11 +4,11 @@
 <mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
     <mat-tab label="Listado">
         <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-        <app-tabla-buscador-paises *ngIf="!isLoading" (actualizarListado)=obtenerPaises()
-            [listaPaises]="listaPaises"></app-tabla-buscador-paises>
+        <app-tabla-buscador-paises *ngIf="!isLoading" (actualizarListado)=obtenerPaises() [listaPaises]="listaPaises">
+        </app-tabla-buscador-paises>
     </mat-tab>
     <mat-tab label="Ingresar Nuevo Pais">
-        <app-nueva-gerencia-form (onNuevaGerenciaAgregada)=obtenerPaises()>
-        </app-nueva-gerencia-form>
+        <app-nuevo-pais-form (onNuevoPais)=obtenerPaises()>
+        </app-nuevo-pais-form>
     </mat-tab>
 </mat-tab-group>

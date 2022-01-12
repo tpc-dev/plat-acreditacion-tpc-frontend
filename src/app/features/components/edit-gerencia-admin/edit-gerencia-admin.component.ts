@@ -49,28 +49,29 @@ export class EditGerenciaAdminComponent implements OnInit {
     });
   }
 
-  crearArea() {
+  editarGerencia() {
     this.isLoadingNew = true;
     let req = {
       nombre: this.nuevaGerenciaForm.value.nombre,
-      activo: this.nuevaGerenciaForm.value.activo == "true" ? true : false,
+      activo: this.nuevaGerenciaForm.value.activo,
+      id: this.gerencia.id
     }
-    this.api.POST('/gerencias', req)
+    this.api.PUT(`/gerencias/${this.gerencia.id}`, req)
       .then(res => {
         this.onNuevaGerenciaAgregada.emit(res);
         Swal.fire({
-          title: 'Area creada',
-          text: 'La área ha sido creada con éxito',
+          title: 'Gerencia editada',
+          text: 'La gerencia ha sido editada con éxito',
           icon: 'success',
           confirmButtonText: 'Ok'
         });
-        this.nuevaGerenciaForm.reset();
+        this.dialogRef.close();
       })
       .catch(err => {
         console.log(err);
         Swal.fire({
           title: 'Error',
-          text: `No se pudo crear la área. ${err.error}`,
+          text: `No se pudo editar la gerencia. ${err.error}`,
           icon: 'error',
           confirmButtonText: 'Ok'
         })

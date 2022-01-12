@@ -22,9 +22,6 @@ import Swal from 'sweetalert2';
 export class TrabajadoresAdminComponent implements OnInit {
   listTrabajadores: any[] = [];
   @Input() etapa: number;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   minDate: Date;
   dataSource!: MatTableDataSource<Visita>;
   displayedColumns: string[] = ['nombres', 'apellidoPaterno', 'apellidoMaterno', 'acciones'];
@@ -57,8 +54,6 @@ export class TrabajadoresAdminComponent implements OnInit {
       .then(data => {
         this.listTrabajadores = data;
         this.dataSource = new MatTableDataSource(this.listTrabajadores);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
         console.log(this.listTrabajadores);
         this.isLoading = false;
       })
@@ -72,16 +67,5 @@ export class TrabajadoresAdminComponent implements OnInit {
           footer: 'Inténtalo de nuevo'
         });
       });
-  }
-
-  applyFilter(event: Event) {
-
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSource.filteredData);
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 }

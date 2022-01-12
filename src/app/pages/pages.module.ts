@@ -50,6 +50,7 @@ import { VehiculosAdminEeccComponent } from './vehiculos-admin-eecc/vehiculos-ad
 import { PaisesAdminComponent } from './paises-admin/paises-admin.component';
 import { VehiculosAdminTpcComponent } from './vehiculos-admin-tpc/vehiculos-admin-tpc.component';
 import { NombradaAdminComponent } from './nombrada-admin/nombrada-admin.component';
+import { MatSortModule } from "@angular/material/sort";
 
 @NgModule({
     imports: [
@@ -59,7 +60,8 @@ import { NombradaAdminComponent } from './nombrada-admin/nombrada-admin.componen
         ComponentsModule,
         MomentModule,
         AppRoutingModule,
-        NgxMaterialTimepickerModule
+        NgxMaterialTimepickerModule,
+        MatSortModule
     ],
     declarations: [
         LogintpcPageComponent,

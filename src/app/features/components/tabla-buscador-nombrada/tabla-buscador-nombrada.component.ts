@@ -18,8 +18,8 @@ import { ListaTrabajadoresNombradaComponent } from '../lista-trabajadores-nombra
 })
 export class TablaBuscadorNombradaComponent implements OnInit {
   listNombrada: any[] = [];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = ['Fecha', 'HoraInicio', 'HoraFin', 'Acciones'];

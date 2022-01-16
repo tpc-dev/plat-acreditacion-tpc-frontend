@@ -16,8 +16,8 @@
                 <tr>
                     <td>
                         <mat-form-field appearance="outline">
-                            <mat-label>Buscar Área</mat-label>
-                            <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Area 1" #input>
+                            <mat-label>Buscar</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Contrato" #input>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -36,13 +36,11 @@
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                     <td mat-cell *matCellDef="let row">
-                        <!-- <button mat-flat-button color="primary">{{row.activo? 'Desactivar':'Activar'}} </button> -->
-                        <!-- <button mat-flat-button color="primary">Editar </button> -->
-                        <button color="primary" mat-icon-button>
+                        <!-- <button color="primary" mat-icon-button>
                             <mat-icon>
                                 more
                             </mat-icon>
-                        </button>
+                        </button> -->
                     </td>
                 </ng-container>
 

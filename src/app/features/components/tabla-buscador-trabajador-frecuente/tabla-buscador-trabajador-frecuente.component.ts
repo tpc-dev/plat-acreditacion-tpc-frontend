@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDatepickerInput } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
+import { EditTrabajadorFrecuenteComponent } from '../edit-trabajador-frecuente/edit-trabajador-frecuente.component';
 
 @Component({
   selector: 'app-tabla-buscador-trabajador-frecuente',
@@ -17,9 +19,9 @@ export class TablaBuscadorTrabajadorFrecuenteComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['rut', 'nombre', 'apellidos'];
+  displayedColumns: string[] = ['rut', 'nombre', 'apellidos', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
-  constructor(public router: Router, public activeRoute: ActivatedRoute) {
+  constructor(public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
 
   }
 
@@ -37,6 +39,22 @@ export class TablaBuscadorTrabajadorFrecuenteComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  editar(trabajador: any) {
+    console.log(trabajador);
+    let dialog = this.dialog.open(EditTrabajadorFrecuenteComponent, {
+      width: '900px',
+      data: {
+        trabajador: trabajador
+      }
+    });
+    dialog.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.actualizarListado.emit();
+      }
+    });
   }
 
   // recargarTrabajadores(): void {

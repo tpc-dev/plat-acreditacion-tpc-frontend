@@ -23,7 +23,7 @@ export interface UserData {
 })
 export class TrabajadoresGuardiaComponent implements AfterViewInit {
   fechaHoyString = moment().format('DD/MM/YYYY');
-  isLoading = false;
+  isLoading = true;
 
   // dataSource!: MatTableDataSource<any>;
   // displayedColumns: string[] = ['nombres', 'apellidoPaterno', 'apellidoMaterno', 'acciones'];
@@ -43,8 +43,8 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
 
   dataSourceContrato: MatTableDataSource<any>;
   displayedColumnsContrato: string[] = ['rut', 'nombres', 'apellidoPaterno', 'apellidoMaterno', 'acciones'];
-  @ViewChild('TableContratoPaginator', { static: true }) tableContratoPaginator: MatPaginator;
-  @ViewChild('TableContratoSort', { static: true }) tableContratoSort: MatSort;
+  @ViewChild('TableContratoPaginator') tableContratoPaginator: MatPaginator;
+  @ViewChild('TableContratoSort') tableContratoSort: MatSort;
 
   dataSourceFrecuente: MatTableDataSource<any>;
   displayedColumnsFrecuente: string[] = ['rut', 'nombres', 'apellidoPaterno', 'apellidoMaterno', 'acciones'];
@@ -75,8 +75,11 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
 
   applyFilterContrato(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceContrato.filterPredicate = (data: any, filter: string) => {
+      return data.trabajador.rut.toLowerCase().includes(filter) || data.trabajador.nombres.toLowerCase().includes(filter) ||
+        data.trabajador.apellidoPaterno.toLowerCase().includes(filter) || data.trabajador.apellidoMaterno.toLowerCase().includes(filter);
+    };
     this.dataSourceContrato.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSourceContrato.paginator) {
       this.dataSourceContrato.paginator.firstPage();
     }
@@ -84,6 +87,10 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
 
   applyFilterTPC(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceTPC.filterPredicate = (data: any, filter: string) => {
+      return data.rut.toLowerCase().includes(filter) || data.nombres.toLowerCase().includes(filter) ||
+        data.apellidoPaterno.toLowerCase().includes(filter) || data.apellidoMaterno.toLowerCase().includes(filter);
+    };
     this.dataSourceTPC.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSourceTPC.paginator) {
@@ -161,7 +168,7 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
         this.listaTrabajadoresContrato = restContratos;
         this.dataSourceContrato = new MatTableDataSource(this.listaTrabajadoresContrato);
         this.dataSourceContrato.paginator = this.tableContratoPaginator;
-        this.dataSourceContrato.sort = this.tableContratoSort;
+        console.log(this.dataSourceContrato.paginator);
 
         this.listaTrabajadoresFrecuentes = resFrecuente;
         this.dataSourceFrecuente = new MatTableDataSource(this.listaTrabajadoresFrecuentes);
@@ -179,9 +186,6 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
           footer: 'Inténtalo de nuevo',
         })
       })
-    // this.cargarTrabajadoresFrecuentes();
-    // this.cargarTrabajadoresTPC();
-    // this.cargarTrabajadoresContratos();
   }
 
   cargarTrabajadoresFrecuentes() {

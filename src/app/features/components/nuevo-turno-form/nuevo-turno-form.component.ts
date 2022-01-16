@@ -44,6 +44,8 @@ export class NuevoTurnoFormComponent implements OnInit {
       diasFestivos: ['', Validators.required],
       descripcion: ['', Validators.required],
       horasSemana: ['', Validators.required],
+      jornadaId: ['', Validators.required],
+      activo: [true]
     });
   }
 

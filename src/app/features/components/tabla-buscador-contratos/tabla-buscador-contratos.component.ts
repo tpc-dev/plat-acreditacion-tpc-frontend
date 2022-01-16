@@ -25,7 +25,7 @@ export class TablaBuscadorContratosComponent implements OnInit {
   @ViewChild(MatDatepickerInput) datepicker!: MatDatepickerInput<Date>;
   minDate: Date;
   dataSourceVisitas!: MatTableDataSource<Visita>;
-  displayedColumns: string[] = ['codigocontrato', 'descripcion', 'area', 'fechainicio', 'fechatermino', 'empresa', 'acciones'];
+  displayedColumns: string[] = ['codigocontrato', 'descripcion', 'area', 'fechainicio', 'fechatermino', 'estado', 'empresa', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
   fechaBuscada!: Date;
   estadoBuscado: boolean = false;

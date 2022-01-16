@@ -47,8 +47,8 @@ export class AppComponent {
     { name: "Inicio", icon: "home", path: '/home' },
     { name: "Contratos", icon: "description", path: '/contratos-admin' },
     { name: "Empresas", icon: "business", path: '/empresas-admin' },
-    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
-    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin-tpc' },
+    // { name: "Trabajadores", icon: "engineering", path: '/trabajadores-admin' },
+    // { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-admin-tpc' },
     { name: "Visitas", icon: "groups", path: '/visitas-admin' },
   ]
 
@@ -103,7 +103,7 @@ export class AppComponent {
 
   ngAfterViewInit(): void {
     this.observeSession();
-    this.observer.observe(['(max-width:800px)']).subscribe((res) => {
+    this.observer.observe(['(max-width:1000px)']).subscribe((res) => {
       if (!this.sidenav) return;
       if (res.matches) {
         this.sidenav.mode = 'over';

@@ -6,8 +6,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { DocumentoAcreditacionDetailComponent } from 'src/app/features/components/documento-acreditacion-detail/documento-acreditacion-detail.component';
 import { UploadTipoDocumentoComponent } from 'src/app/features/components/upload-tipo-documento/upload-tipo-documento.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contratos-requisitos-eecc',
@@ -30,6 +32,7 @@ export class ContratosRequisitosEeccComponent implements OnInit {
       'archivo',
       'acciones'
     ];
+
   @Output() actualizarListado = new EventEmitter();
   data: any;
   listItemsCarpetaArranque: any[] = [];
@@ -37,9 +40,9 @@ export class ContratosRequisitosEeccComponent implements OnInit {
   listaDocumentosCreados: any[] = [];
   contratoId: number;
   isLoading = false;
-  constructor(public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
-    // this.data = this.router.getCurrentNavigation()?.extras.state?.data;
-    // console.log(this.router.getCurrentNavigation()?.extras.state);
+  tipoRolId: number;
+  constructor(public auth: AuthService, public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
+    this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
     this.activeRoute.params.subscribe(params => {
       console.log(params);
       this.contratoId = params.id;
@@ -89,13 +92,16 @@ export class ContratosRequisitosEeccComponent implements OnInit {
         // console.log(this.listItemsCarpetaArranque);
         this.listDocumentosRequeridos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.itemCarpetaArranqueId == this.listItemsCarpetaArranque.find((item: any) => item == requisito.itemCarpetaArranqueId));
         this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == 1);
-        console.log(this.listaRequisitos);
         this.listaRequisitos = this.listaRequisitos.map((requisito: any) => {
           let aux = requisito;
-          aux.hasDocument = this.hasDocument(requisito);
+          let documentoCreado = this.getDocument(requisito);
+          aux.hasDocument = documentoCreado != null ? true : false;
+          aux.fechaInicio = documentoCreado != null ? documentoCreado.fechaInicio : null;
+          aux.fechaTermino = documentoCreado != null ? documentoCreado.fechaTermino : null;
           aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
           return aux;
         });
+        console.log(this.listaRequisitos);
         this.isLoading = false;
         this.dataSource = new MatTableDataSource(this.listaRequisitos);
         this.dataSource.paginator = this.paginator;
@@ -106,11 +112,11 @@ export class ContratosRequisitosEeccComponent implements OnInit {
       });
   }
 
-  hasDocument(requisito: any) {
-    let existe = this.listaDocumentosCreados.find((documento: any) => {
+  getDocument(requisito: any) {
+    let documento = this.listaDocumentosCreados.find((documento: any) => {
       return documento.tipoDocumentoAcreditacionId == requisito.id;
     });
-    return existe != null;
+    return documento;
   }
 
   obtenerContratoTipoDocumentoEnProcesos() {
@@ -178,6 +184,34 @@ export class ContratosRequisitosEeccComponent implements OnInit {
     if (estado == 3) return 'Rechazado';
 
     return 'No definido';
+  }
+
+  acreditar() {
+    let documentosPendientes = this.listaDocumentosCreados.filter((documento: any) => {
+      return documento.estadoAcreditacionId != 1;
+    });
+
+    console.log(this.listaDocumentosCreados.length)
+    console.log(this.listaRequisitos.length)
+
+    console.log(documentosPendientes);
+
+    if (this.listaDocumentosCreados.length < this.listaRequisitos.length || documentosPendientes.length > 0) {
+      Swal.fire({
+        title: '¿Está seguro de acreditar el contrato?',
+        text: 'Tienes documentos que no han sido acreditados. Una vez acreditado, no podrá realizar cambios',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, acreditar contrato'
+      }).then((result) => {
+        console.log(result);
+        if (result.isConfirmed) {
+
+        }
+      });
+    }
   }
 
 }

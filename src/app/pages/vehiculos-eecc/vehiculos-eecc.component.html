@@ -17,7 +17,7 @@
                     <app-tabla-buscador-vehiculos-eecc *ngIf="!isLoading" [listaVehiculos]=listaVehiculos>
                     </app-tabla-buscador-vehiculos-eecc>
                 </mat-tab>
-                <mat-tab label="Asignar Vehiculo">
+                <mat-tab *ngIf="tipoRolId==5" label="Asignar Vehiculo">
                     <app-asignar-vehiculo-form (onNewAdded)=obtenerListadoVehiculos()
                         [contratoId]="contratoId"></app-asignar-vehiculo-form>
                 </mat-tab>

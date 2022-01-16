@@ -1,44 +1,59 @@
-<mat-toolbar color="primary">
-    Test Obligatorio Riesgos Laborales
-</mat-toolbar>
 <div>
-    <mat-horizontal-stepper linear #stepper>
-        <mat-step>
-            <form>
-                <ng-template matStepLabel>Ver video inducción</ng-template>
-                <div style="text-align: center">
-                    <button mat-raised-button matStepperNext style="width:600px;margin-bottom: 24px;" color="primary">Ya
-                        he visto el video</button>
-                </div>
-                <div style="text-align: center">
-                    <iframe width="1220" height="615" src="https://www.youtube.com/embed/K6J__d44-pM"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                </div>
-            </form>
-        </mat-step>
-        <mat-step>
-            <form>
-                <ng-template matStepLabel>Completar encuesta de riesgo</ng-template>
-                <div>
-                    <app-formulario-test-riesgo>
-                    </app-formulario-test-riesgo>
-                </div>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </form>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Terminado</ng-template>
-            <p>Tu induccion esta completa. Felicidades.</p>
-            <p>Esta es valida hasta el 21/05/2022.</p>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
+    <mat-toolbar color="primary">
+        Prueba Obligatorio Riesgos Laborales Terminal Puerto Coquimbo
+    </mat-toolbar>
+    <mat-card>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <button class="btn-select" mat-raised-button (click)="verificarInduccion()" color="primary"> ¿Quieres
+                    verificar si tienes tu inducción
+                    al día?</button>
             </div>
-        </mat-step>
-    </mat-horizontal-stepper>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <button class="btn-select" mat-raised-button color="accent" (click)="showStepper=true">Realizar
+                    Prueba</button>
+            </div>
+        </div>
+    </mat-card>
+    <div *ngIf="showStepper">
+        <mat-vertical-stepper [linear]="false" #stepper>
+            <mat-step>
+                <form>
+                    <div class="row">
+                        <ng-template matStepLabel>Ver video inducción</ng-template>
+                        <div style="text-align: center" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <button mat-raised-button matStepperNext style="width:100%;margin-bottom: 24px;"
+                                color="accent">Ya
+                                he visto el video</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center">
+                            <iframe class="col-xs-12 col-sm-12 col-md-12 col-lg-12" width="1220" height="615"
+                                src="https://www.youtube.com/embed/K6J__d44-pM" title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <form>
+                    <div class="row">
+                        <ng-template matStepLabel>Completar encuesta de riesgo</ng-template>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <app-formulario-test-riesgo (onRegistroGuardado)=onRegistroGuardado($event)>
+                            </app-formulario-test-riesgo>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <div *ngIf="fechaVencimiento">
+                    <ng-template matStepLabel>Terminado</ng-template>
+                    <p>Tu induccion esta completa. Felicidades.</p>
+                    <p>Esta es valida hasta el {{fechaVencimiento}}.</p>
+                </div>
+            </mat-step>
+        </mat-vertical-stepper>
+    </div>
 </div>

@@ -2,7 +2,7 @@
     <mat-progress-bar mode="query" *ngIf="isLoading" ></mat-progress-bar>
     <mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
         <mat-tab label="Lista">
-            <app-tabla-buscador-trabajador-frecuente *ngIf="!isLoading" [listaTrabajadores]="listTrabajadores">
+            <app-tabla-buscador-trabajador-frecuente (actualizarListado)=obtenerTrabajadores() *ngIf="!isLoading" [listaTrabajadores]="listTrabajadores">
             </app-tabla-buscador-trabajador-frecuente>
         </mat-tab>
         <mat-tab label="Crear Trabajador">

@@ -1,29 +1,27 @@
-<div style="height:240px;">
-    <mat-list-item style="height:240px;">
-        <!-- <div style="height:14vh; border-color: red;border-style: solid">
-    <mat-list-item style="height:14vh; border-color: red;border-style: solid"> -->
-        <table>
-            <tr>
-                <div>
-                    <mat-label class="row">
-                        <strong>{{pregunta.id}}.</strong> {{pregunta.pregunta}}
-                    </mat-label>
-                </div>
-            </tr>
-            <mat-radio-group (change)="onChangeAlternativa()" [(ngModel)]="alternativaSelected" matInput
-                aria-label="Selecciona una alternativa">
-                <table>
-                    <tr *ngFor="let alternativa of pregunta.alternativas">
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div style="padding-left: 12px; padding-top: 8px;" class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <mat-label class="row">
+                    <strong>{{pregunta.id}}.</strong> {{pregunta.pregunta}}
+                </mat-label>
+            </div>
+        </div>
+        <div style="padding-left: 12px; padding-top: 8px;" class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <mat-radio-group [disabled]="!preguntasHabilitada" (change)="onChangeAlternativa()" [(ngModel)]="alternativaSelected" matInput
+                    aria-label="Selecciona una alternativa">
+                    <div class="row" *ngFor="let alternativa of pregunta.alternativas">
                         <mat-radio-button matInput style="padding:8px;" value="{{alternativa.id}}">
                             <span style="white-space: normal;">
                                 <strong>{{alternativa.id}})</strong>
                                 {{alternativa.nombre}}
                             </span>
                         </mat-radio-button>
-                    </tr>
-                </table>
-            </mat-radio-group>
-        </table>
-    </mat-list-item>
+                    </div>
+                </mat-radio-group>
+            </div>
+        </div>
+    </div>
     <mat-divider></mat-divider>
 </div>

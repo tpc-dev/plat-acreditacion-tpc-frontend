@@ -83,11 +83,13 @@ export class EmpresasAdceeccComponent implements OnInit {
 
   verRequisitos(empresaData: any) {
     console.log(empresaData);
-    
+
     // this.router.navigate(['item-carpeta-arranque-admin', 3]);
     // this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/empresas-contratadas`]);
-
-    this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/empresas-contratadas/requisitos`], { state: { data: empresaData } });
+    if (this.usuario.tipoRolId == 5)
+      this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/empresas-contratadas/requisitos`], { state: { data: empresaData } });
+    else if (this.usuario.tipoRolId == 4)
+      this.router.navigate([`/contratos-gestion-tpc/${this.contratoId}/empresas-contratadas/requisitos`], { state: { data: empresaData } });
   }
 
   // Buscar contratos asignados a este usuario, a partir del contrato traer los registro de contratoempresa y desde ahi traer

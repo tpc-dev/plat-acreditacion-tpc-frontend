@@ -1,371 +1,79 @@
 <div>
-    <mat-card style="width:80vw;margin-top: 24px;margin-left: 24px;">
+    <mat-card>
         <div>
             <h4 style="text-transform:uppercase;"><strong>Test Obligatorio de informar sobre riesgos laborales</strong>
             </h4>
             <h5>Encierre en un círculo la o las alternativas que considere correctas</h5>
-            <h5>Puntaje Total: <strong>10 puntos</strong></h5>
-            <h5>Puntaje de Aprobación: <strong>8 puntos</strong> </h5>
+            <h4>Puntaje Total: <strong>10 puntos</strong></h4>
+            <h4>Puntaje de Aprobación: <strong>8 puntos</strong> </h4>
         </div>
     </mat-card>
-    <mat-card style="width:80vw;margin-top: 24px;margin-left: 24px;">
-        <div>
-            <form class="example-form">
-                <h3>Ingresa tus datos</h3>
-                <table class="example-full-width" cellspacing="0">
-                    <tr>
-                        <td>
-                            <mat-form-field class="example-full-width" appearance="outline">
-                                <mat-label>Nombre</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="example-full-width" appearance="outline">
-                                <mat-label>Apellido Paterno</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="example-full-width" appearance="outline">
-                                <mat-label>Apellido Materno</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="example-full-width" appearance="outline">
-                                <mat-label>Rut</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="example-full-width" appearance="outline">
-                                <mat-label>Cargo</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-    </mat-card>
-    <mat-card style="width:80vw;margin-top: 24px;margin-left: 24px;">
-        <form>
-            <div>
-                <mat-list>
-                    <app-input-test-riesgo  (onAlternativaSelecccionada)=onAlternativaSelecccionada($event) [pregunta]="pregunta" *ngFor="let pregunta of preguntasInduccion">
-                    </app-input-test-riesgo>
-                </mat-list>
-                <!-- <mat-list>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>2.</strong> Encierre en un circulo las areas Operacionales a los que usted
-                                    esta expuesto
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Area de Almacenamiento Masivo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Area de Almacenamiento Intermedio
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Area de Proyectos
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>3.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item style="margin-bottom: 24px;height: 100px;">
-                        <div>
-                            <div style="padding-top: 24px;">
-                                <mat-label class="row">
-                                    <strong>1.</strong> ¿Que eventos son cubiertos por la ley 16.744?
-                                </mat-label>
-                            </div>
-                            <div style="padding-top:24px;padding-bottom:24px;">
-                                <mat-radio-group matInput aria-label="Select an option">
-                                    <mat-radio-button matInput style="padding:8px" value="1"><strong>a)</strong>
-                                        Accidente
-                                        de Trabajo
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="2"><strong>b)</strong>
-                                        Accidente
-                                        de
-                                        Trayecto
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="3"><strong>c)</strong>
-                                        Enfermedades
-                                        Profesionales
-                                    </mat-radio-button>
-                                    <mat-radio-button matInput style="padding:8px" value="4"><strong>d)</strong> Todas
-                                        las
-                                        anteriores
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                </mat-list> -->
+    <mat-card class="form-user">
+        <form [formGroup]="trabajadorForm">
+            <h3>Ingresa tus datos</h3>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input formControlName="nombre" matInput>
+                            <mat-error *ngIf="trabajadorForm.hasError('required','nombre')">
+                                Nombre es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Apellido Paterno</mat-label>
+                            <input formControlName="apellidoPaterno" matInput>
+                            <mat-error *ngIf="trabajadorForm.hasError('required','apellidoPaterno')">
+                                Apellido Paterno es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Apellido Materno</mat-label>
+                            <input formControlName="apellidoMaterno" matInput>
+                            <mat-error *ngIf="trabajadorForm.hasError('required','apellidoMaterno')">
+                                Nombre es <strong>necesario</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Rut</mat-label>
+                            <input formControlName="rut" matInput>
+                            <mat-error *ngIf="trabajadorForm.hasError('required','rut')">
+                                Rut es <strong>necesario</strong>
+                            </mat-error>
+                            <mat-error *ngIf="trabajadorForm.hasError('rutValido', 'rut')">
+                                <!-- <mat-error *ngIf="nuevaVisitaForm.get('rut')?.errors?.passwordStrength"> -->
+                                RUT no <strong>valido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
             </div>
+        </form>
+    </mat-card>
+    <mat-card>
+        <form>
+            <mat-list>
+                <app-input-test-riesgo [preguntasHabilitada]=trabajadorForm.valid
+                    (onAlternativaSelecccionada)=onAlternativaSelecccionada($event) [pregunta]="pregunta"
+                    *ngFor="let pregunta of preguntasInduccion">
+                </app-input-test-riesgo>
+                <div>
+                    <button mat-raised-button color="primary" (click)="evaluarResultado()" >Evaluar</button>
+                </div>
+            </mat-list>
         </form>
     </mat-card>
 </div>

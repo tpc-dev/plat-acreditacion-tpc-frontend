@@ -47,7 +47,7 @@ export class ContratosGestionTpcComponent implements OnInit {
   }
 
   verEventos() {
-
+    this.router.navigate([`/contratos-gestion-tpc/${this.contratoId}/eventos`]);
   }
 
 }

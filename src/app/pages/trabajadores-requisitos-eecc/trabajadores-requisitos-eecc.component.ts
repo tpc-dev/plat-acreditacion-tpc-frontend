@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { DocumentoAcreditacionDetailComponent } from 'src/app/features/components/documento-acreditacion-detail/documento-acreditacion-detail.component';
 import { UploadTipoDocumentoComponent } from 'src/app/features/components/upload-tipo-documento/upload-tipo-documento.component';
 
@@ -36,9 +37,11 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
   listDocumentosRequeridos: any[] = [];
   listaDocumentosCreados: any[] = [];
   contratoId: number;
-  constructor(public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
+  tipoRolId: number;
+  constructor(public auth: AuthService, public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.data = this.router.getCurrentNavigation()?.extras.state?.data;
     console.log(this.router.getCurrentNavigation()?.extras.state);
+    this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
     if (!this.data) {
       this.router.navigate(['../'], { relativeTo: this.activeRoute });
     }
@@ -130,6 +133,10 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
       console.log(result);
       // this.loadData();
     });
+  }
+
+  acreditar(){
+    
   }
 
 }

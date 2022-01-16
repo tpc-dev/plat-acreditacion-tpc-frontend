@@ -1,6 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PreguntaInduccion } from 'src/app/core/interfaces/preguntainduccion.interface';
+import { TPCValidations } from 'src/app/core/utils/TPCValidations';
+import Swal from 'sweetalert2';
 export interface DialogData {
   titulo: string;
   mensaje: string;
@@ -255,9 +258,27 @@ export class FormularioTestRiesgoComponent implements OnInit {
 
   alternativasSeleccionadas: any[] = []; // Guarda las alternativas seleccionadas
   dialogRef: any;
-  constructor(public dialog: MatDialog) { }
+  trabajadorForm: FormGroup;
+  @Output() onRegistroGuardado = new EventEmitter<any>();
+  constructor(public formBuilder: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.trabajadorForm = this.createFormGroup();
+  }
+
+  createFormGroup() {
+    return this.formBuilder.group({
+      nombre: ['', Validators.required],
+      apellidoPaterno: ['', Validators.required],
+      apellidoMaterno: ['', Validators.required],
+      rut: new FormControl(
+        null,
+        Validators.compose([
+          Validators.required,
+          TPCValidations.isRutInvalido,
+        ])
+      ),
+    });
   }
 
   onAlternativaSelecccionada(eventData: { pregunta: number, alternativa: string }) {
@@ -272,10 +293,10 @@ export class FormularioTestRiesgoComponent implements OnInit {
     }
 
     // si ya selecciono todas las preguntas, mostrar el resultado
-    if (this.alternativasSeleccionadas.length === this.preguntasInduccion.length) {
-      this.evaluarResultado();
-    }
-    console.log(this.alternativasSeleccionadas)
+    // if (this.alternativasSeleccionadas.length === this.preguntasInduccion.length) {
+    //   this.evaluarResultado();
+    // }
+    // console.log(this.alternativasSeleccionadas)
   }
 
   evaluarResultado() {
@@ -287,35 +308,42 @@ export class FormularioTestRiesgoComponent implements OnInit {
         correctas++;
       }
     });
-    console.log(correctas)
+    // console.log(correctas)
     // si todas son correctas mostrar dialog con mensaje de felicitaciones
-    if (correctas === this.preguntasInduccion.length) {
-      this.mostrarMensaje('Felicitaciones', 'Has aprobado el curso de inducción');
+    if (correctas >= this.preguntasInduccion.length - 1) {
+      this.onRegistroGuardado.emit({ aprobado: true, rut: this.trabajadorForm.value.rut });
+      // this.mostrarMensaje('Felicitaciones', 'Has aprobado el curso de inducción');
     } else {
       // si no mostrar mensaje de error
-      this.mostrarMensaje('Error', 'Has reprobado el curso de inducción');
+      this.onRegistroGuardado.emit({ aprobado: false, rut: this.trabajadorForm.value.rut });
+      // this.mostrarMensaje('Error', 'Has reprobado el curso de inducción');
     }
   }
 
+  evaluarFormulario() {
+
+  }
+
   mostrarMensaje(titulo: string, mensaje: string) {
-    this.dialog.open(MensajeComponent, {
-      data: {
-        titulo,
-        mensaje,
-        tipo: 'success'
-      }
-    });
+
+    // this.dialog.open(MensajeComponent, {
+    //   data: {
+    //     titulo,
+    //     mensaje,
+    //     tipo: 'success' 
+    //   }
+    // });
   }
 }
 
 
 
 
-@Component({
-  selector: 'dialog-basic',
-  templateUrl: 'dialog_basic.html',
-})
-export class MensajeComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
-}
+// @Component({
+//   selector: 'dialog-basic',
+//   templateUrl: 'dialog_basic.html',
+// })
+// export class MensajeComponent {
+//   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+// }
 

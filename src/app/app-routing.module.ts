@@ -269,6 +269,12 @@ const routes: Routes = [
   {
     component: EmpresasAdceeccComponent,
     canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id/empresas-contratadas'
+  }
+  ,
+  {
+    component: EmpresasAdceeccComponent,
+    canActivate: [AuthGuard],
     path: 'empresas-adceecc'
   }
   ,
@@ -279,9 +285,21 @@ const routes: Routes = [
   }
   ,
   {
+    component: EmpresasRequisitosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id/empresas-contratadas/requisitos',
+  }
+  ,
+  {
     component: VehiculosRequisitosEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/vehiculos/requisitos',
+  }
+  ,
+  {
+    component: VehiculosRequisitosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id/vehiculos/requisitos',
   }
   ,
   {
@@ -291,9 +309,21 @@ const routes: Routes = [
   }
   ,
   {
+    component: EventosContratoEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id/eventos',
+  }
+  ,
+  {
     component: TrabajadoresEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/trabajadores',
+  }
+  ,
+  {
+    component: TrabajadoresEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id/trabajadores',
   }
   ,
   {
@@ -306,6 +336,12 @@ const routes: Routes = [
     component: TrabajadoresRequisitosEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/trabajadores/requisitos',
+  }
+  ,
+  {
+    component: TrabajadoresRequisitosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id/trabajadores/requisitos',
   }
   ,
   {
@@ -342,6 +378,18 @@ const routes: Routes = [
     component: VehiculosEeccComponent,
     canActivate: [AuthGuard],
     path: 'contratos-gestion-eecc/:id/vehiculos',
+  }
+  ,
+  {
+    component: VehiculosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-gestion-tpc/:id/vehiculos',
+  }
+  ,
+  {
+    component: VehiculosEeccComponent,
+    canActivate: [AuthGuard],
+    path: 'contratos-tpc-eecc/:id/vehiculos',
   }
 ];
 

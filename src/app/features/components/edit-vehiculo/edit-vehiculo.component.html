@@ -13,7 +13,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Número de Patente </mat-label>
-                        <input matInput formControlName="patente" required>
+                        <input [readonly]="tipoRolId!=5" matInput formControlName="patente" required>
                         <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'patente')">
                             Patente es requerido
                         </mat-error>
@@ -29,7 +29,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Marca </mat-label>
-                        <input matInput formControlName="marca" required>
+                        <input [readonly]="tipoRolId!=5" matInput formControlName="marca" required>
                         <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'marca')">
                             Marca es requerido
                         </mat-error>
@@ -39,7 +39,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Tipo Vehiculo </mat-label>
-                        <mat-select formControlName="tipoVehiculoId" required>
+                        <mat-select [disabled]="tipoRolId!=5" formControlName="tipoVehiculoId" required>
                             <mat-option *ngFor="let tipo of listTipoVehiculos" [value]="tipo.id">
                                 {{tipo.nombre}}
                             </mat-option>
@@ -53,7 +53,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Modelo </mat-label>
-                        <input matInput formControlName="modelo" required>
+                        <input [readonly]="tipoRolId!=5" matInput formControlName="modelo" required>
                         <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'modelo')">
                             Modelo es requerido
                         </mat-error>
@@ -65,7 +65,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Año </mat-label>
-                        <input type="number" matInput formControlName="year" required>
+                        <input [readonly]="tipoRolId!=5" type="number" matInput formControlName="year" required>
                         <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'year')">
                             Año es requerido
                         </mat-error>
@@ -87,7 +87,7 @@
                         <mat-label>
                             RUT
                         </mat-label>
-                        <input placeholder="11111111-1" formControlName="rut" matInput>
+                        <input [readonly]="tipoRolId!=5" placeholder="11111111-1" formControlName="rut" matInput>
                         <button *ngIf="nuevoVehiculoForm.get('rut')?.value != null" matSuffix mat-icon-button
                             aria-label="Clear" (click)="nuevoVehiculoForm.patchValue({'rut':null})">
                             <mat-icon>close</mat-icon>
@@ -104,7 +104,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Nombre </mat-label>
-                        <input type="text" matInput formControlName="nombre" required>
+                        <input [readonly]="tipoRolId!=5" type="text" matInput formControlName="nombre" required>
                         <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'nombre')">
                             Nombre es requerido
                         </mat-error>
@@ -114,7 +114,8 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Apellido Paterno </mat-label>
-                        <input type="text" matInput formControlName="apellidoPaterno" required>
+                        <input [readonly]="tipoRolId!=5" type="text" matInput formControlName="apellidoPaterno"
+                            required>
                         <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'apellidoPaterno')">
                             Apellido Paterno es requerido
                         </mat-error>
@@ -124,14 +125,15 @@
                     <mat-form-field appearance="outline">
                         <mat-label>
                             Apellido Materno </mat-label>
-                        <input type="text" matInput formControlName="apellidoMaterno" required>
+                        <input [readonly]="tipoRolId!=5" type="text" matInput formControlName="apellidoMaterno"
+                            required>
                         <mat-error *ngIf="nuevoVehiculoForm.hasError('required', 'apellidoMaterno')">
                             Apellido Materno es requerido
                         </mat-error>
                     </mat-form-field>
                 </div>
             </div>
-            <div class="row">
+            <div *ngIf="tipoRolId==5" class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <button style="width: 100%;" mat-raised-button color="primary" (click)="guardarVehiculo()">
                         Guardar

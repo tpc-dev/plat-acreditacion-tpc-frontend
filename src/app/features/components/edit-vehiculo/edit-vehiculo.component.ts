@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { TPCValidations } from 'src/app/core/utils/TPCValidations';
 import Swal from 'sweetalert2';
 
@@ -19,9 +20,11 @@ export class EditVehiculoComponent implements OnInit {
   isLoading = false;
   listTipoVehiculos: any[] = [];
   vehiculo: any;
+  tipoRolId: number;
   constructor(public dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public api: ApiService, public router: Router, public formBuilder: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: any, public api: ApiService, public router: Router, public formBuilder: FormBuilder, public auth: AuthService) {
     this.vehiculo = data.vehiculo.vehiculo;
+    this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
   }
 
   ngOnInit(): void {

@@ -51,6 +51,7 @@ export class TablaBuscadorVisitasComponent implements OnInit {
     this.dataSourceVisitas = new MatTableDataSource(this.listaVisitas);
     this.dataSourceVisitas.paginator = this.paginator;
     this.dataSourceVisitas.sort = this.sort;
+
   }
 
   ngAfterViewInit(): void {
@@ -78,9 +79,8 @@ export class TablaBuscadorVisitasComponent implements OnInit {
   applyFilter(event: Event) {
 
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
+    this.dataSourceVisitas.filterPredicate = (data: Visita, filter: string) => data.rut.toLowerCase().includes(filter);
     this.dataSourceVisitas.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSourceVisitas.filteredData);
     if (this.dataSourceVisitas.paginator) {
       this.dataSourceVisitas.paginator.firstPage();
     }
@@ -100,7 +100,7 @@ export class TablaBuscadorVisitasComponent implements OnInit {
         // this.actualizarListado.emit();
       }
     });
-    
+
   }
 
   ingresarVisita(visita: Visita): void {

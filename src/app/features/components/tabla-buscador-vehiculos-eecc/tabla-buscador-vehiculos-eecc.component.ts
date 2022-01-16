@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { EditVehiculoComponent } from '../edit-vehiculo/edit-vehiculo.component';
 
 @Component({
@@ -22,7 +23,9 @@ export class TablaBuscadorVehiculosEeccComponent implements OnInit {
   displayedColumns: string[] = ['patente', 'marca', 'chofer', 'requisitos', 'acciones'];
   @Output() actualizarListado = new EventEmitter();
   contratoId: any;
-  constructor(public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
+  tipoRolId: number;
+  constructor(public auth: AuthService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
+    this.tipoRolId = auth.getCuentaActivaValue().usuario.tipoRolId;
     this.activeRoute.params.subscribe(params => {
       console.log(params);
       this.contratoId = params.id;
@@ -50,7 +53,12 @@ export class TablaBuscadorVehiculosEeccComponent implements OnInit {
 
   verRequisitos(vehiculo: any): void {
     console.log(vehiculo);
-    this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/vehiculos/requisitos`], { state: { data: vehiculo } });
+
+    if (this.tipoRolId === 5) {
+      this.router.navigate([`/contratos-gestion-eecc/${this.contratoId}/vehiculos/requisitos`], { state: { data: vehiculo } });
+    } else if (this.tipoRolId == 4) {
+      this.router.navigate([`/contratos-gestion-tpc/${this.contratoId}/vehiculos/requisitos`], { state: { data: vehiculo } });
+    }
   }
 
   editarVehiculo(vehiculo: any) {

@@ -45,7 +45,8 @@
                     <td mat-cell *matCellDef="let row">
                         <!-- <button mat-flat-button color="primary">{{row.activo? 'Desactivar':'Activar'}} </button> -->
                         <!-- <button mat-flat-button color="primary">Editar </button> -->
-                        <button mat-flat-button color="primary" aria-label="Example icon-button with a heart icon">
+                        <button *ngIf="tipoRolId==5" mat-flat-button color="primary"
+                            aria-label="Example icon-button with a heart icon">
                             Editar
                             <mat-icon>edit</mat-icon>
                         </button>

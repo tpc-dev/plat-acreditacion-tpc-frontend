@@ -12,6 +12,13 @@
             </button>
         </div>
     </div>
+    <div *ngIf="tipoRolId==4" style="padding-top: 12px;padding-bottom: 12px;text-align: end;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button (click)="acreditar()" mat-raised-button color="accent">Acreditar Contrato</button>
+            </div>
+        </div>
+    </div>
     <section>
         <mat-progress-bar mode="query" *ngIf="isLoading"></mat-progress-bar>
         <div class="container-table  mat-elevation-z2">
@@ -33,13 +40,27 @@
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <ng-container matColumnDef="fechaInicio">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicio </th>
-                            <td mat-cell style="width: 8%;" *matCellDef="let row"> Sin Registro</td>
+                            <td mat-cell style="width: 8%;" *matCellDef="let row">
+                                <span *ngIf="row.fechaInicio">
+                                    {{ row.fechaInicio | date: 'dd/MM/yyyy' }}
+                                </span>
+                                <span *ngIf="!row.fechaInicio">
+                                    Sin Registro
+                                </span>
+                            </td>
                         </ng-container>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <ng-container matColumnDef="fechaTermino">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Término </th>
-                            <td mat-cell style="width: 8%;" *matCellDef="let row"> Sin Registro</td>
+                            <td mat-cell style="width: 8%;" *matCellDef="let row">
+                                <span *ngIf="row.fechaTermino">
+                                    {{ row.fechaTermino | date: 'dd/MM/yyyy' }}
+                                </span>
+                                <span *ngIf="!row.fechaTermino">
+                                    Sin Registro
+                                </span>
+                            </td>
                         </ng-container>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -71,8 +92,8 @@
                             <td mat-cell style="width: 5%;" *matCellDef="let row">
                                 <!-- <button mat-flat-button color="primary">{{row.activo? 'Desactivar':'Activar'}} </button> -->
                                 <!-- <button mat-flat-button color="primary">Editar </button> -->
-                                <button [disabled]="row.hasDocument" (click)="openUploadDialog(row)" mat-icon-button
-                                    color="primary">
+                                <button *ngIf="tipoRolId == 5" [disabled]="row.hasDocument"
+                                    (click)="openUploadDialog(row)" mat-icon-button color="primary">
                                     <mat-icon>edit</mat-icon>
                                 </button>
                             </td>

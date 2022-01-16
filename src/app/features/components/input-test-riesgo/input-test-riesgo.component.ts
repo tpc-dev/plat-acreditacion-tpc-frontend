@@ -9,6 +9,7 @@ import { PreguntaInduccion } from 'src/app/core/interfaces/preguntainduccion.int
 
 export class InputTestRiesgoComponent implements OnInit {
   @Input() pregunta!: PreguntaInduccion
+  @Input() preguntasHabilitada: boolean
   @Output() onAlternativaSelecccionada = new EventEmitter<{ pregunta: number, alternativa: string }>();
   alternativaSelected: any;
   constructor() {

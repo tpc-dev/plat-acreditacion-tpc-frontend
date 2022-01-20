@@ -67,8 +67,8 @@
                         <ng-container matColumnDef="estado">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
                             <td mat-cell style="width: 5%;" *matCellDef="let row">
-                                <!-- <p><strong>{{row.hasDocument?'PENDIENTE':'SIN SUBIR'}}</strong></p> -->
-                                <p><strong>{{(row.lastHistorico || 'No definido') | uppercase}}</strong></p>
+                                <!-- <p><strong>{{(row.lastHistorico || 'No definido') | uppercase}}</strong></p> -->
+                                <p><strong>{{(row.estadoAcreditacion? row.estadoAcreditacion.descripcion : 'No definido') | uppercase}}</strong></p>
                             </td>
                         </ng-container>
                     </div>

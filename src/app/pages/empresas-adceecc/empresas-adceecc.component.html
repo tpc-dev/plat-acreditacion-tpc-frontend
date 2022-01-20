@@ -1,14 +1,6 @@
 <div style="text-align: start;">
     <h1><strong>Empresas</strong></h1>
 </div>
-
-<!-- <mat-tab-group #tabs backgroundColor="accent" color="primary" mat-align-tabs="center">
-    <mat-tab label="Activas">
-        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-        <app-tabla-buscador-empresas-eecc *ngIf="!isLoading" [listaEmpresas]="listEmpresasParaAcreditar">
-        </app-tabla-buscador-empresas-eecc>
-    </mat-tab>
-</mat-tab-group> -->
 <mat-card>
     <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -31,8 +23,7 @@
             <ng-container matColumnDef="estado">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
                 <td mat-cell *matCellDef="let row"> <strong>
-                        {{(row.listadoHistoricoAcreditacionEmpresaContrato.length == 0? 'Pendiente' : 'Con
-                        Acreditaciones')
+                        {{(row.estadoAcreditacion.descripcion)
                         | uppercase}}</strong></td>
             </ng-container>
             <ng-container matColumnDef="requisitos">

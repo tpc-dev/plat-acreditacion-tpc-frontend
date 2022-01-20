@@ -39,13 +39,15 @@ export class ContratosRequisitosEeccComponent implements OnInit {
   listDocumentosRequeridos: any[] = [];
   listaDocumentosCreados: any[] = [];
   contratoId: number;
+  contratoCodigo: string;
   isLoading = false;
   tipoRolId: number;
   constructor(public auth: AuthService, public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
-    this.activeRoute.params.subscribe(params => {
+    this.activeRoute.params.subscribe((params: any) => {
       console.log(params);
       this.contratoId = params.id;
+      // this.contratoCodigo = params.contrato.codigo;
     });
     // if (!this.data) {
     //   this.router.navigate(['../'], { relativeTo: this.activeRoute });
@@ -76,6 +78,7 @@ export class ContratosRequisitosEeccComponent implements OnInit {
     this.api.GET(`/contratos/${this.contratoId}/carpeta-arranque`)
       .then(resp => {
         console.log(resp);
+        this.contratoCodigo = resp.contrato.codigoContrato
         carpetaArranque = resp;
         return this.api.GET(`/tipo-documento-acreditacion`);
       })
@@ -98,10 +101,11 @@ export class ContratosRequisitosEeccComponent implements OnInit {
           aux.hasDocument = documentoCreado != null ? true : false;
           aux.fechaInicio = documentoCreado != null ? documentoCreado.fechaInicio : null;
           aux.fechaTermino = documentoCreado != null ? documentoCreado.fechaTermino : null;
-          aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
+          aux.estadoAcreditacion = documentoCreado != null ? documentoCreado.estadoAcreditacion : null;
+          // aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
           return aux;
         });
-        console.log(this.listaRequisitos);
+        // console.log(this.listaRequisitos);
         this.isLoading = false;
         this.dataSource = new MatTableDataSource(this.listaRequisitos);
         this.dataSource.paginator = this.paginator;
@@ -131,10 +135,12 @@ export class ContratosRequisitosEeccComponent implements OnInit {
   }
 
   openUploadDialog(requisito: any) {
+    // console.log(requisito);
+
     const dialogRef = this.dialog.open(UploadTipoDocumentoComponent, {
       width: '850px',
       height: '380px',
-      data: { ...requisito, contratoId: this.contratoId }
+      data: { ...requisito, contratoId: this.contratoId, contratoCodigo: this.contratoCodigo }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -150,7 +156,7 @@ export class ContratosRequisitosEeccComponent implements OnInit {
     console.log(documentoCreado);
     const dialogRef = this.dialog.open(DocumentoAcreditacionDetailComponent, {
       width: '850px',
-      height: '480px',
+      height: '680px',
       data: { ...documentoCreado, contratoId: this.contratoId }
     });
 

@@ -32,20 +32,35 @@
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <ng-container matColumnDef="fechaInicio">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicio </th>
-                            <td mat-cell style="width: 8%;" *matCellDef="let row"> Sin Registro</td>
+                            <td mat-cell style="width: 8%;" *matCellDef="let row">
+                                <span *ngIf="row.fechaInicio">
+                                    {{ row.fechaInicio | date: 'dd/MM/yyyy' }}
+                                </span>
+                                <span *ngIf="!row.fechaInicio">
+                                    Sin Registro
+                                </span>
+                            </td>
                         </ng-container>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <ng-container matColumnDef="fechaTermino">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Término </th>
-                            <td mat-cell style="width: 8%;" *matCellDef="let row"> Sin Registro</td>
+                            <td mat-cell style="width: 8%;" *matCellDef="let row">
+                                <span *ngIf="row.fechaTermino">
+                                    {{ row.fechaTermino | date: 'dd/MM/yyyy' }}
+                                </span>
+                                <span *ngIf="!row.fechaTermino">
+                                    Sin Registro
+                                </span>
+                            </td>
                         </ng-container>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <ng-container matColumnDef="estado">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
                             <td mat-cell style="width: 5%;" *matCellDef="let row">
-                                <p><strong>PENDIENTE</strong></p>
+                                <p><strong>{{(row.estadoAcreditacion? row.estadoAcreditacion.descripcion : 'No
+                                        definido') | uppercase}}</strong></p>
                             </td>
                         </ng-container>
                     </div>

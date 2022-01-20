@@ -15,19 +15,26 @@
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <h3>Nombre Archivo</h3>
             </div>
-            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                <h4><strong>{{data.urlFile}}</strong></h4>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h4><strong>{{nombreFile}}</strong></h4>
+            </div>
+            <div *ngIf="data.estadoAcreditacionId==3" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <input  #fileInput hidden="true" type="file" onclick="this.value=null" (change)="fileInputChange($event)" />
+                <button mat-flat-button color="accent" (click)="fileInput.click()">Cambiar</button>
+                <!-- <button (click)="cambiarDocumento()" mat-raised-button color="primary">Cambiar
+                    <mat-icon>description</mat-icon>
+                </button> -->
             </div>
         </div>
         <mat-divider></mat-divider>
-        <div style="margin-top: 12px;" class="row">
+        <div *ngIf="data.estadoAcreditacionId==2 || data.estadoAcreditacionId==1" style="margin-top: 12px;" class="row">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <h3>
                     Fecha Inicio
                 </h3>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                {{data.fechaInicio | date: 'dd/MM/yyyy, h:mm a'}}
+                {{data.fechaInicio | date: 'dd/MM/yyyy'}}
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <h3>
@@ -35,20 +42,50 @@
                 </h3>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                {{data.fechaTermino | date: 'dd/MM/yyyy, h:mm a'}}
+                {{data.fechaTermino | date: 'dd/MM/yyyy'}}
+            </div>
+        </div>
+        <div *ngIf="data.estadoAcreditacionId==3" style="margin-top: 12px;" class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <mat-form-field class="input-form" appearance="outline">
+                    <mat-label>Fecha Inicio</mat-label>
+                    <input 
+                        id="__REQUESTDIGEST"
+                        [(ngModel)]="data.fechaInicio"
+                        required
+                        matInput [matDatepicker]="pickerFechaInicio">
+                    <mat-datepicker-toggle matSuffix [for]="pickerFechaInicio">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #pickerFechaInicio></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <mat-form-field class="input-form" appearance="outline">
+                    <mat-label>Fecha Termino</mat-label>
+                    <input 
+                        [(ngModel)]="data.fechaTermino"
+                        required
+                        matInput [matDatepicker]="pickerFechaTermino">
+                    <mat-datepicker-toggle matSuffix [for]="pickerFechaTermino">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #pickerFechaTermino></mat-datepicker>
+                </mat-form-field>
             </div>
         </div>
     </mat-card>
     <mat-divider></mat-divider>
     <div style="margin-top: 12px;margin-bottom: 12px;" class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <div  class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <!-- <a download href="../../../../assets/imgs/logo-tpc-transparente.png">Download</a> -->
             <button (click)="descargarFile()" style="width: 100%;" mat-raised-button color="primary">Descargar</button>
         </div>
-        <div *ngIf="tipoRolId==4" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <div *ngIf="tipoRolId==5 && data.estadoAcreditacionId!=2" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <button (click)="editarDocumento()" style="width: 100%;" mat-raised-button color="accent">Enviar a Evaluar </button>
+        </div>
+        <div *ngIf="tipoRolId==4 && data.estadoAcreditacionId==2" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <button (click)="validarDocumento()" style="width: 100%;" mat-raised-button color="accent">Validar </button>
         </div>
-        <div *ngIf="tipoRolId==4" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <div *ngIf="tipoRolId==4 && data.estadoAcreditacionId==2" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <button (click)="rechazarDocumento()" style="width: 100%;" mat-raised-button color="warn">Rechzar </button>
         </div>
     </div>

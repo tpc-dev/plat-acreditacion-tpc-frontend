@@ -56,6 +56,7 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerRequisitos();
+    this.obtenerTrabajadorContratoTipoDocumento();
   }
 
   applyFilter(event: Event) {
@@ -85,9 +86,37 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
         console.log(resp);
         this.listDocumentosRequeridos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.itemCarpetaArranqueId == this.listItemsCarpetaArranque.find((item: any) => item == requisito.itemCarpetaArranqueId));
         this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == 3);
+        this.listaRequisitos = this.listaRequisitos.map((requisito: any) => {
+          let aux = requisito;
+          let documentoCreado = this.getDocument(requisito);
+          aux.hasDocument = documentoCreado != null ? true : false;
+          aux.fechaInicio = documentoCreado != null ? documentoCreado.fechaInicio : null;
+          aux.fechaTermino = documentoCreado != null ? documentoCreado.fechaTermino : null;
+          aux.estadoAcreditacion = documentoCreado != null ? documentoCreado.estadoAcreditacion : null;
+        //  aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
+          return aux;
+        });
         this.dataSource = new MatTableDataSource(this.listaRequisitos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  getDocument(requisito: any) {
+    let documento = this.listaDocumentosCreados.find((documento: any) => {
+      return documento.tipoDocumentoAcreditacionId == requisito.id;
+    });
+    return documento;
+  }
+
+  obtenerTrabajadorContratoTipoDocumento() {
+    this.api.GET(`/contratos/${this.data.contratoId}/trabajador/${this.data.trabajadorId}/documentos-requeridos`)
+      .then(resp => {
+        console.log(resp);
+        this.listaDocumentosCreados = resp;
       })
       .catch(err => {
         console.log(err);
@@ -125,7 +154,7 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
     console.log(documentoCreado);
     const dialogRef = this.dialog.open(DocumentoAcreditacionDetailComponent, {
       width: '850px',
-      height: '480px',
+      height: '680px',
       data: { ...documentoCreado, contratoId: this.contratoId }
     });
 

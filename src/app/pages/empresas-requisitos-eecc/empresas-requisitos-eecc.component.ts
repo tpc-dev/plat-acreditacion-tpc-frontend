@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { DocumentoAcreditacionDetailComponent } from 'src/app/features/components/documento-acreditacion-detail/documento-acreditacion-detail.component';
 import { UploadTipoDocumentoComponent } from 'src/app/features/components/upload-tipo-documento/upload-tipo-documento.component';
 import Swal from 'sweetalert2';
 
@@ -98,7 +99,8 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
           aux.hasDocument = documentoCreado != null ? true : false;
           aux.fechaInicio = documentoCreado != null ? documentoCreado.fechaInicio : null;
           aux.fechaTermino = documentoCreado != null ? documentoCreado.fechaTermino : null;
-        //  aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
+          aux.estadoAcreditacion = documentoCreado != null ? documentoCreado.estadoAcreditacion : null;
+          //  aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
           return aux;
         });
         this.dataSource = new MatTableDataSource(this.listaRequisitos);
@@ -117,6 +119,22 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
     return documento;
   }
 
+  verArchivoCreado(documento: any) {
+    let documentoCreado = this.listaDocumentosCreados.find((documento: any) => {
+      return documento.tipoDocumentoAcreditacionId == documento.tipoDocumentoAcreditacionId;
+    });
+    console.log(documentoCreado);
+    const dialogRef = this.dialog.open(DocumentoAcreditacionDetailComponent, {
+      width: '850px',
+      height: '680px',
+      data: { ...documentoCreado, contratoId: this.data.contratoId }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(result);
+      this.loadData();
+    });
+  }
 
   obtenerEmpresaContratoTipoDocumento() {
     this.api.GET(`/contratos/${this.data.contratoId}/empresas/${this.data.empresaId}/documentos-requeridos`)

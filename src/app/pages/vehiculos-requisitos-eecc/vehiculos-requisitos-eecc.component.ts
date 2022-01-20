@@ -85,8 +85,12 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
         this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == this.ID_DOCUMENTO_REQUERIDO);
         this.listaRequisitos = this.listaRequisitos.map((requisito: any) => {
           let aux = requisito;
-          aux.hasDocument = this.hasDocument(requisito);
-          aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
+          let documentoCreado = this.getDocument(requisito);
+          aux.hasDocument = documentoCreado != null ? true : false;
+          aux.fechaInicio = documentoCreado != null ? documentoCreado.fechaInicio : null;
+          aux.fechaTermino = documentoCreado != null ? documentoCreado.fechaTermino : null;
+          aux.estadoAcreditacion = documentoCreado != null ? documentoCreado.estadoAcreditacion : null;
+          //  aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
           return aux;
         });
 
@@ -100,11 +104,11 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
       });
   }
 
-  hasDocument(requisito: any) {
-    let existe = this.listaDocumentosCreados.find((documento: any) => {
+  getDocument(requisito: any) {
+    let documento = this.listaDocumentosCreados.find((documento: any) => {
       return documento.tipoDocumentoAcreditacionId == requisito.id;
     });
-    return existe != null;
+    return documento;
   }
 
   obtenerTipoDocumentoEnProcesos() {
@@ -139,7 +143,7 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
     console.log(documentoCreado);
     const dialogRef = this.dialog.open(DocumentoAcreditacionDetailComponent, {
       width: '850px',
-      height: '480px',
+      height: '680px',
       data: { ...documentoCreado, contratoId: this.data.contratoId }
     });
 

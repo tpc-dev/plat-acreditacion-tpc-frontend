@@ -44,7 +44,7 @@ export class EmpresasAdceeccComponent implements OnInit {
     this.api.GET(`/contratos/${this.contratoId}/empresa-contratadas`)
       .then((res: any) => {
         console.log(res);
-        this.listEmpresasParaAcreditar = res;
+        this.listEmpresasParaAcreditar.push(res);
         this.dataSource = new MatTableDataSource(this.listEmpresasParaAcreditar);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

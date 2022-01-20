@@ -17,6 +17,7 @@ import { TPC_DATE_FORMATS } from './core/constants/TPC_DATE_FORMATS';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { SharepointapiService } from './core/services/sharepointapi/sharepointapi.service';
 
 //#endregion
 
@@ -42,6 +43,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
   providers: [
     AuthService,
     ApiService,
+    SharepointapiService,
     { provide: MAT_DATE_FORMATS, useValue: TPC_DATE_FORMATS }
   ],
   bootstrap: [AppComponent]

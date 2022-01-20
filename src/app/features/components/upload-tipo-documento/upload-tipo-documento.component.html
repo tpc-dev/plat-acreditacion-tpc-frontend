@@ -24,7 +24,7 @@
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <mat-form-field class="input-form" appearance="outline">
                     <mat-label>Fecha Termino</mat-label>
-                    <input [max]="fileForm.get('fechaFin')?.value" required formControlName="fechaTermino" matInput
+                    <input id="__REQUESTDIGEST" [max]="fileForm.get('fechaFin')?.value" required formControlName="fechaTermino" matInput
                         [matDatepicker]="pickerFechaTermino">
                     <mat-datepicker-toggle matSuffix [for]="pickerFechaTermino">
                     </mat-datepicker-toggle>

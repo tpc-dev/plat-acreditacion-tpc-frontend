@@ -262,6 +262,7 @@ export class IngresarContratoStepperComponent implements OnInit {
     let empresaContrato = {
       EmpresaId: this.datosRevisionFormGroup.get('empresa')?.value,
       ContratoId: null,
+      // EstadoAcreditacionId: 2, // PENDIENTE
     };
 
     this.apiService.POST('/contratos', contrato)

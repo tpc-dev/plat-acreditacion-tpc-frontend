@@ -56,8 +56,8 @@ export class AppComponent {
     { name: "Inicio", icon: "home", path: '/home' },
     { name: "Contratos", icon: "description", path: '/contratos-adceecc' },
     // { name: "Empresas", icon: "business", path: '/empresas-adceecc' },
-    { name: "Trabajadores", icon: "engineering", path: '/trabajadores-adceecc' },
-    { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-adceecc' },
+    // { name: "Trabajadores", icon: "engineering", path: '/trabajadores-adceecc' }, 
+    // { name: "Vehiculos", icon: "local_shipping", path: '/vehiculos-adceecc' },
   ]
 
   listaItemsMenuAdminSistema: ItemMenu[] = [

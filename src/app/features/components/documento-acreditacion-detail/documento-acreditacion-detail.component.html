@@ -18,7 +18,7 @@
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <h4><strong>{{nombreFile}}</strong></h4>
             </div>
-            <div *ngIf="data.estadoAcreditacionId==3" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div *ngIf="data.estadoAcreditacionId==3 && tipoRolId==5" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <input  #fileInput hidden="true" type="file" onclick="this.value=null" (change)="fileInputChange($event)" />
                 <button mat-flat-button color="accent" (click)="fileInput.click()">Cambiar</button>
                 <!-- <button (click)="cambiarDocumento()" mat-raised-button color="primary">Cambiar
@@ -45,7 +45,7 @@
                 {{data.fechaTermino | date: 'dd/MM/yyyy'}}
             </div>
         </div>
-        <div *ngIf="data.estadoAcreditacionId==3" style="margin-top: 12px;" class="row">
+        <div *ngIf="data.estadoAcreditacionId==3  && tipoRolId==5" style="margin-top: 12px;" class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <mat-form-field class="input-form" appearance="outline">
                     <mat-label>Fecha Inicio</mat-label>
@@ -79,7 +79,7 @@
             <!-- <a download href="../../../../assets/imgs/logo-tpc-transparente.png">Download</a> -->
             <button (click)="descargarFile()" style="width: 100%;" mat-raised-button color="primary">Descargar</button>
         </div>
-        <div *ngIf="tipoRolId==5 && data.estadoAcreditacionId!=2" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <div *ngIf="tipoRolId==5 && data.estadoAcreditacionId==3" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <button (click)="editarDocumento()" style="width: 100%;" mat-raised-button color="accent">Enviar a Evaluar </button>
         </div>
         <div *ngIf="tipoRolId==4 && data.estadoAcreditacionId==2" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">

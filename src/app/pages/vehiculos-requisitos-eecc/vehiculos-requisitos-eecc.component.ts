@@ -38,6 +38,8 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
 
   ID_DOCUMENTO_REQUERIDO = 5;
   isLoading = false;
+  contratoCodigo: string;
+
   constructor(public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.data = this.router.getCurrentNavigation()?.extras.state?.data;
     console.log(this.router.getCurrentNavigation()?.extras.state);
@@ -70,6 +72,7 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
     this.api.GET(`/contratos/${this.data.contratoId}/carpeta-arranque`)
       .then(resp => {
         console.log(resp);
+        this.contratoCodigo = resp.contrato.codigoContrato
         carpetaArranque = resp;
         return this.api.GET(`/tipo-documento-acreditacion`);
       })
@@ -127,7 +130,7 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
     const dialogRef = this.dialog.open(UploadTipoDocumentoComponent, {
       width: '850px',
       height: '380px',
-      data: { ...requisito, contratoId: this.data.contratoId }
+      data: { ...requisito, contratoId: this.data.contratoId, contratoCodigo: this.contratoCodigo }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

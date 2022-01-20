@@ -38,6 +38,7 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
   listDocumentosRequeridos: any[] = [];
   listaDocumentosCreados: any[] = [];
   tipoRolId: number;
+  contratoCodigo: string;
   constructor(public auth: AuthService, public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
     this.data = this.router.getCurrentNavigation()?.extras.state?.data;
@@ -75,12 +76,13 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
     let carpetaArranque: any;
     this.api.GET(`/contratos/${this.data.contratoId}/carpeta-arranque`)
       .then(resp => {
-        console.log(resp);
+        // console.log(resp);
+        this.contratoCodigo = resp.contrato.codigoContrato
         carpetaArranque = resp;
         return this.api.GET(`/tipo-documento-acreditacion`);
       })
       .then((resp: any) => {
-        console.log(resp);
+        // console.log(resp);
         this.listDocumentosRequeridos = resp;
         return this.api.GET(`/carpeta-arranque/${carpetaArranque.id}/items`);
       })
@@ -92,7 +94,7 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
         // console.log(this.listItemsCarpetaArranque);
         this.listDocumentosRequeridos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.itemCarpetaArranqueId == this.listItemsCarpetaArranque.find((item: any) => item == requisito.itemCarpetaArranqueId));
         this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == 2);
-        console.log(this.listaRequisitos);
+        // console.log(this.listaRequisitos);
         this.listaRequisitos = this.listaRequisitos.map((requisito: any) => {
           let aux = requisito;
           let documentoCreado = this.getDocument(requisito);
@@ -151,7 +153,7 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
     const dialogRef = this.dialog.open(UploadTipoDocumentoComponent, {
       width: '850px',
       height: '380px',
-      data: { ...requisito, contratoId: this.data.contratoId }
+      data: { ...requisito, contratoId: this.data.contratoId, contratoCodigo: this.contratoCodigo }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

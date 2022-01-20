@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Usuario } from 'src/app/core/interfaces/cuenta.interface';
@@ -26,6 +27,18 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
     this.tipoRolId = this.usuario.tipoRolId;
     let aux = data.urlFile.split("/");
     this.nombreFile = aux[aux.length - 1];
+    if (!this.data.contrato) this.obtenerContrato();
+  }
+
+  obtenerContrato() {
+    this.api.GET(`/contratos/${this.data.contratoId}`)
+      .then(data => {
+        this.data.contrato = data;
+        console.log(this.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   ngOnInit(): void {
@@ -149,7 +162,7 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
           EstadoAcreditacionId: 2,
           TipoDocumentoAcreditacionId: this.data.tipoDocumentoAcreditacionId,
           urlfile: this.newFile.name,
-          contratoId: this.data.contratoId
+          contratoId: this.data.contratoId,
         };
       case 2:
         return {
@@ -158,6 +171,8 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
           EstadoAcreditacionId: 2,
           TipoDocumentoAcreditacionId: this.data.tipoDocumentoAcreditacionId,
           urlfile: this.newFile.name,
+          EmpresaContratoContratoId: this.data.empresaContratoContratoId,
+          EmpresaContratoEmpresaId: this.data.empresaContratoEmpresaId
         };
       case 3:
         return {
@@ -166,6 +181,9 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
           EstadoAcreditacionId: 2,
           TipoDocumentoAcreditacionId: this.data.tipoDocumentoAcreditacionId,
           urlfile: this.newFile.name,
+          ContratoTrabajadorContratoId: this.data.contratoTrabajadorContratoId,
+          ContratoTrabajadorTrabajadorId: this.data.contratoTrabajadorTrabajadorId
+
         };
       case 4:
         break;
@@ -176,7 +194,9 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
           EstadoAcreditacionId: 2,
           TipoDocumentoAcreditacionId: this.data.tipoDocumentoAcreditacionId,
           urlfile: this.newFile.name,
-          contratoId: this.data.contratoId
+          contratoId: this.data.contratoId,
+          ContratoVehiculoContratoId: this.data.contratoVehiculoContratoId,
+          ContratoVehiculoVehiculoId: this.data.contratoVehiculoVehiculoId
         };;
     }
   }
@@ -210,11 +230,13 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
     }).then((result) => {
       console.log(result);
       if (result.isConfirmed) {
-        let req = {
-          EstadoAcreditacionId: 3, // rechazado
-          ContratoTipoDocumentoAcreditacionId: this.data.id,
-        }
+        // let req = {
+        //   EstadoAcreditacionId: 3, // rechazado
+        //   ContratoTipoDocumentoAcreditacionId: this.data.id,
+        // }
 
+        const req = this.getRequestCambioAcreditacion(this.data.tipoDocumentoAcreditacion.documentoClasificacion.id);
+        req.EstadoAcreditacionId = 3;
         const url = this.getUrlCambioAcreditacion(this.data.tipoDocumentoAcreditacion.documentoClasificacion.id);
 
         this.api.PUT(url, req)
@@ -252,11 +274,8 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
     }).then((result) => {
       console.log(result);
       if (result.isConfirmed) {
-        let req = {
-          EstadoAcreditacionId: 1, // rechazado
-          ContratoTipoDocumentoAcreditacionId: this.data.id,
-        }
-
+        const req = this.getRequestCambioAcreditacion(this.data.tipoDocumentoAcreditacion.documentoClasificacion.id);
+        req.EstadoAcreditacionId = 1;
         const url = this.getUrlCambioAcreditacion(this.data.tipoDocumentoAcreditacion.documentoClasificacion.id);
 
         this.api.PUT(url, req)
@@ -278,6 +297,42 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
           });
       }
     });
+  }
+
+  getRequestCambioAcreditacion(documentoClasificacionId: number): any {
+    switch (documentoClasificacionId) {
+      case 1:
+        return {
+          // EstadoAcreditacionId: 3, // rechazado
+          ContratoTipoDocumentoAcreditacionId: this.data.id,
+          FechaTermino: this.data.fechaTermino,
+          FechaInicio: this.data.fechaInicio,
+        };
+      case 2:
+        return {
+          // EstadoAcreditacionId: 3, // rechazado
+          EmpresaTipoDocumentoAcreditacionId: this.data.id,
+          FechaTermino: this.data.fechaTermino,
+          FechaInicio: this.data.fechaInicio,
+        };
+      case 3:
+        return {
+          // EstadoAcreditacionId: 3, // rechazado
+          TrabajadorTipoDocumentoAcreditacionId: this.data.id,
+          FechaTermino: this.data.fechaTermino,
+          FechaInicio: this.data.fechaInicio,
+        };
+      case 4:
+        break;
+      case 5:
+        return {
+          // EstadoAcreditacionId: 3, // rechazado
+          VehiculoTipoDocumentoAcreditacionId: this.data.id,
+          FechaTermino: this.data.fechaTermino,
+          FechaInicio: this.data.fechaInicio,
+        };
+    }
+    return '';
   }
 
   getUrlCambioAcreditacion(idDocumentoClasificacion: number) {

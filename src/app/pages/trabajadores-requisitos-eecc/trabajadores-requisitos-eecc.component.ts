@@ -38,6 +38,8 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
   listaDocumentosCreados: any[] = [];
   contratoId: number;
   tipoRolId: number;
+  contratoCodigo: string;
+
   constructor(public auth: AuthService, public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.data = this.router.getCurrentNavigation()?.extras.state?.data;
     console.log(this.router.getCurrentNavigation()?.extras.state);
@@ -73,6 +75,7 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
     this.api.GET(`/contratos/${this.data.contratoId}/carpeta-arranque`)
       .then(resp => {
         console.log(resp);
+        this.contratoCodigo = resp.contrato.codigoContrato
         carpetaArranque = resp;
         return this.api.GET(`/tipo-documento-acreditacion`);
       })
@@ -93,7 +96,7 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
           aux.fechaInicio = documentoCreado != null ? documentoCreado.fechaInicio : null;
           aux.fechaTermino = documentoCreado != null ? documentoCreado.fechaTermino : null;
           aux.estadoAcreditacion = documentoCreado != null ? documentoCreado.estadoAcreditacion : null;
-        //  aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
+          //  aux.lastHistorico = this.obtenerUltimoHistorico(requisito);
           return aux;
         });
         this.dataSource = new MatTableDataSource(this.listaRequisitos);
@@ -138,12 +141,13 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
     const dialogRef = this.dialog.open(UploadTipoDocumentoComponent, {
       width: '850px',
       height: '380px',
-      data: { ...requisito, contratoId: this.contratoId }
+      data: { ...requisito, contratoId: this.contratoId, contratoCodigo: this.contratoCodigo }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(result);
-      // this.loadData();
+      this.obtenerRequisitos();
+      this.obtenerTrabajadorContratoTipoDocumento();
     });
   }
 
@@ -161,11 +165,13 @@ export class TrabajadoresRequisitosEeccComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(result);
       // this.loadData();
+      this.obtenerRequisitos();
+      this.obtenerTrabajadorContratoTipoDocumento();
     });
   }
 
-  acreditar(){
-    
+  acreditar() {
+
   }
 
 }

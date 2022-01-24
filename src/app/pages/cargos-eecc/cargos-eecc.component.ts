@@ -27,6 +27,7 @@ export class CargosEeccComponent implements OnInit {
   fechaHoyString = moment().format('DD/MM/YYYY');
   contratoId: number;
   isLoading: boolean = false;
+  estadoAcreditacionId: number;
   constructor(public api: ApiService, public formBuilder: FormBuilder, public utilService: UtilService,
     public dialog: MatDialog, public activeRoute: ActivatedRoute) {
     this.activeRoute.params.subscribe((params: any) => {
@@ -36,7 +37,19 @@ export class CargosEeccComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtenerContratoDetail();
     this.obtenerCargosContrato();
+  }
+
+  obtenerContratoDetail() {
+    this.api.GET(`/contratos/${this.contratoId}`)
+      .then((data: any) => {
+        console.log(data);
+        this.estadoAcreditacionId = data.estadoAcreditacionId;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   obtenerCargosContrato() {

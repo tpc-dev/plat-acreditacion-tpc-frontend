@@ -17,7 +17,7 @@
                     <app-tabla-buscador-trabajadores-eecc *ngIf="!isLoading" [listaTrabajadores]=listaTrabajadores>
                     </app-tabla-buscador-trabajadores-eecc>
                 </mat-tab>
-                <mat-tab *ngIf="tipoRolId == 5" label="Asignar Trabajador">
+                <mat-tab *ngIf="tipoRolId == 5 && estadoAcreditacionId==2" label="Asignar Trabajador">
                     <app-asignar-trabajador-form (onNuevoTrabajadorAsignado)=obtenerTrabajadores()
                         [contratoId]="contratoId"></app-asignar-trabajador-form>
                 </mat-tab>

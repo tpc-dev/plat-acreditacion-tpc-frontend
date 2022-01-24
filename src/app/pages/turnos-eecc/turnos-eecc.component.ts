@@ -23,6 +23,7 @@ export class TurnosEeccComponent implements OnInit {
   fechaHoyString = moment().format('DD/MM/YYYY');
   contratoId: number;
   isLoading: boolean = false;
+  estadoAcreditacionId: number;
   constructor(public api: ApiService, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.activeRoute.params.subscribe((params: any) => {
       console.log(params);
@@ -31,7 +32,19 @@ export class TurnosEeccComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtenerContratoDetail();
     this.obtenerTurnosContrato();
+  }
+
+  obtenerContratoDetail() {
+    this.api.GET(`/contratos/${this.contratoId}`)
+      .then((data: any) => {
+        console.log(data);
+        this.estadoAcreditacionId = data.estadoAcreditacionId;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   obtenerTurnosContrato() {

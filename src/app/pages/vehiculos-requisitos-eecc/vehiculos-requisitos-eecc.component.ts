@@ -6,8 +6,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { DocumentoAcreditacionDetailComponent } from 'src/app/features/components/documento-acreditacion-detail/documento-acreditacion-detail.component';
 import { UploadTipoDocumentoComponent } from 'src/app/features/components/upload-tipo-documento/upload-tipo-documento.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vehiculos-requisitos-eecc',
@@ -39,10 +41,13 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
   ID_DOCUMENTO_REQUERIDO = 5;
   isLoading = false;
   contratoCodigo: string;
-
-  constructor(public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
+  tipoRolId: number;
+  estadoAcreditacionId: number;
+  constructor(public auth: AuthService,public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.data = this.router.getCurrentNavigation()?.extras.state?.data;
     console.log(this.router.getCurrentNavigation()?.extras.state);
+    this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
+    this.estadoAcreditacionId = this.data.estadoAcreditacionId;
     if (!this.data) {
       this.router.navigate(['../'], { relativeTo: this.activeRoute });
     }
@@ -71,19 +76,16 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
     let carpetaArranque: any;
     this.api.GET(`/contratos/${this.data.contratoId}/carpeta-arranque`)
       .then(resp => {
-        console.log(resp);
         this.contratoCodigo = resp.contrato.codigoContrato
         carpetaArranque = resp;
         return this.api.GET(`/tipo-documento-acreditacion`);
       })
       .then((resp: any) => {
-        console.log(resp);
         this.listDocumentosRequeridos = resp;
         return this.api.GET(`/carpeta-arranque/${carpetaArranque.id}/items`);
       })
       .then(resp => {
         this.listItemsCarpetaArranque = resp.map((requisito: any) => requisito.itemCarpetaArranque.id);
-        console.log(resp);
         this.listDocumentosRequeridos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.itemCarpetaArranqueId == this.listItemsCarpetaArranque.find((item: any) => item == requisito.itemCarpetaArranqueId));
         this.listaRequisitos = this.listDocumentosRequeridos.filter((requisito: any) => requisito.documentoClasificacionId == this.ID_DOCUMENTO_REQUERIDO);
         this.listaRequisitos = this.listaRequisitos.map((requisito: any) => {
@@ -180,4 +182,37 @@ export class VehiculosRequisitosEeccComponent implements OnInit {
 
     return 'No definido';
   }
+
+  acreditar() {
+    let documentosPendientes = this.listaDocumentosCreados.filter((documento: any) => {
+      return documento.estadoAcreditacionId != 1;
+    });
+
+    Swal.fire({
+      title: '¿Está seguro de acreditar el vehiculo?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, acreditar vehiculo'
+    }).then((result) => {
+      console.log(result);
+      if (result.isConfirmed) {
+        this.api.PUT(`/contratos/${this.data.contratoId}/vehiculo/${this.data.vehiculoId}/acreditar`, {})
+          .then(resp => {
+            console.log(resp);
+            Swal.fire(
+              'Vehiculo acreditado',
+              'El Vehiculo ha sido acreditada',
+              'success'
+            );
+            this.loadData();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
+  }
+
 }

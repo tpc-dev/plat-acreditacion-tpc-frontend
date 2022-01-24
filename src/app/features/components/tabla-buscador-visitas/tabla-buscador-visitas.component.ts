@@ -91,7 +91,7 @@ export class TablaBuscadorVisitasComponent implements OnInit {
     const dialogRef = this.dialog.open(FormularioProtocoloCovidComponent, {
       width: '850px',
       height: '680px',
-      data: { ...visita }
+      data: { rut: visita.rut }
     });
 
     dialogRef.afterClosed().subscribe(result => {

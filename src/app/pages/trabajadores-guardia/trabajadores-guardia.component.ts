@@ -5,7 +5,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { ProtocoloIngreso } from 'src/app/core/interfaces/protocoloingreso.interface';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { FormularioProtocoloCovidComponent } from 'src/app/features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { RegistroAccesoTrabajadoresContratoComponent } from 'src/app/features/components/registro-acceso-trabajadores-contrato/registro-acceso-trabajadores-contrato.component';
 import { TrabajadorDetailGuardiaComponent } from 'src/app/features/components/trabajador-detail-guardia/trabajador-detail-guardia.component';
 import Swal from 'sweetalert2';
@@ -51,7 +53,10 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
   @ViewChild('TableFrecuentePaginator', { static: true }) tableFrecuentePaginator: MatPaginator;
   @ViewChild('TableFrecuenteSort', { static: true }) tableFrecuenteSort: MatSort;
 
+
+  isProtocoloCovidActivo: boolean;
   constructor(public api: ApiService, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
+    this.obtenerProtocolos();
     this.activeRoute.params.subscribe((params: any) => {
       console.log(params);
       this.contratoId = params.id;
@@ -107,7 +112,36 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
     }
   }
 
+  ingresarTemperaturaVisita(contratoTrabajador: any): void {
+    const dialogRef = this.dialog.open(FormularioProtocoloCovidComponent, {
+      width: '850px',
+      height: '680px',
+      data: { rut:contratoTrabajador.trabajador.rut }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.showDialogIngresos(contratoTrabajador);
+        //this.ingresarVisita(visita);
+        // this.actualizarListado.emit();
+      }
+    });
+
+  }
+
   marcarIngreso(contratoTrabajador: any, tipo: string) {
+
+    if (this.isProtocoloCovidActivo) {
+      this.ingresarTemperaturaVisita(contratoTrabajador);
+    }
+    else {
+      this.showDialogIngresos(contratoTrabajador);
+    }
+
+
+  }
+
+  showDialogIngresos(contratoTrabajador: any,) {
     let dialog = this.dialog.open(RegistroAccesoTrabajadoresContratoComponent, {
       width: '1000px',
       height: 'auto',
@@ -227,6 +261,23 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
           console.log(err);
         });
     });
+  }
+
+  obtenerProtocolos() {
+    this.api.GET('/protocolos-ingreso')
+      .then(data => {
+        if (data.length == 0) return;
+        let protocoloCovid = data.find((protocolo: ProtocoloIngreso) => protocolo.nombre.toLocaleLowerCase().includes("covid"));
+        this.isProtocoloCovidActivo = protocoloCovid.activo;
+      })
+      .catch(err => {
+        console.log(err);
+        Swal.fire(
+          'Ha ocurrido un error',
+          'No se pudo cargar los protocolos.',
+          'error'
+        )
+      });
   }
 }
 

@@ -15,6 +15,7 @@ export class TrabajadoresEeccComponent implements OnInit {
   listaTrabajadores: any[] = [];
   isLoading: boolean = false;
   tipoRolId: number;
+  estadoAcreditacionId:number;
   constructor(public auth: AuthService, public api: ApiService, public activeRoute: ActivatedRoute) {
     this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
     this.activeRoute.params.subscribe((params: any) => {
@@ -24,7 +25,20 @@ export class TrabajadoresEeccComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtenerContratoDetail();
     this.obtenerTrabajadores();
+    
+  }
+
+  obtenerContratoDetail() {
+    this.api.GET(`/contratos/${this.contratoId}`)
+      .then((data: any) => {
+        console.log(data);
+        this.estadoAcreditacionId = data.estadoAcreditacionId;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   obtenerTrabajadores() {

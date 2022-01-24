@@ -135,6 +135,7 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
         .catch(err => {
           this.isLoading = false;
           console.log(err);
+          this.dialogRef.close(true);
         });
     });
   }
@@ -256,6 +257,7 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
               icon: 'error'
             });
             console.log(err);
+            this.dialogRef.close(true);
           });
       }
     });
@@ -286,6 +288,7 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
               icon: 'success'
             });
             this.obtenerHistoricoAcreditacion();
+            this.dialogRef.close(true);
           })
           .catch(err => {
             Swal.fire({
@@ -294,6 +297,7 @@ export class DocumentoAcreditacionDetailComponent implements OnInit {
               icon: 'error'
             });
             console.log(err);
+            this.dialogRef.close(true);
           });
       }
     });

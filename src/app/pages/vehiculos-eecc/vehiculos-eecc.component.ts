@@ -15,6 +15,7 @@ export class VehiculosEeccComponent implements OnInit {
   listaVehiculos: any[] = []
   contratoId: number;
   tipoRolId: number;
+  estadoAcreditacionId: number;
   constructor(public api: ApiService, public activeRoute: ActivatedRoute, public auth:AuthService) {
     this.tipoRolId = auth.getCuentaActivaValue().usuario.tipoRolId;
     this.activeRoute.params.subscribe((params: any) => {
@@ -24,7 +25,19 @@ export class VehiculosEeccComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtenerContratoDetail();
     this.obtenerListadoVehiculos();
+  }
+
+  obtenerContratoDetail() {
+    this.api.GET(`/contratos/${this.contratoId}`)
+      .then((data: any) => {
+        console.log(data);
+        this.estadoAcreditacionId = data.estadoAcreditacionId;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   obtenerListadoVehiculos() {

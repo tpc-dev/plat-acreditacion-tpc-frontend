@@ -12,6 +12,13 @@
             </button>
         </div>
     </div>
+    <div *ngIf="tipoRolId==4" style="padding-top: 12px;padding-bottom: 12px;text-align: end;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button (click)="acreditar()" mat-raised-button color="accent">Acreditar Vehiculo</button>
+            </div>
+        </div>
+    </div>
     <section>
         <div class="container-table  mat-elevation-z2">
             <table class="table-data" mat-table [dataSource]="dataSource" matSort>
@@ -84,7 +91,7 @@
                             <td mat-cell style="width: 5%;" *matCellDef="let row">
                                 <!-- <button mat-flat-button color="primary">{{row.activo? 'Desactivar':'Activar'}} </button> -->
                                 <!-- <button mat-flat-button color="primary">Editar </button> -->
-                                <button [disabled]="row.hasDocument" (click)="openUploadDialog(row)" mat-icon-button
+                                <button *ngIf="tipoRolId == 5  && estadoAcreditacionId == 2" [disabled]="row.hasDocument" (click)="openUploadDialog(row)" mat-icon-button
                                     color="primary">
                                     <mat-icon>edit</mat-icon>
                                 </button>

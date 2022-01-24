@@ -39,10 +39,12 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
   listaDocumentosCreados: any[] = [];
   tipoRolId: number;
   contratoCodigo: string;
+  estadoAcreditacionId:number;
   constructor(public auth: AuthService, public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
     this.data = this.router.getCurrentNavigation()?.extras.state?.data;
     console.log(this.router.getCurrentNavigation()?.extras.state);
+    this.estadoAcreditacionId = this.data.estadoAcreditacionId;
     if (!this.data) {
       this.router.navigate(['../'], { relativeTo: this.activeRoute });
     }
@@ -174,17 +176,31 @@ export class EmpresasRequisitosEeccComponent implements OnInit {
 
     if (this.listaDocumentosCreados.length < this.listaRequisitos.length || documentosPendientes.length > 0) {
       Swal.fire({
-        title: '¿Está seguro de acreditar el contrato?',
-        text: 'Tienes documentos que no han sido acreditados. Una vez acreditado, no podrá realizar cambios',
+        title: '¿Está seguro de acreditar la empresa?',
+        // text: 'Tienes documentos que no han sido acreditados. Una vez acreditado, no podrá realizar cambios',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, acreditar contrato'
+        confirmButtonText: 'Si, acreditar empresa'
       }).then((result) => {
         console.log(result);
         if (result.isConfirmed) {
-
+          console.log(this.data.contratoId);
+          console.log(this.data.empresaId);
+          this.api.PUT(`/contratos/${this.data.contratoId}/empresas/${this.data.empresaId}/acreditar`, {})
+            .then(resp => {
+              console.log(resp);
+              Swal.fire(
+                'Empresa acreditada',
+                'La empresa ha sido acreditada',
+                'success'
+              );
+              this.loadData();
+            })
+            .catch(err => {
+              console.log(err);
+            });
         }
       });
     }

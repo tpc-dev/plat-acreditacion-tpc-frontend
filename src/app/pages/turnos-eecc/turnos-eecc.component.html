@@ -63,7 +63,8 @@
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let row">
-                            <button (click)="editarTurno(row)" style="width: 30%;" color="primary" mat-raised-button>
+                            <button *ngIf="estadoAcreditacionId==2" (click)="editarTurno(row)" style="width: 30%;"
+                                color="primary" mat-raised-button>
                                 <mat-icon>edit</mat-icon>
                                 <span>Editar</span>
                             </button>
@@ -85,7 +86,7 @@
                 </mat-paginator>
             </div>
         </mat-tab>
-        <mat-tab label="Agregar Nuevo Turno">
+        <mat-tab *ngIf="estadoAcreditacionId==2" label="Agregar Nuevo Turno">
             <!-- <app-nuevo-cargo-form (onNuevoCargoAdded)=obtenerTurnosContrato() [contratoId]=contratoId>
             </app-nuevo-cargo-form> -->
             <app-nuevo-turno-form (onNuevoTurnoAdded)="obtenerTurnosContrato()" [contratoId]="contratoId">

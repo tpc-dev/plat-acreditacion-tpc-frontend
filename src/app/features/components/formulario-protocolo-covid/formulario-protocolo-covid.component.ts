@@ -17,16 +17,16 @@ export class FormularioProtocoloCovidComponent implements OnInit {
   registroCovidFormularioResp!: RegistroCovidFormulario;
   timeOutFormulario: any;
   constructor(public dialogRef: MatDialogRef<Visita>,
-    @Inject(MAT_DIALOG_DATA) public visita: Visita, public api: ApiService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, public api: ApiService) { }
 
   ngOnInit(): void {
-    console.log(this.visita);
+    console.log(this.data);
     this.obtenerEncuestaCovid();
   }
 
   obtenerEncuestaCovid() {
     this.consulting = true;
-    this.api.GET(`/registro-covid-formulario/ultimo-contestado/${this.visita.rut}`)
+    this.api.GET(`/registro-covid-formulario/ultimo-contestado/${this.data.rut}`)
       .then(data => {
         this.consulting = false;
         if (data.code == '002') {

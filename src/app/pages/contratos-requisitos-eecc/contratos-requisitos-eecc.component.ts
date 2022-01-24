@@ -42,6 +42,7 @@ export class ContratosRequisitosEeccComponent implements OnInit {
   contratoCodigo: string;
   isLoading = false;
   tipoRolId: number;
+  estadoAcreditacionId:number;
   constructor(public auth: AuthService, public api: ApiService, public router: Router, public activeRoute: ActivatedRoute, public dialog: MatDialog) {
     this.tipoRolId = this.auth.getCuentaActivaValue().usuario.tipoRolId;
     this.activeRoute.params.subscribe((params: any) => {
@@ -79,6 +80,7 @@ export class ContratosRequisitosEeccComponent implements OnInit {
       .then(resp => {
         console.log(resp);
         this.contratoCodigo = resp.contrato.codigoContrato
+        this.estadoAcreditacionId = resp.contrato.estadoAcreditacionId
         carpetaArranque = resp;
         return this.api.GET(`/tipo-documento-acreditacion`);
       })
@@ -190,34 +192,6 @@ export class ContratosRequisitosEeccComponent implements OnInit {
     if (estado == 3) return 'Rechazado';
 
     return 'No definido';
-  }
-
-  acreditar() {
-    let documentosPendientes = this.listaDocumentosCreados.filter((documento: any) => {
-      return documento.estadoAcreditacionId != 1;
-    });
-
-    console.log(this.listaDocumentosCreados.length)
-    console.log(this.listaRequisitos.length)
-
-    console.log(documentosPendientes);
-
-    if (this.listaDocumentosCreados.length < this.listaRequisitos.length || documentosPendientes.length > 0) {
-      Swal.fire({
-        title: '¿Está seguro de acreditar el contrato?',
-        text: 'Tienes documentos que no han sido acreditados. Una vez acreditado, no podrá realizar cambios',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, acreditar contrato'
-      }).then((result) => {
-        console.log(result);
-        if (result.isConfirmed) {
-
-        }
-      });
-    }
   }
 
 }

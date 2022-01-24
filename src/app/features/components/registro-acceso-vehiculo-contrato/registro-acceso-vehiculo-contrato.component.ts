@@ -1,18 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import Swal from 'sweetalert2';
 import { FormularioProtocoloCovidComponent } from '../formulario-protocolo-covid/formulario-protocolo-covid.component';
 
 @Component({
-  selector: 'app-registro-acceso-trabajadores-contrato',
-  templateUrl: './registro-acceso-trabajadores-contrato.component.html',
-  styleUrls: ['./registro-acceso-trabajadores-contrato.component.scss']
+  selector: 'app-registro-acceso-vehiculo-contrato',
+  templateUrl: './registro-acceso-vehiculo-contrato.component.html',
+  styleUrls: ['./registro-acceso-vehiculo-contrato.component.scss']
 })
-export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
+export class RegistroAccesoVehiculoContratoComponent implements OnInit {
+
 
   isLoading: boolean = false;
-  contratoTrabajador: any;
+  vehiculoContrato: any;
   listaRegistrosAccesos: any[] = [];
   ultimoRegistro: string;
   registroInduccion: any;
@@ -20,42 +21,42 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
   isProtocoloCovidActivo: false;
   constructor(public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any, public api: ApiService, public dialog: MatDialog) {
-    this.contratoTrabajador = data;
+    this.vehiculoContrato = data.vehiculoContrato;
     this.isProtocoloCovidActivo = data.isProtocoloCovidActivo
     console.log(data);
   }
 
   ngOnInit(): void {
     this.obtenerAccesos();
-    this.obtenerRegistroInduccion();
+    // this.obtenerRegistroInduccion();
   }
 
-  obtenerRegistroInduccion() {
-    this.api.GET(`/registro-induccion/${this.contratoTrabajador.contratoTrabajador.trabajador.rut}/last`)
-      .then(res => {
-        console.log(res);
-        this.registroInduccion = res;
-        if (!this.registroInduccion) return;
-        let today = new Date();
-        let fechaVencimiento = new Date(this.registroInduccion.fechaVencimiento);
-        console.log(today);
-        console.log(fechaVencimiento);
-        console.log(today > fechaVencimiento);
+  // obtenerRegistroInduccion() {
+  //   this.api.GET(`/registro-induccion/${this.vehiculoContrato.vehiculo.patente}/last`)
+  //     .then(res => {
+  //       console.log(res);
+  //       this.registroInduccion = res;
+  //       if (!this.registroInduccion) return;
+  //       let today = new Date();
+  //       let fechaVencimiento = new Date(this.registroInduccion.fechaVencimiento);
+  //       console.log(today);
+  //       console.log(fechaVencimiento);
+  //       console.log(today > fechaVencimiento);
 
-        // fecha termino induccion es menor a la actual
-        if (today < fechaVencimiento) {
-          this.induccionVencida = false;
-          console.log("asdasd");
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  //       // fecha termino induccion es menor a la actual
+  //       if (today < fechaVencimiento) {
+  //         this.induccionVencida = false;
+  //         console.log("asdasd");
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   obtenerAccesos() {
     this.isLoading = true;
-    this.api.POST(`/contrato-trabajador/registro-acceso`, this.contratoTrabajador.contratoTrabajador)
+    this.api.POST(`/contrato-vehiculo/registro-acceso`, this.vehiculoContrato)
       .then(res => {
         this.isLoading = false;
         this.listaRegistrosAccesos = res;
@@ -72,7 +73,6 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
   }
 
   marcarRegistro(ultimoRegistro: string) {
-
     if (ultimoRegistro == 'ENTRADA') {
       this.marcarSalida();
     }
@@ -87,7 +87,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
 
   ingresarTemperaturaTrabajador(): void {
 
-    const rut = this.contratoTrabajador.contratoTrabajador.trabajador.rut;
+    const rut = this.vehiculoContrato.vehiculo.patente;
     const dialogRef = this.dialog.open(FormularioProtocoloCovidComponent, {
       width: '850px',
       height: '680px',
@@ -105,7 +105,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
   marcarIngreso() {
     Swal.fire({
       title: 'Ingreso',
-      text: '¿Está seguro que desea marcar el ingreso del trabajador?',
+      text: '¿Está seguro que desea marcar el ingreso del vehiculo?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -114,14 +114,14 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        console.log(this.contratoTrabajador);
+        console.log(this.vehiculoContrato);
         this.isLoading = true;
-        this.api.POST(`/contrato-trabajador/registro-acceso/${'ENTRADA'}`, this.contratoTrabajador.contratoTrabajador)
+        this.api.POST(`/contrato-vehiculo/registro-acceso/${'ENTRADA'}`, this.vehiculoContrato)
           .then(res => {
             this.isLoading = false;
             Swal.fire({
               title: 'Ingreso',
-              text: 'Se ha marcado el ingreso del trabajador',
+              text: 'Se ha marcado el ingreso del vehiculo',
               icon: 'success',
               confirmButtonText: 'Aceptar'
             });
@@ -132,7 +132,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
             this.isLoading = false;
             Swal.fire({
               title: 'Error',
-              text: 'No se pudo marcar el ingreso del trabajador',
+              text: 'No se pudo marcar el ingreso del vehiculo',
               icon: 'error',
               confirmButtonText: 'Aceptar'
             });
@@ -145,7 +145,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
   marcarSalida() {
     Swal.fire({
       title: 'Salida',
-      text: '¿Está seguro que desea marcar la salida del trabajador?',
+      text: '¿Está seguro que desea marcar la salida del vehiculo?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -155,12 +155,12 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.isLoading = true;
-        this.api.POST(`/contrato-trabajador/registro-acceso/${'SALIDA'}`, this.contratoTrabajador.contratoTrabajador)
+        this.api.POST(`/contrato-vehiculo/registro-acceso/${'SALIDA'}`, this.vehiculoContrato)
           .then(res => {
             this.isLoading = false;
             Swal.fire({
               title: 'Salida',
-              text: 'Se ha marcado la salida del trabajador',
+              text: 'Se ha marcado la salida del vehiculo',
               icon: 'success',
               confirmButtonText: 'Aceptar'
             });
@@ -171,7 +171,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
             this.isLoading = false;
             Swal.fire({
               title: 'Error',
-              text: 'No se pudo marcar la salida del trabajador',
+              text: 'No se pudo marcar la salida del vehiculo',
               icon: 'error',
               confirmButtonText: 'Aceptar'
             });

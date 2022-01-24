@@ -83,6 +83,8 @@ import { NuevaNombradaFormComponent } from './nueva-nombrada-form/nueva-nombrada
 import { TablaBuscadorNombradaComponent } from './tabla-buscador-nombrada/tabla-buscador-nombrada.component';
 import { ListaTrabajadoresNombradaComponent } from './lista-trabajadores-nombrada/lista-trabajadores-nombrada.component';
 import { EditTrabajadorFrecuenteComponent } from './edit-trabajador-frecuente/edit-trabajador-frecuente.component';
+import { RegistroAccesoTrabajadoresFrecuenteComponent } from './registro-acceso-trabajadores-frecuente/registro-acceso-trabajadores-frecuente.component';
+import { RegistroAccesoVehiculoContratoComponent } from './registro-acceso-vehiculo-contrato/registro-acceso-vehiculo-contrato.component';
 
 @NgModule({
     imports: [
@@ -173,6 +175,8 @@ import { EditTrabajadorFrecuenteComponent } from './edit-trabajador-frecuente/ed
         TablaBuscadorNombradaComponent,
         ListaTrabajadoresNombradaComponent,
         EditTrabajadorFrecuenteComponent,
+        RegistroAccesoTrabajadoresFrecuenteComponent,
+        RegistroAccesoVehiculoContratoComponent,
     ],
     exports: [
         MatTableExporterModule,
@@ -218,6 +222,8 @@ import { EditTrabajadorFrecuenteComponent } from './edit-trabajador-frecuente/ed
         TablaBuscadorNombradaComponent,
         ListaTrabajadoresNombradaComponent,
         EditTrabajadorFrecuenteComponent,
+        RegistroAccesoTrabajadoresFrecuenteComponent,
+        RegistroAccesoVehiculoContratoComponent,
         MatIconModule,
         MatButtonModule,
         MatIconModule,

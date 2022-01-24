@@ -1,0 +1,55 @@
+<!--<div style="color:white;background-color:green;text-align: center; padding-top: 12px;"
+    *ngIf="registroInduccion && !induccionVencida" class="row">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <h1>Prueba de Riesgos Laborales al dia</h1>
+    </div>
+    <div style="margin-top: 8px;" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <h1>Valida desde: {{registroInduccion.fechaRealizacion | date: 'dd/MM/yyyy'}}</h1>
+    </div>
+    <div style="margin-top: 8px;" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <h1>Valida hasta: {{registroInduccion.fechaVencimiento | date: 'dd/MM/yyyy'}}</h1>
+    </div>
+</div>
+ <div *ngIf="!registroInduccion" class="row">
+    <div style="color:white;background-color:red;text-align: center;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 style="padding-top: 14px;">EL trabajador no ha completado el La Prueba de Riesgos Laborales</h1>
+    </div>
+</div>
+<div *ngIf="registroInduccion && induccionVencida" class="row">
+    <div style="color:white;background-color:red;text-align: center;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 style="padding-top: 14px;">La prueba de riesgos laborales del trabajador esta vencida</h1>
+    </div>
+</div>
+<mat-divider></mat-divider>
+ -->
+<div style="margin-top: 12px;" class="row">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <h3><strong>Registro Acceso Trabajador</strong></h3>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <button (click)="marcarRegistro(ultimoRegistro)" mat-raised-button color="accent">{{ultimoRegistro == 'ENTRADA'?
+            'Marcar Salida':'Marcar
+            Entrada'}}</button>
+    </div>
+</div>
+<div>
+    <div class="row" style="margin-top: 12px;">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h4> <strong>Fecha Evento</strong></h4>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h4><strong>Tipo Evento</strong></h4>
+        </div>
+    </div>
+    <div *ngFor="let registro of listaRegistrosAccesos">
+        <mat-divider></mat-divider>
+        <div class="row" style="padding: 8px;">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h3> {{registro.fechaEvento | date: 'dd/MM/yyyy HH:mm'}}</h3>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h3> {{registro.tipoEvento}}</h3>
+            </div>
+        </div>
+    </div>
+</div>

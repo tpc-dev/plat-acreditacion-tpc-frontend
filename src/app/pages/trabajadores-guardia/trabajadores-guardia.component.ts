@@ -9,6 +9,7 @@ import { ProtocoloIngreso } from 'src/app/core/interfaces/protocoloingreso.inter
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { FormularioProtocoloCovidComponent } from 'src/app/features/components/formulario-protocolo-covid/formulario-protocolo-covid.component';
 import { RegistroAccesoTrabajadoresContratoComponent } from 'src/app/features/components/registro-acceso-trabajadores-contrato/registro-acceso-trabajadores-contrato.component';
+import { RegistroAccesoTrabajadoresFrecuenteComponent } from 'src/app/features/components/registro-acceso-trabajadores-frecuente/registro-acceso-trabajadores-frecuente.component';
 import { TrabajadorDetailGuardiaComponent } from 'src/app/features/components/trabajador-detail-guardia/trabajador-detail-guardia.component';
 import Swal from 'sweetalert2';
 
@@ -112,41 +113,84 @@ export class TrabajadoresGuardiaComponent implements AfterViewInit {
     }
   }
 
-  ingresarTemperaturaVisita(contratoTrabajador: any): void {
-    const dialogRef = this.dialog.open(FormularioProtocoloCovidComponent, {
-      width: '850px',
-      height: '680px',
-      data: { rut:contratoTrabajador.trabajador.rut }
-    });
+  // getRutTrabajador(dataTrabajador: any, tipo: string) {
+  //   switch (tipo) {
+  //     case 'CONTRATO':
+  //       return dataTrabajador.trabajador.rut;
+  //     case 'TPC':
+  //       return dataTrabajador.rut;
+  //     case 'FRECUENTE':
+  //       return dataTrabajador.trabajadorFrecuente.rut;
+  //   }
+  // }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.showDialogIngresos(contratoTrabajador);
-        //this.ingresarVisita(visita);
-        // this.actualizarListado.emit();
-      }
-    });
+  // ingresarTemperaturaTrabajador(contratoTrabajador: any, tipoTrabajador: string): void {
 
+  //   const rut = this.getRutTrabajador(contratoTrabajador, tipoTrabajador);
+  //   console.log(rut);
+
+  //   const dialogRef = this.dialog.open(FormularioProtocoloCovidComponent, {
+  //     width: '850px',
+  //     height: '680px',
+  //     data: { rut }
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       switch (tipoTrabajador) {
+  //         case 'CONTRATO':
+  //           this.showDialogIngresosContratos(contratoTrabajador);
+  //           break;
+  //         case 'TPC':
+  //           this.showDialogIngresosContratos(contratoTrabajador);
+  //           break;
+  //         case 'FRECUENTE':
+  //           this.showDialogIngresosContratos(contratoTrabajador);
+  //           break;
+  //       }
+  //     }
+  //   });
+  // }
+
+  marcarIngreso(data: any, tipo: string) {
+    console.log(data);
+    console.log(tipo);
+    switch (tipo) {
+      case 'CONTRATO':
+        this.showDialogIngresosContratos(data);
+        break;
+      case 'TPC':
+        this.showDialogIngresosFrecuentes(data);
+        break;
+      case 'FRECUENTE':
+        this.showDialogIngresosFrecuentes(data);
+        break;
+    }
   }
 
-  marcarIngreso(contratoTrabajador: any, tipo: string) {
-
-    if (this.isProtocoloCovidActivo) {
-      this.ingresarTemperaturaVisita(contratoTrabajador);
-    }
-    else {
-      this.showDialogIngresos(contratoTrabajador);
-    }
-
-
-  }
-
-  showDialogIngresos(contratoTrabajador: any,) {
+  showDialogIngresosContratos(contratoTrabajador: any,) {
     let dialog = this.dialog.open(RegistroAccesoTrabajadoresContratoComponent, {
       width: '1000px',
       height: 'auto',
       data: {
-        contratoTrabajador: contratoTrabajador
+        contratoTrabajador: contratoTrabajador, isProtocoloCovidActivo: this.isProtocoloCovidActivo
+      }
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.cargarTrabajadores();
+      }
+    });
+  }
+
+  showDialogIngresosFrecuentes(nombradaTrabajador: any,) {
+    let dialog = this.dialog.open(RegistroAccesoTrabajadoresFrecuenteComponent, {
+      width: '1000px',
+      height: 'auto',
+      data: {
+        nombradaTrabajador: nombradaTrabajador, isProtocoloCovidActivo: this.isProtocoloCovidActivo
       }
     });
 

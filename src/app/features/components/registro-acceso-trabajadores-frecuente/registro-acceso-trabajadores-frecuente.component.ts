@@ -5,14 +5,14 @@ import Swal from 'sweetalert2';
 import { FormularioProtocoloCovidComponent } from '../formulario-protocolo-covid/formulario-protocolo-covid.component';
 
 @Component({
-  selector: 'app-registro-acceso-trabajadores-contrato',
-  templateUrl: './registro-acceso-trabajadores-contrato.component.html',
-  styleUrls: ['./registro-acceso-trabajadores-contrato.component.scss']
+  selector: 'app-registro-acceso-trabajadores-frecuente',
+  templateUrl: './registro-acceso-trabajadores-frecuente.component.html',
+  styleUrls: ['./registro-acceso-trabajadores-frecuente.component.scss']
 })
-export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
+export class RegistroAccesoTrabajadoresFrecuenteComponent implements OnInit {
 
   isLoading: boolean = false;
-  contratoTrabajador: any;
+  nombradaTrabajador: any;
   listaRegistrosAccesos: any[] = [];
   ultimoRegistro: string;
   registroInduccion: any;
@@ -20,7 +20,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
   isProtocoloCovidActivo: false;
   constructor(public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any, public api: ApiService, public dialog: MatDialog) {
-    this.contratoTrabajador = data;
+    this.nombradaTrabajador = data.nombradaTrabajador;
     this.isProtocoloCovidActivo = data.isProtocoloCovidActivo
     console.log(data);
   }
@@ -31,7 +31,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
   }
 
   obtenerRegistroInduccion() {
-    this.api.GET(`/registro-induccion/${this.contratoTrabajador.contratoTrabajador.trabajador.rut}/last`)
+    this.api.GET(`/registro-induccion/${this.nombradaTrabajador.trabajadorFrecuente.rut}/last`)
       .then(res => {
         console.log(res);
         this.registroInduccion = res;
@@ -55,7 +55,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
 
   obtenerAccesos() {
     this.isLoading = true;
-    this.api.POST(`/contrato-trabajador/registro-acceso`, this.contratoTrabajador.contratoTrabajador)
+    this.api.POST(`/nombrada-diaria/registro-acceso`, this.nombradaTrabajador)
       .then(res => {
         this.isLoading = false;
         this.listaRegistrosAccesos = res;
@@ -72,7 +72,6 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
   }
 
   marcarRegistro(ultimoRegistro: string) {
-
     if (ultimoRegistro == 'ENTRADA') {
       this.marcarSalida();
     }
@@ -87,7 +86,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
 
   ingresarTemperaturaTrabajador(): void {
 
-    const rut = this.contratoTrabajador.contratoTrabajador.trabajador.rut;
+    const rut = this.nombradaTrabajador.trabajadorFrecuente.rut;
     const dialogRef = this.dialog.open(FormularioProtocoloCovidComponent, {
       width: '850px',
       height: '680px',
@@ -114,9 +113,9 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        console.log(this.contratoTrabajador);
+        console.log(this.nombradaTrabajador);
         this.isLoading = true;
-        this.api.POST(`/contrato-trabajador/registro-acceso/${'ENTRADA'}`, this.contratoTrabajador.contratoTrabajador)
+        this.api.POST(`/nombrada-diaria/registro-acceso/${'ENTRADA'}`, this.nombradaTrabajador)
           .then(res => {
             this.isLoading = false;
             Swal.fire({
@@ -155,7 +154,7 @@ export class RegistroAccesoTrabajadoresContratoComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.isLoading = true;
-        this.api.POST(`/contrato-trabajador/registro-acceso/${'SALIDA'}`, this.contratoTrabajador.contratoTrabajador)
+        this.api.POST(`/nombrada-diaria/registro-acceso/${'SALIDA'}`, this.nombradaTrabajador)
           .then(res => {
             this.isLoading = false;
             Swal.fire({
